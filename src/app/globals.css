@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 1rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-cream text-ink antialiased;
+    text-rendering: optimizeLegibility;
+    /* Faint transit-line motif echoing the route graphics in the pitch deck. */
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(124, 179, 66, 0.07), transparent 42%),
+      radial-gradient(circle at 88% 4%, rgba(43, 174, 142, 0.06), transparent 38%);
+    background-attachment: fixed;
+  }
+
+  /* Visible, on-brand focus. Never remove the outline — WCAG 2.4.7. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-moss ring-offset-2 ring-offset-cream;
+  }
+
+  ::selection {
+    @apply bg-leaf/30 text-forest;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Skip link — the first tab stop on every page. */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100]
+           focus:rounded-full focus:bg-forest focus:px-5 focus:py-3 focus:text-sm
+           focus:font-semibold focus:text-white;
+  }
+
+  /* Every interactive target is at least 48px — thumbs, not cursors. */
+  .tap-target {
+    @apply min-h-[48px] min-w-[48px];
+  }
+
+  .card-surface {
+    @apply rounded-2xl border border-cream-300 bg-white shadow-soft;
+  }
+
+  .shimmer {
+    @apply relative overflow-hidden bg-cream-200;
+  }
+  .shimmer::after {
+    @apply absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r
+           from-transparent via-white/60 to-transparent;
+    content: "";
+  }
+
+  /* The dashed connector between origin and destination on trip cards. */
+  .route-connector {
+    @apply relative flex-1;
+  }
+  .route-connector::before {
+    @apply absolute left-0 right-0 top-1/2 border-t-2 border-dashed border-cream-400;
+    content: "";
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  /* Reserve height so number changes never reflow the layout. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
