@@ -31,7 +31,8 @@ import { useToast } from "@/components/ui/toast";
 import { ApiError, api } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { openCheckout, preloadPaystack } from "@/lib/paystack";
-import { durationLabel, formatDateLong, formatTime, naira } from "@/lib/utils";
+import { productConfig } from "@/lib/product-config";
+import { durationLabel, fareTotal, formatDateLong, formatTime, naira } from "@/lib/utils";
 import { passengerSchema, type PassengerInput } from "@/lib/validation";
 import type { Trip } from "@/lib/types";
 
@@ -208,7 +209,10 @@ function BookingFlow() {
     else if (female > 0) setFemale((f) => f - 1);
     else setMale((m) => Math.max(0, m - 1));
   }
-  const total = canUseCredits ? 0 : trip.fare_kobo * seats;
+  const totalKobo = canUseCredits
+    ? 0
+    : fareTotal(trip.fare_kobo, seats, productConfig.singleFareKobo).kobo;
+  const total = totalKobo;
 
   return (
     <div className="container py-6 lg:py-10">

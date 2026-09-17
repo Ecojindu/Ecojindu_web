@@ -8,13 +8,11 @@ import {
   ArrowRightLeft,
   Bus,
   CalendarDays,
-  Info,
   MapPin,
-  Minus,
   Plane,
-  Plus,
   Search,
   TrainFront,
+  Users,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -27,6 +25,7 @@ import {
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/lib/api";
+import { productConfig } from "@/lib/product-config";
 import { addDaysISO, cn, naira, todayISO } from "@/lib/utils";
 import type { Route, ServiceType } from "@/lib/types";
 
@@ -43,7 +42,7 @@ const SERVICES: {
   live: boolean;
 }[] = [
   { id: "airport", label: "Airport Transfers", shortLabel: "Airport", icon: Plane, live: true },
-  { id: "rail", label: "Railways Transfers", shortLabel: "Rail", icon: TrainFront, live: false },
+  { id: "rail", label: "Railways Transfers", shortLabel: "Rail", icon: TrainFront, live: productConfig.railTransfersLive },
   { id: "charter", label: "Charter", shortLabel: "Charter", icon: Bus, live: true },
 ];
 
@@ -52,10 +51,6 @@ const SERVICES: {
  *
  * Service type replaces the usual one-way/return control, because every Ecojindu
  * route is a single direction in its own right — there was never a return to toggle.
- *
- * Passengers are counted by sex rather than as a single total: the state partner
- * needs the demographic split, and collecting it here means it's never a surprise
- * later in the flow.
  */
 export function SearchWidget({
   className,
@@ -80,10 +75,8 @@ export function SearchWidget({
   const [service, setService] = React.useState<ServiceType>("airport");
   const [routeId, setRouteId] = React.useState(defaultRouteId ?? "");
   const [date, setDate] = React.useState(defaultDate ?? today);
-  const [male, setMale] = React.useState(1);
-  const [female, setFemale] = React.useState(0);
+  const [seats, setSeats] = React.useState(1);
 
-  const seats = male + female;
   const bookable = (routes ?? []).filter((r) => r.service_type === "airport");
 
   React.useEffect(() => {
@@ -92,14 +85,13 @@ export function SearchWidget({
 
   const selected = bookable.find((r) => r.id === routeId);
   const reverse = selected ? findReverse(bookable, selected) : undefined;
-  const total = selected ? selected.base_fare_kobo * seats : 0;
-
-  function adjust(setter: (n: number) => void, current: number, delta: number) {
-    const next = current + delta;
-    if (next < 0) return;
-    if (seats + delta > MAX_SEATS) return;
-    setter(next);
-  }
+  // Never show ₦0 while at least one seat is intended — fall back to published fare.
+  const fareKobo =
+    selected?.base_fare_kobo && selected.base_fare_kobo > 0
+      ? selected.base_fare_kobo
+      : productConfig.singleFareKobo;
+  const displaySeats = Math.max(1, seats);
+  const total = fareKobo * displaySeats;
 
   function submit(event: React.FormEvent) {
     event.preventDefault();
@@ -110,7 +102,7 @@ export function SearchWidget({
       return;
     }
     router.push(
-      `/search?route=${routeId}&date=${date}&seats=${seats}&male=${male}&female=${female}`,
+      `/search?route=${routeId}&date=${date}&seats=${seats}`,
     );
   }
 
@@ -164,7 +156,7 @@ export function SearchWidget({
         <ComingSoon />
       ) : (
         <>
-          <div className={cn("grid gap-3", compact ? "sm:grid-cols-2" : "lg:grid-cols-[1.6fr_1fr]")}>
+          <div className={cn("grid gap-3", compact ? "sm:grid-cols-2" : "lg:grid-cols-[1.5fr_1fr_1fr]")}>
             {/* Route */}
             <div className="min-w-0">
               <label
@@ -211,38 +203,30 @@ export function SearchWidget({
                 className="h-14 w-full rounded-xl border-2 border-cream-300 bg-white px-4 text-base text-ink focus:border-moss focus:outline-none"
               />
             </div>
-          </div>
 
-          {/* ── Passengers by sex ── */}
-          <fieldset className="mt-3">
-            <legend className="mb-1.5 text-xs font-bold uppercase tracking-wider text-ink-soft">
-              Passengers
-            </legend>
-            <div className="grid grid-cols-2 gap-3">
-              <Counter
-                label="Male"
-                tone="male"
-                value={male}
-                onChange={(d) => adjust(setMale, male, d)}
-                canAdd={seats < MAX_SEATS}
-              />
-              <Counter
-                label="Female"
-                tone="female"
-                value={female}
-                onChange={(d) => adjust(setFemale, female, d)}
-                canAdd={seats < MAX_SEATS}
-              />
+            {/* Passengers */}
+            <div className="min-w-0">
+              <label
+                htmlFor="passengers"
+                className="mb-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink-soft"
+              >
+                <Users className="size-3.5" aria-hidden />
+                Passengers
+              </label>
+              <Select value={String(seats)} onValueChange={(v) => setSeats(Number(v))}>
+                <SelectTrigger id="passengers" aria-label="Number of passengers">
+                  <SelectValue placeholder="1 Passenger" />
+                </SelectTrigger>
+                <SelectContent>
+                  {[1, 2, 3, 4, 5, 6].map((num) => (
+                    <SelectItem key={num} value={String(num)}>
+                      {num} {num === 1 ? "Passenger" : "Passengers"}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
-          </fieldset>
-
-          {/* ── Why we ask ── */}
-          <p className="mt-3 flex items-start gap-2.5 rounded-xl bg-teal/[0.08] px-3.5 py-3 text-[13px] leading-relaxed text-ink-muted">
-            <Info className="mt-0.5 size-4 shrink-0 text-teal-dark" aria-hidden />
-            <span>
-              Booking for someone else? Please select the passenger&apos;s sex.
-            </span>
-          </p>
+          </div>
 
           {/* ── Total + submit ── */}
           <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
@@ -259,7 +243,7 @@ export function SearchWidget({
                   </p>
                   <p className="mt-1 text-xs text-ink-soft">
                     {seats} {seats === 1 ? "seat" : "seats"}
-                    {selected && ` · ${naira(selected.base_fare_kobo)} each`}
+                    {` · ${naira(fareKobo)} each`}
                   </p>
                 </>
               )}
@@ -317,62 +301,6 @@ export function SearchWidget({
         {activeService.label} selected
       </span>
     </form>
-  );
-}
-
-function Counter({
-  label,
-  tone,
-  value,
-  onChange,
-  canAdd,
-}: {
-  label: string;
-  tone: "male" | "female";
-  value: number;
-  onChange: (delta: number) => void;
-  canAdd: boolean;
-}) {
-  const accent =
-    tone === "male"
-      ? "border-[#3E6BB5]/35 bg-[#3E6BB5]/[0.06]"
-      : "border-[#9B5AA8]/35 bg-[#9B5AA8]/[0.06]";
-  const dot = tone === "male" ? "bg-[#3E6BB5]" : "bg-[#9B5AA8]";
-
-  return (
-    <div className={cn("rounded-xl border-2 px-3 py-2.5", accent)}>
-      <div className="mb-1.5 flex items-center gap-1.5">
-        <span className={cn("size-2 rounded-full", dot)} aria-hidden />
-        <span className="text-xs font-bold text-ink-muted">{label}</span>
-      </div>
-      <div className="flex items-center justify-between gap-1">
-        <button
-          type="button"
-          onClick={() => onChange(-1)}
-          disabled={value <= 0}
-          aria-label={`One fewer ${label.toLowerCase()} passenger`}
-          className="grid size-9 shrink-0 place-items-center rounded-lg bg-white text-forest shadow-soft transition-opacity disabled:opacity-35"
-        >
-          <Minus className="size-4" aria-hidden />
-        </button>
-        <span
-          className="tabular min-w-[2ch] text-center text-2xl font-extrabold text-forest"
-          aria-live="polite"
-          aria-label={`${value} ${label.toLowerCase()}`}
-        >
-          {value}
-        </span>
-        <button
-          type="button"
-          onClick={() => onChange(1)}
-          disabled={!canAdd}
-          aria-label={`One more ${label.toLowerCase()} passenger`}
-          className="grid size-9 shrink-0 place-items-center rounded-lg bg-white text-forest shadow-soft transition-opacity disabled:opacity-35"
-        >
-          <Plus className="size-4" aria-hidden />
-        </button>
-      </div>
-    </div>
   );
 }
 

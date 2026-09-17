@@ -19,11 +19,21 @@
   body {
     @apply bg-cream text-ink antialiased;
     text-rendering: optimizeLegibility;
-    /* Faint transit-line motif echoing the route graphics in the pitch deck. */
     background-image:
       radial-gradient(circle at 12% 8%, rgba(124, 179, 66, 0.07), transparent 42%),
       radial-gradient(circle at 88% 4%, rgba(43, 174, 142, 0.06), transparent 38%);
     background-attachment: fixed;
+  }
+
+  .dark body {
+    @apply bg-forest-dark text-cream-100;
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(124, 179, 66, 0.12), transparent 42%),
+      radial-gradient(circle at 88% 4%, rgba(43, 174, 142, 0.08), transparent 38%);
+  }
+
+  .dark {
+    color-scheme: dark;
   }
 
   /* Visible, on-brand focus. Never remove the outline — WCAG 2.4.7. */

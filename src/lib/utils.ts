@@ -15,6 +15,21 @@ export function naira(kobo: number | null | undefined): string {
   }).format(value);
 }
 
+/**
+ * Fare total for the sticky bar. Never renders ₦0 while seats are selected —
+ * falls back to the published single-seat fare × seats.
+ */
+export function fareTotal(
+  fareKobo: number | null | undefined,
+  seats: number,
+  fallbackSeatKobo: number,
+): { kobo: number; label: string } {
+  const perSeat = fareKobo && fareKobo > 0 ? fareKobo : fallbackSeatKobo;
+  const safeSeats = Math.max(1, seats || 1);
+  const kobo = perSeat * safeSeats;
+  return { kobo, label: naira(kobo) };
+}
+
 export function nairaCompact(kobo: number | null | undefined): string {
   const value = (kobo ?? 0) / 100;
   if (value >= 1_000_000) return `₦${(value / 1_000_000).toFixed(value % 1_000_000 === 0 ? 0 : 1)}M`;

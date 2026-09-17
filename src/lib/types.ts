@@ -237,3 +237,41 @@ export interface ApiErrorBody {
     request_id: string;
   };
 }
+
+export interface TicketExtraction {
+  passenger_names: string[];
+  airline: string | null;
+  flight_number: string | null;
+  departure_airport: string | null;
+  departure_datetime: string | null;
+  arrival_airport: string | null;
+  arrival_datetime: string | null;
+  pnr: string | null;
+}
+
+export interface ShuttleSuggestion {
+  trip: Trip | null;
+  fits: boolean;
+  check_in_by: string;
+  message: string;
+  alternatives: Trip[];
+}
+
+export interface TicketReadingResponse {
+  extraction: TicketExtraction;
+  suggestion: ShuttleSuggestion;
+  privacy_note: string;
+}
+
+export interface FlightStatus {
+  flight_number: string;
+  date: string;
+  status: string;
+  message: string;
+  airline: string | null;
+  departure_airport: string | null;
+  departure_scheduled: string | null;
+  departure_estimated: string | null;
+  arrival_airport: string | null;
+  delay_minutes: number | null;
+}

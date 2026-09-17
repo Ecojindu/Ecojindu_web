@@ -6,11 +6,14 @@ import type {
   Booking,
   CharterResponse,
   BookingCreateResponse,
+  FlightStatus,
   PaymentVerification,
   Plan,
   Route,
+  ShuttleSuggestion,
   Subscription,
   SubscriptionPurchaseResponse,
+  TicketReadingResponse,
   TokenPair,
   Trip,
   User,
@@ -303,4 +306,50 @@ export const api = {
     request<CharterResponse>("/v1/charter/lookup", { method: "POST", body: { reference, phone } }),
 
   ticketImageUrl: (ref: string) => `${config.apiBaseUrl}/v1/tickets/${ref}/qr.png`,
+
+  // Upload & Go
+  async readTicket(input: {
+    file?: File | null;
+    pnr?: string;
+    pickup_city?: string;
+  }): Promise<TicketReadingResponse> {
+    const form = new FormData();
+    if (input.file) form.append("file", input.file);
+    if (input.pnr) form.append("pnr", input.pnr);
+    form.append("pickup_city", input.pickup_city ?? "Umuahia");
+
+    let response: Response;
+    try {
+      response = await fetch(`${config.apiBaseUrl}/v1/ticket-reading`, {
+        method: "POST",
+        body: form,
+        cache: "no-store",
+      });
+    } catch {
+      throw new ApiError(
+        "We couldn't reach the booking service. Check your connection and try again.",
+        "network_error",
+        0,
+      );
+    }
+
+    const text = await response.text();
+    const payload = text ? JSON.parse(text) : null;
+    if (!response.ok) {
+      const err = payload?.error;
+      throw new ApiError(
+        err?.message ?? "We couldn't read that ticket. Try again or enter details manually.",
+        err?.code ?? "error",
+        response.status,
+        err?.details ?? {},
+      );
+    }
+    return payload as TicketReadingResponse;
+  },
+
+  matchShuttle: (body: { departure_datetime: string; pickup_city: "Umuahia" | "Aba" }) =>
+    request<ShuttleSuggestion>("/v1/ticket-reading/match", { method: "POST", body }),
+
+  flightStatus: (flight_number: string, date: string) =>
+    request<FlightStatus>("/v1/flights/status", { params: { flight_number, date } }),
 };

@@ -1,0 +1,25 @@
+{
+  "name": "Ecojindu Shuttle",
+  "short_name": "Ecojindu",
+  "description": "Electric airport shuttles — Umuahia & Aba to Sam Mbakwe. Upload & Go.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#EAE8DB",
+  "theme_color": "#2F5233",
+  "lang": "en-NG",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

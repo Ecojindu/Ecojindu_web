@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { ArrowRight, Check, CreditCard, Sparkles, X } from "lucide-react";
 
 import { SectionHeading } from "@/components/brand";
+import { Alert } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -17,6 +18,8 @@ import { useToast } from "@/components/ui/toast";
 import { ApiError, api } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
 import { openCheckout } from "@/lib/paystack";
+import { config } from "@/lib/config";
+import { productConfig } from "@/lib/product-config";
 import { naira } from "@/lib/utils";
 import { subscriptionSchema } from "@/lib/validation";
 import type { Plan } from "@/lib/types";
@@ -27,7 +30,11 @@ type FormValues = z.input<typeof subscriptionSchema>;
 const COMPARISON = [
   { feature: "Ride credits", tier1: "12 rides", tier2: "50 rides" },
   { feature: "Validity", tier1: "3 months", tier2: "12 months" },
-  { feature: "Effective fare per ride", tier1: "₦16,667", tier2: "₦20,000" },
+  {
+    feature: "Effective fare per ride",
+    tier1: naira(productConfig.subscriptions.tiers[0].effectivePerRideKobo),
+    tier2: naira(productConfig.subscriptions.tiers[1].effectivePerRideKobo),
+  },
   { feature: "Zero-payment booking", tier1: true, tier2: true },
   { feature: "Priority boarding", tier1: true, tier2: true },
   { feature: "Free rescheduling", tier1: true, tier2: true },
@@ -101,6 +108,14 @@ export default function SubscriptionsPage() {
           title="Buy your rides upfront. Then just book."
           description="Built for the people who make this trip every month — a block of rides that turns booking into two taps and no payment step at all."
         />
+
+        {productConfig.subscriptions.pricingReviewNeeded ? (
+          <Alert variant="warning" className="mx-auto mt-6 max-w-3xl" title="Pricing review needed">
+            {productConfig.subscriptions.pricingReviewNote} Single fare is{" "}
+            {naira(productConfig.singleFareKobo)}. Plan amounts are unchanged until the owner
+            decides.
+          </Alert>
+        ) : null}
 
         {/* Plans */}
         <div className="mx-auto mt-12 grid max-w-4xl gap-6 lg:grid-cols-2">
@@ -254,8 +269,8 @@ export default function SubscriptionsPage() {
 
         <p className="mx-auto mt-10 max-w-xl text-center text-sm leading-relaxed text-ink-muted">
           Buying for a company or a delegation? Email{" "}
-          <a href="mailto:jinduinc@gmail.com" className="font-semibold text-moss hover:underline">
-            jinduinc@gmail.com
+          <a href={`mailto:${config.contactEmail}`} className="font-semibold text-moss hover:underline">
+            {config.contactEmail}
           </a>{" "}
           and we&apos;ll set up an invoiced corporate account.
         </p>

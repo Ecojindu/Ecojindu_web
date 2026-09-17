@@ -1,201 +1,78 @@
-"use client";
+import type { Metadata } from "next";
+import Link from "next/link";
 
-import * as React from "react";
-import { Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
-import { CalendarX2, MapPin, MessageCircle, TriangleAlert } from "lucide-react";
+import { SearchPageClient } from "./search-client";
+import { productConfig } from "@/lib/product-config";
+import { getRoutes, getTrips } from "@/lib/server-api";
+import { naira, todayISO } from "@/lib/utils";
 
-import { DateSwitcher } from "@/components/date-switcher";
-import { SearchWidget } from "@/components/search-widget";
-import { TripCard } from "@/components/trip-card";
-import { Alert, EmptyState } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
-import { TripListSkeleton } from "@/components/ui/skeleton";
-import { api } from "@/lib/api";
-import { whatsappLink } from "@/lib/config";
-import { addDaysISO, formatDateLong, todayISO } from "@/lib/utils";
+export const metadata: Metadata = {
+  title: "Timetable",
+  description:
+    "Browse Ecojindu Shuttle departures from Umuahia and Aba to Sam Mbakwe Airport. Fixed fares, live seat counts.",
+};
 
-export default function SearchPage() {
-  return (
-    <Suspense fallback={<SearchFallback />}>
-      <SearchResults />
-    </Suspense>
-  );
-}
+export default async function SearchPage({
+  searchParams,
+}: {
+  searchParams: Record<string, string | string[] | undefined>;
+}) {
+  const routeId = typeof searchParams.route === "string" ? searchParams.route : "";
+  const date =
+    typeof searchParams.date === "string" && searchParams.date ? searchParams.date : todayISO();
+  const seats = Number(typeof searchParams.seats === "string" ? searchParams.seats : 1) || 1;
 
-function SearchFallback() {
-  return (
-    <div className="container py-8">
-      <div className="mx-auto max-w-3xl">
-        <TripListSkeleton />
-      </div>
-    </div>
-  );
-}
-
-function SearchResults() {
-  const params = useSearchParams();
-  const router = useRouter();
-
-  const routeId = params.get("route") ?? "";
-  const date = params.get("date") ?? todayISO();
-  const seats = Number(params.get("seats") ?? 1);
-  const male = Number(params.get("male") ?? 0);
-  const female = Number(params.get("female") ?? 0);
-
-  const { data: routes } = useQuery({
-    queryKey: ["routes"],
-    queryFn: api.routes,
-    staleTime: 10 * 60_000,
-  });
-
+  const routes = await getRoutes();
   const route = routes?.find((r) => r.id === routeId);
+  const trips = routeId
+    ? await getTrips({ route_id: routeId, service_date: date, seats })
+    : null;
 
-  const {
-    data: trips,
-    isLoading,
-    isError,
-    error,
-    refetch,
-    isFetching,
-  } = useQuery({
-    queryKey: ["trips", routeId, date, seats],
-    queryFn: () => api.trips({ route_id: routeId, service_date: date, seats }),
-    enabled: Boolean(routeId),
-    // Seat counts are live; refresh whenever the tab is revisited.
-    staleTime: 20_000,
-  });
-
-  const { data: calendar } = useQuery({
-    queryKey: ["availability", routeId],
-    queryFn: () => api.availabilityCalendar(routeId, 10),
-    enabled: Boolean(routeId),
-    staleTime: 60_000,
-  });
-
-  function setDate(next: string) {
-    router.replace(
-      `/search?route=${routeId}&date=${next}&seats=${seats}&male=${male}&female=${female}`,
-      { scroll: false },
-    );
-  }
-
-  if (!routeId) {
-    return (
-      <div className="container py-10 lg:py-16">
-        <div className="mx-auto max-w-3xl">
-          <h1 className="text-display-sm font-extrabold text-forest">Find your departure</h1>
-          <p className="mt-2 text-ink-muted">
-            Choose a route and a date to see every seat still available.
-          </p>
-          <SearchWidget className="mt-6" />
-        </div>
-      </div>
-    );
-  }
-
-  const bookable = (trips ?? []).filter((t) => t.is_bookable && t.seats_available >= seats);
-  const soldOut = (trips ?? []).filter((t) => !bookable.includes(t));
+  const fareHint =
+    route && route.base_fare_kobo > 0
+      ? route.base_fare_kobo
+      : productConfig.singleFareKobo;
 
   return (
-    <div className="container py-8 lg:py-12">
-      <div className="mx-auto max-w-3xl">
-        {/* Header */}
-        <div className="mb-6">
-          <h1 className="flex items-center gap-2 text-2xl font-extrabold tracking-tight text-forest sm:text-display-sm">
-            <MapPin className="size-6 shrink-0 text-moss" aria-hidden />
-            <span className="text-balance">{route?.name ?? "Departures"}</span>
+    <div>
+      {/* Server-rendered summary — useful without JavaScript */}
+      <noscript>
+        <div className="container max-w-3xl py-8">
+          <h1 className="text-2xl font-extrabold text-forest">
+            {route?.name ?? "Find your departure"}
           </h1>
-          <p className="mt-1.5 text-sm text-ink-muted">
-            {formatDateLong(`${date}T09:00:00+01:00`)}
-            {seats > 1 && ` · ${seats} seats`}
+          <p className="mt-2 text-ink-muted">
+            Fares from {naira(fareHint)}. Enable JavaScript to book, or{" "}
+            <Link href="/" className="font-semibold text-moss underline">
+              use Upload &amp; Go
+            </Link>
+            .
           </p>
-        </div>
-
-        {/* Change search */}
-        <details className="group mb-6">
-          <summary className="tap-target inline-flex cursor-pointer list-none items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-forest shadow-soft transition-shadow hover:shadow-lift">
-            Change route, date or seats
-            <span className="text-moss transition-transform group-open:rotate-180" aria-hidden>
-              ▾
-            </span>
-          </summary>
-          <SearchWidget className="mt-3" defaultRouteId={routeId} defaultDate={date} />
-        </details>
-
-        {/* Date strip */}
-        <div className="mb-7">
-          <DateSwitcher value={date} onChange={setDate} availability={calendar} />
-        </div>
-
-        {/* Results */}
-        {isLoading ? (
-          <TripListSkeleton />
-        ) : isError ? (
-          <Alert variant="error" title="We couldn't load departures">
-            <p>{(error as Error)?.message ?? "Something went wrong."}</p>
-            <Button size="sm" variant="danger" className="mt-3" onClick={() => refetch()}>
-              Try again
-            </Button>
-          </Alert>
-        ) : bookable.length === 0 ? (
-          <EmptyState
-            icon={CalendarX2}
-            title="No seats left on this date"
-            description={
-              soldOut.length > 0
-                ? `All ${soldOut.length} departures on this date are full. Try the next day — we run four shuttles daily.`
-                : "There are no departures published for this date yet. Try another day."
-            }
-            action={
-              <div className="flex flex-wrap justify-center gap-3">
-                <Button onClick={() => setDate(addDaysISO(date, 1))}>Try the next day</Button>
-                <Button asChild variant="outline">
-                  <a href={whatsappLink()} target="_blank" rel="noopener noreferrer">
-                    <MessageCircle aria-hidden />
-                    Ask on WhatsApp
-                  </a>
-                </Button>
-              </div>
-            }
-          />
-        ) : (
-          <>
-            <div className="mb-4 flex items-center justify-between gap-3">
-              <p className="text-sm font-semibold text-ink-muted" aria-live="polite">
-                {bookable.length} departure{bookable.length === 1 ? "" : "s"} available
-              </p>
-              {isFetching && <span className="text-xs text-ink-soft">Refreshing…</span>}
-            </div>
-
-            <div className="space-y-4">
-              {bookable.map((trip) => (
-                <TripCard key={trip.id} trip={trip} seats={seats} male={male} female={female} />
+          {trips?.length ? (
+            <ul className="mt-6 space-y-3">
+              {trips.map((trip) => (
+                <li key={trip.id} className="rounded-xl border border-cream-300 bg-white p-4">
+                  <p className="font-bold text-forest">
+                    {trip.departure_datetime} · {naira(trip.fare_kobo || fareHint)}
+                  </p>
+                  <p className="text-sm text-ink-muted">
+                    {trip.seats_available} seats · {trip.origin_terminal} → {trip.destination}
+                  </p>
+                </li>
               ))}
-            </div>
+            </ul>
+          ) : (
+            <p className="mt-4 text-sm text-ink-muted">
+              Choose a route on the interactive timetable, or message us on WhatsApp.
+            </p>
+          )}
+        </div>
+      </noscript>
 
-            {soldOut.length > 0 && (
-              <div className="mt-8">
-                <p className="mb-3 flex items-center gap-2 text-sm font-semibold text-ink-soft">
-                  <TriangleAlert className="size-4" aria-hidden />
-                  Not available for {seats} seat{seats === 1 ? "" : "s"}
-                </p>
-                <div className="space-y-4">
-                  {soldOut.map((trip) => (
-                    <TripCard key={trip.id} trip={trip} seats={seats} male={male} female={female} />
-                  ))}
-                </div>
-              </div>
-            )}
-          </>
-        )}
-
-        <p className="mt-10 text-center text-xs leading-relaxed text-ink-soft">
-          Fares are per seat and include all charges. Free cancellation up to 2 hours before
-          departure.
-        </p>
-      </div>
+      <SearchPageClient
+        initialRouteName={route?.name ?? null}
+        initialTripCount={trips?.length ?? null}
+      />
     </div>
   );
 }
