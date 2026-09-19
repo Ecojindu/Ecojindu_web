@@ -38,12 +38,12 @@ export default function ForgotPasswordPage() {
     return (
       <div className="container flex min-h-[70vh] items-center py-12">
         <Card className="mx-auto w-full max-w-md p-8 text-center">
-          <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-leaf/15">
-            <MailCheck className="size-7 text-moss" aria-hidden />
+          <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-leaf/15 dark:bg-leaf/20">
+            <MailCheck className="size-7 text-moss dark:text-leaf" aria-hidden />
           </span>
-          <h1 className="mt-5 text-xl font-extrabold text-forest">Check your inbox</h1>
-          <p className="mt-2 text-pretty text-sm leading-relaxed text-ink-muted">
-            If <strong className="text-ink">{form.getValues("email")}</strong> has an account,
+          <h1 className="mt-5 text-xl font-extrabold text-forest dark:text-cream-50">Check your inbox</h1>
+          <p className="mt-2 text-pretty text-sm leading-relaxed text-ink-muted dark:text-cream-100/70">
+            If <strong className="text-ink dark:text-cream-50">{form.getValues("email")}</strong> has an account,
             a reset link is on its way. It&apos;s valid for 60 minutes.
           </p>
           <Button asChild block className="mt-7">
@@ -58,8 +58,8 @@ export default function ForgotPasswordPage() {
     <div className="container flex min-h-[70vh] items-center py-12">
       <div className="mx-auto w-full max-w-md">
         <div className="mb-7 text-center">
-          <h1 className="text-display-sm font-extrabold text-forest">Forgot your password?</h1>
-          <p className="mt-2 text-sm text-ink-muted">
+          <h1 className="text-display-sm font-extrabold text-forest dark:text-cream-50">Forgot your password?</h1>
+          <p className="mt-2 text-sm text-ink-muted dark:text-cream-100/70">
             Enter your email address and we&apos;ll send you a link to set a new one.
           </p>
         </div>
@@ -92,9 +92,9 @@ export default function ForgotPasswordPage() {
           </form>
         </Card>
 
-        <p className="mt-6 text-center text-sm text-ink-muted">
+        <p className="mt-6 text-center text-sm text-ink-muted dark:text-cream-100/70">
           Remembered it?{" "}
-          <Link href="/auth/login" className="font-semibold text-moss hover:underline">
+          <Link href="/auth/login" className="font-semibold text-moss dark:text-leaf hover:underline">
             Sign in
           </Link>
         </p>

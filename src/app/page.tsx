@@ -50,7 +50,7 @@ export default async function HomePage() {
         <h2 className="text-center text-display-sm font-extrabold text-forest dark:text-cream-50">
           Three taps. Ticket in hand.
         </h2>
-        <p className="mx-auto mt-2 max-w-md text-center text-sm text-ink-muted">
+        <p className="mx-auto mt-2 max-w-md text-center text-sm text-ink-muted dark:text-cream-100/80">
           Upload your flight ticket, confirm the shuttle we pick, and pay. Subscribers skip the
           payment tap.
         </p>
@@ -68,7 +68,7 @@ export default async function HomePage() {
                 {step.n}
               </span>
               <h3 className="mt-3 font-bold text-forest dark:text-cream-50">{step.t}</h3>
-              <p className="mt-1 text-sm text-ink-muted">{step.d}</p>
+              <p className="mt-1 text-sm text-ink-muted dark:text-cream-100/80">{step.d}</p>
             </li>
           ))}
         </ol>
@@ -79,10 +79,10 @@ export default async function HomePage() {
           <h2 className="text-center text-xl font-extrabold text-forest dark:text-cream-50">
             Fixed fare · {naira(sampleFare)} a seat
           </h2>
-          <p className="mt-2 text-center text-sm text-ink-muted">
+          <p className="mt-2 text-center text-sm text-ink-muted dark:text-cream-100/80">
             No haggling. Same price on every scheduled run from Umuahia or Aba to Sam Mbakwe.
           </p>
-          <ul className="mt-6 space-y-2 text-sm text-ink-muted">
+          <ul className="mt-6 space-y-2 text-sm text-ink-muted dark:text-cream-100/80">
             {(airportRoutes.length ? airportRoutes : []).slice(0, 4).map((route) => (
               <li
                 key={route.id}
@@ -95,9 +95,9 @@ export default async function HomePage() {
               </li>
             ))}
             {!airportRoutes.length ? (
-              <li className="rounded-xl border border-cream-300 px-4 py-3 text-center">
+              <li className="rounded-xl border border-cream-300 px-4 py-3 text-center dark:border-white/10 dark:text-cream-100/80">
                 Live timetable loads when the booking service is reachable. Fare{" "}
-                <strong className="tabular">{naira(sampleFare)}</strong>.
+                <strong className="tabular dark:text-cream-50">{naira(sampleFare)}</strong>.
               </li>
             ) : null}
           </ul>
@@ -113,7 +113,7 @@ export default async function HomePage() {
             <h2 className="text-xl font-extrabold text-forest dark:text-cream-50">
               100% electric · 14-seat Wuling EVs
             </h2>
-            <p className="mt-1 text-sm text-ink-muted">
+            <p className="mt-1 text-sm text-ink-muted dark:text-cream-100/80">
               Quiet, zero-tailpipe rides between Abia cities and Sam Mbakwe Airport, Owerri.
             </p>
           </div>
@@ -125,12 +125,12 @@ export default async function HomePage() {
         <Accordion type="single" collapsible className="mt-4">
           {productConfig.faq.slice(0, 5).map((item, i) => (
             <AccordionItem key={item.q} value={`faq-${i}`}>
-              <AccordionTrigger>{item.q}</AccordionTrigger>
-              <AccordionContent>{item.a}</AccordionContent>
+              <AccordionTrigger className="dark:text-cream-50">{item.q}</AccordionTrigger>
+              <AccordionContent className="dark:text-cream-100/80">{item.a}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
-        <Button asChild variant="link" className="mt-2 px-0">
+        <Button asChild variant="link" className="mt-2 px-0 dark:text-leaf-light">
           <Link href="/help">Full help &amp; FAQ</Link>
         </Button>
       </section>

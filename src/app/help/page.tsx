@@ -22,7 +22,7 @@ export default function HelpPage() {
   return (
     <div className="container max-w-2xl py-8 sm:py-12">
       <h1 className="text-display-sm font-extrabold text-forest dark:text-cream-50">Help</h1>
-      <p className="mt-2 text-ink-muted">
+      <p className="mt-2 text-ink-muted dark:text-cream-100/75">
         Plain answers for travellers. Still stuck? WhatsApp or email us.
       </p>
 
@@ -38,7 +38,7 @@ export default function HelpPage() {
       {!productConfig.railTransfersLive ? (
         <div className="mt-8 rounded-2xl border border-dashed border-cream-400 bg-white/70 p-5 dark:border-white/20 dark:bg-forest/40">
           <h2 className="font-bold text-forest dark:text-cream-50">Rail transfers</h2>
-          <p className="mt-1 text-sm text-ink-muted">Coming soon — we will open this when the route is live.</p>
+          <p className="mt-1 text-sm text-ink-muted dark:text-cream-100/75">Coming soon — we will open this when the route is live.</p>
         </div>
       ) : null}
 
@@ -55,7 +55,7 @@ export default function HelpPage() {
       </div>
 
       <p className="mt-6 text-center text-sm">
-        <Link href="/manage" className="font-semibold text-moss underline-offset-2 hover:underline">
+        <Link href="/manage" className="font-semibold text-moss underline-offset-2 hover:underline dark:text-leaf-light">
           Manage a booking without signing in
         </Link>
       </p>

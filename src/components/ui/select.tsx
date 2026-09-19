@@ -20,6 +20,7 @@ const SelectTrigger = React.forwardRef<
       "flex h-14 w-full items-center justify-between rounded-xl border-2 bg-white px-4 text-base",
       "text-ink transition-colors data-[placeholder]:text-ink-soft/70",
       "focus:outline-none focus:border-moss",
+      "dark:bg-forest/50 dark:border-white/15 dark:text-cream-50 dark:data-[placeholder]:text-cream-100/50 dark:focus:border-leaf",
       "disabled:cursor-not-allowed disabled:opacity-50",
       invalid ? "border-clay" : "border-cream-300",
       className,
@@ -28,7 +29,7 @@ const SelectTrigger = React.forwardRef<
   >
     <span className="truncate text-left">{children}</span>
     <SelectPrimitive.Icon asChild>
-      <ChevronDown className="size-4 shrink-0 text-ink-soft" />
+      <ChevronDown className="size-4 shrink-0 text-ink-soft dark:text-cream-100/60" />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ));
@@ -44,7 +45,7 @@ const SelectContent = React.forwardRef<
       position={position}
       className={cn(
         "relative z-50 max-h-80 min-w-[10rem] overflow-hidden rounded-xl border border-cream-300",
-        "bg-white shadow-lift",
+        "bg-white shadow-lift dark:border-white/15 dark:bg-forest-dark dark:text-cream-50",
         "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0",
         "data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
         position === "popper" && "data-[side=bottom]:translate-y-1 data-[side=top]:-translate-y-1",
@@ -72,6 +73,7 @@ const SelectItem = React.forwardRef<
       "relative flex min-h-[48px] w-full cursor-pointer select-none items-center rounded-lg",
       "py-2.5 pl-3 pr-9 text-sm outline-none",
       "focus:bg-leaf/12 data-[state=checked]:font-semibold data-[state=checked]:text-forest",
+      "dark:text-cream-100 dark:focus:bg-white/10 dark:data-[state=checked]:text-cream-50",
       "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className,
     )}
@@ -80,7 +82,7 @@ const SelectItem = React.forwardRef<
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
     <span className="absolute right-3 flex size-4 items-center justify-center">
       <SelectPrimitive.ItemIndicator>
-        <Check className="size-4 text-moss" />
+        <Check className="size-4 text-moss dark:text-leaf-light" />
       </SelectPrimitive.ItemIndicator>
     </span>
   </SelectPrimitive.Item>

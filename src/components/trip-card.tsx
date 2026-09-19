@@ -35,28 +35,28 @@ export function TripCard({
   return (
     <article
       className={cn(
-        "rounded-2xl border bg-white p-5 shadow-soft transition-all duration-200 sm:p-6",
+        "rounded-2xl border bg-white p-5 shadow-soft transition-all duration-200 sm:p-6 dark:border-white/10 dark:bg-forest-light/30 dark:shadow-none",
         soldOut
-          ? "border-cream-300 opacity-75"
-          : "border-cream-300 hover:-translate-y-0.5 hover:border-leaf/40 hover:shadow-lift",
+          ? "border-cream-300 opacity-75 dark:border-white/10"
+          : "border-cream-300 hover:-translate-y-0.5 hover:border-leaf/40 hover:shadow-lift dark:border-white/10 dark:hover:border-leaf/60",
       )}
     >
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
           <div className="flex items-baseline gap-2">
-            <p className="tabular text-2xl font-extrabold tracking-tight text-forest sm:text-3xl">
+            <p className="tabular text-2xl font-extrabold tracking-tight text-forest dark:text-cream-50 sm:text-3xl">
               {formatTime(trip.departure_datetime)}
             </p>
             {arrival && (
               <>
-                <span className="text-ink-soft" aria-hidden>
+                <span className="text-ink-soft dark:text-cream-100/60" aria-hidden>
                   →
                 </span>
-                <p className="tabular text-lg font-bold text-ink-muted">{formatTime(arrival)}</p>
+                <p className="tabular text-lg font-bold text-ink-muted dark:text-cream-100/80">{formatTime(arrival)}</p>
               </>
             )}
           </div>
-          <p className="mt-1 truncate text-sm font-medium text-ink-muted">{trip.route_name}</p>
+          <p className="mt-1 truncate text-sm font-medium text-ink-muted dark:text-cream-100/80">{trip.route_name}</p>
         </div>
 
         <Badge variant={TONE_VARIANT[badge.tone]} className="shrink-0">
@@ -66,16 +66,16 @@ export function TripCard({
 
       {/* Origin → destination, with the transit-line motif */}
       <div className="mt-5 flex items-center gap-3">
-        <span className="max-w-[38%] truncate text-xs font-semibold text-ink-muted">
+        <span className="max-w-[38%] truncate text-xs font-semibold text-ink-muted dark:text-cream-100/80">
           {trip.origin_terminal.split(",")[0]}
         </span>
         <StopConnector className="flex-1" />
-        <span className="max-w-[38%] truncate text-right text-xs font-semibold text-ink-muted">
+        <span className="max-w-[38%] truncate text-right text-xs font-semibold text-ink-muted dark:text-cream-100/80">
           {trip.destination.split(",")[0]}
         </span>
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-ink-soft">
+      <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-ink-soft dark:text-cream-100/70">
         <span className="inline-flex items-center gap-1.5">
           <Clock className="size-3.5" aria-hidden />
           {durationLabel(trip.duration_mins)}
@@ -86,16 +86,16 @@ export function TripCard({
         </span>
         {trip.vehicle_model && (
           <span className="inline-flex items-center gap-1.5">
-            <BatteryCharging className="size-3.5 text-teal" aria-hidden />
+            <BatteryCharging className="size-3.5 text-teal dark:text-teal-light" aria-hidden />
             {trip.vehicle_model}
           </span>
         )}
       </div>
 
-      <div className="mt-5 flex items-end justify-between gap-4 border-t border-cream-200 pt-4">
+      <div className="mt-5 flex items-end justify-between gap-4 border-t border-cream-200 pt-4 dark:border-white/10">
         <div>
-          <p className="tabular text-2xl font-extrabold text-forest">{naira(total)}</p>
-          <p className="text-xs text-ink-soft">
+          <p className="tabular text-2xl font-extrabold text-forest dark:text-cream-50">{naira(total)}</p>
+          <p className="text-xs text-ink-soft dark:text-cream-100/70">
             {seats > 1 ? `${seats} seats · ${naira(trip.fare_kobo)} each` : "per seat"}
           </p>
         </div>

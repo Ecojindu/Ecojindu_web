@@ -144,16 +144,16 @@ export default function SubscriptionsPage() {
           <Card id="checkout" className="mx-auto mt-10 max-w-lg scroll-mt-24 p-6 sm:p-8">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-moss">Purchasing</p>
-                <h2 className="mt-1 text-xl font-extrabold text-forest">{selected.name}</h2>
-                <p className="mt-1 text-sm text-ink-soft">
+                <p className="text-xs font-bold uppercase tracking-wider text-moss dark:text-leaf-light">Purchasing</p>
+                <h2 className="mt-1 text-xl font-extrabold text-forest dark:text-cream-50">{selected.name}</h2>
+                <p className="mt-1 text-sm text-ink-soft dark:text-cream-100/70">
                   {selected.ride_credits} rides · {selected.validity_days} days
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setSelected(null)}
-                className="tap-target -m-2 grid place-items-center rounded-xl text-ink-soft transition-colors hover:text-forest"
+                className="tap-target -m-2 grid place-items-center rounded-xl text-ink-soft transition-colors hover:text-forest dark:text-cream-100/60 dark:hover:text-cream-50"
                 aria-label="Choose a different plan"
               >
                 <X className="size-5" aria-hidden />
@@ -206,9 +206,9 @@ export default function SubscriptionsPage() {
                 />
               </Field>
 
-              <div className="flex items-baseline justify-between rounded-xl bg-cream-100 px-4 py-4">
-                <span className="text-sm font-semibold text-ink-muted">Total today</span>
-                <span className="tabular text-3xl font-extrabold text-forest">
+              <div className="flex items-baseline justify-between rounded-xl bg-cream-100 px-4 py-4 dark:bg-forest-dark/70">
+                <span className="text-sm font-semibold text-ink-muted dark:text-cream-100/80">Total today</span>
+                <span className="tabular text-3xl font-extrabold text-forest dark:text-cream-50">
                   {naira(selected.price_kobo)}
                 </span>
               </div>
@@ -224,7 +224,7 @@ export default function SubscriptionsPage() {
                 Pay {naira(selected.price_kobo)}
               </Button>
 
-              <p className="text-center text-xs leading-relaxed text-ink-soft">
+              <p className="text-center text-xs leading-relaxed text-ink-soft dark:text-cream-100/70">
                 Credits are activated the moment payment clears. Secure checkout by Paystack.
               </p>
             </form>
@@ -233,29 +233,29 @@ export default function SubscriptionsPage() {
 
         {/* Comparison */}
         <div className="mx-auto mt-16 max-w-3xl">
-          <h2 className="mb-6 text-center text-xl font-extrabold text-forest">
+          <h2 className="mb-6 text-center text-xl font-extrabold text-forest dark:text-cream-50">
             Compare the two tiers
           </h2>
-          <div className="overflow-hidden rounded-2xl border border-cream-300 bg-white shadow-soft">
+          <div className="overflow-hidden rounded-2xl border border-cream-300 bg-white shadow-soft dark:border-white/10 dark:bg-forest/40">
             <table className="w-full text-sm">
               <caption className="sr-only">Feature comparison of Tier 1 and Tier 2</caption>
               <thead>
-                <tr className="border-b border-cream-300 bg-cream-100">
-                  <th scope="col" className="px-4 py-3.5 text-left font-bold text-forest sm:px-6">
+                <tr className="border-b border-cream-300 bg-cream-100 dark:border-white/10 dark:bg-forest-dark/80">
+                  <th scope="col" className="px-4 py-3.5 text-left font-bold text-forest dark:text-cream-50 sm:px-6">
                     Feature
                   </th>
-                  <th scope="col" className="px-3 py-3.5 text-center font-bold text-forest">
+                  <th scope="col" className="px-3 py-3.5 text-center font-bold text-forest dark:text-cream-50">
                     Tier 1
                   </th>
-                  <th scope="col" className="px-3 py-3.5 text-center font-bold text-forest">
+                  <th scope="col" className="px-3 py-3.5 text-center font-bold text-forest dark:text-cream-50">
                     Tier 2
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {COMPARISON.map((row) => (
-                  <tr key={row.feature} className="border-b border-cream-200 last:border-0">
-                    <th scope="row" className="px-4 py-3.5 text-left font-medium text-ink sm:px-6">
+                  <tr key={row.feature} className="border-b border-cream-200 last:border-0 dark:border-white/10">
+                    <th scope="row" className="px-4 py-3.5 text-left font-medium text-ink dark:text-cream-100 sm:px-6">
                       {row.feature}
                     </th>
                     <Cell value={row.tier1} />
@@ -267,9 +267,9 @@ export default function SubscriptionsPage() {
           </div>
         </div>
 
-        <p className="mx-auto mt-10 max-w-xl text-center text-sm leading-relaxed text-ink-muted">
+        <p className="mx-auto mt-10 max-w-xl text-center text-sm leading-relaxed text-ink-muted dark:text-cream-100/75">
           Buying for a company or a delegation? Email{" "}
-          <a href={`mailto:${config.contactEmail}`} className="font-semibold text-moss hover:underline">
+          <a href={`mailto:${config.contactEmail}`} className="font-semibold text-moss hover:underline dark:text-leaf-light">
             {config.contactEmail}
           </a>{" "}
           and we&apos;ll set up an invoiced corporate account.
@@ -281,18 +281,18 @@ export default function SubscriptionsPage() {
 
 function Cell({ value }: { value: string | boolean }) {
   if (typeof value === "string") {
-    return <td className="px-3 py-3.5 text-center font-semibold text-forest">{value}</td>;
+    return <td className="px-3 py-3.5 text-center font-semibold text-forest dark:text-cream-50">{value}</td>;
   }
   return (
     <td className="px-3 py-3.5 text-center">
       {value ? (
         <>
-          <Check className="mx-auto size-5 text-moss" aria-hidden />
+          <Check className="mx-auto size-5 text-moss dark:text-leaf-light" aria-hidden />
           <span className="sr-only">Included</span>
         </>
       ) : (
         <>
-          <X className="mx-auto size-4 text-cream-400" aria-hidden />
+          <X className="mx-auto size-4 text-cream-400 dark:text-white/20" aria-hidden />
           <span className="sr-only">Not included</span>
         </>
       )}
@@ -315,7 +315,9 @@ function PlanCard({
   return (
     <div
       className={`relative flex flex-col rounded-3xl border-2 p-7 sm:p-8 ${
-        featured ? "border-moss bg-white shadow-lift" : "border-cream-300 bg-white/80 shadow-soft"
+        featured
+          ? "border-moss bg-white shadow-lift dark:border-moss dark:bg-forest-light/40"
+          : "border-cream-300 bg-white/80 shadow-soft dark:border-white/10 dark:bg-forest/40"
       }`}
     >
       {featured && (
@@ -325,22 +327,22 @@ function PlanCard({
         </Badge>
       )}
 
-      <h3 className="text-lg font-extrabold text-forest">{plan.name}</h3>
-      <p className="mt-1.5 text-sm leading-relaxed text-ink-muted">{plan.description}</p>
+      <h3 className="text-lg font-extrabold text-forest dark:text-cream-50">{plan.name}</h3>
+      <p className="mt-1.5 text-sm leading-relaxed text-ink-muted dark:text-cream-100/75">{plan.description}</p>
 
       <p className="mt-6 flex items-baseline gap-2">
-        <span className="text-display-md font-extrabold tracking-tight text-forest">
+        <span className="text-display-md font-extrabold tracking-tight text-forest dark:text-cream-50">
           {naira(plan.price_kobo)}
         </span>
       </p>
-      <p className="mt-1 text-sm text-ink-soft">
+      <p className="mt-1 text-sm text-ink-soft dark:text-cream-100/70">
         {naira(perRide)} per ride · {plan.ride_credits} rides · {plan.validity_days} days
       </p>
 
       <ul className="mt-6 flex-1 space-y-3">
         {perks.map((perk) => (
-          <li key={perk} className="flex items-start gap-2.5 text-sm text-ink-muted">
-            <Check className="mt-0.5 size-4 shrink-0 text-moss" aria-hidden />
+          <li key={perk} className="flex items-start gap-2.5 text-sm text-ink-muted dark:text-cream-100/80">
+            <Check className="mt-0.5 size-4 shrink-0 text-moss dark:text-leaf-light" aria-hidden />
             {perk}
           </li>
         ))}

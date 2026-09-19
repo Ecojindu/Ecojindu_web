@@ -12,7 +12,7 @@ const Label = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <LabelPrimitive.Root
     ref={ref}
-    className={cn("text-sm font-semibold text-forest", className)}
+    className={cn("text-sm font-semibold text-forest dark:text-cream-50", className)}
     {...props}
   />
 ));
@@ -42,7 +42,7 @@ export function Field({ label, htmlFor, error, hint, optional, children, classNa
     <div className={cn("space-y-2", className)}>
       <div className="flex items-baseline justify-between gap-2">
         <Label htmlFor={htmlFor}>{label}</Label>
-        {optional && <span className="text-xs text-ink-soft">Optional</span>}
+        {optional && <span className="text-xs text-ink-soft dark:text-cream-100/60">Optional</span>}
       </div>
 
       {React.isValidElement(children)
@@ -55,7 +55,7 @@ export function Field({ label, htmlFor, error, hint, optional, children, classNa
         : children}
 
       {hint && !error && (
-        <p id={hintId} className="text-xs leading-relaxed text-ink-soft">
+        <p id={hintId} className="text-xs leading-relaxed text-ink-soft dark:text-cream-100/70">
           {hint}
         </p>
       )}

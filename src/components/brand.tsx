@@ -15,14 +15,14 @@ export function Logo({
       className={cn("group inline-flex items-center gap-2.5", className)}
       aria-label="Ecojindu Shuttle — home"
     >
-      <span className="relative grid size-9 shrink-0 place-items-center rounded-xl bg-forest transition-transform duration-200 group-hover:scale-105">
+      <span className="relative grid size-9 shrink-0 place-items-center rounded-xl bg-forest transition-transform duration-200 group-hover:scale-105 dark:bg-forest-light">
         <LeafMark className="size-5 text-leaf" />
       </span>
       <span className="flex flex-col leading-none">
         <span
           className={cn(
             "text-[17px] font-extrabold tracking-tight",
-            variant === "dark" ? "text-forest" : "text-white",
+            variant === "dark" ? "text-forest dark:text-cream-50" : "text-white",
           )}
         >
           Ecojindu
@@ -31,7 +31,7 @@ export function Logo({
         <span
           className={cn(
             "mt-0.5 text-[10px] font-semibold uppercase tracking-[0.18em]",
-            variant === "dark" ? "text-ink-soft" : "text-leaf-light",
+            variant === "dark" ? "text-ink-soft dark:text-cream-100/70" : "text-leaf-light",
           )}
         >
           Shuttle
@@ -135,13 +135,13 @@ export function SectionHeading({
   return (
     <div className={cn(align === "center" && "mx-auto max-w-2xl text-center", className)}>
       {eyebrow && (
-        <p className="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-moss">{eyebrow}</p>
+        <p className="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-moss dark:text-leaf-light">{eyebrow}</p>
       )}
-      <h2 className="text-balance text-display-sm font-extrabold text-forest sm:text-display-md">
+      <h2 className="text-balance text-display-sm font-extrabold text-forest dark:text-cream-50 sm:text-display-md">
         {title}
       </h2>
       {description && (
-        <p className="mt-4 text-pretty text-base leading-relaxed text-ink-muted sm:text-lg">
+        <p className="mt-4 text-pretty text-base leading-relaxed text-ink-muted dark:text-cream-100/80 sm:text-lg">
           {description}
         </p>
       )}

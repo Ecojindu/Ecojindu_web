@@ -47,15 +47,15 @@ function SearchFallback({
   return (
     <div className="container py-8">
       <div className="mx-auto max-w-3xl">
-        <h1 className="text-2xl font-extrabold text-forest">
+        <h1 className="text-2xl font-extrabold text-forest dark:text-cream-50">
           {initialRouteName ?? "Departures"}
         </h1>
         {typeof initialTripCount === "number" ? (
-          <p className="mt-2 text-sm text-ink-muted">
+          <p className="mt-2 text-sm text-ink-muted dark:text-cream-100/80">
             {initialTripCount} departure{initialTripCount === 1 ? "" : "s"} on this date
           </p>
         ) : (
-          <p className="mt-2 text-sm text-ink-muted">Loading live seat counts…</p>
+          <p className="mt-2 text-sm text-ink-muted dark:text-cream-100/80">Loading live seat counts…</p>
         )}
         <div className="mt-6">
           <TripListSkeleton />
@@ -116,8 +116,8 @@ function SearchResults() {
     return (
       <div className="container py-10 lg:py-16">
         <div className="mx-auto max-w-3xl">
-          <h1 className="text-display-sm font-extrabold text-forest">Find your departure</h1>
-          <p className="mt-2 text-ink-muted">
+          <h1 className="text-display-sm font-extrabold text-forest dark:text-cream-50">Find your departure</h1>
+          <p className="mt-2 text-ink-muted dark:text-cream-100/80">
             Choose a route and a date to see every seat still available.
           </p>
           <SearchWidget className="mt-6" />
@@ -134,11 +134,11 @@ function SearchResults() {
       <div className="mx-auto max-w-3xl">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="flex items-center gap-2 text-2xl font-extrabold tracking-tight text-forest sm:text-display-sm">
+          <h1 className="flex items-center gap-2 text-2xl font-extrabold tracking-tight text-forest dark:text-cream-50 sm:text-display-sm">
             <MapPin className="size-6 shrink-0 text-moss" aria-hidden />
             <span className="text-balance">{route?.name ?? "Departures"}</span>
           </h1>
-          <p className="mt-1.5 text-sm text-ink-muted">
+          <p className="mt-1.5 text-sm text-ink-muted dark:text-cream-100/80">
             {formatDateLong(`${date}T09:00:00+01:00`)}
             {seats > 1 && ` · ${seats} seats`}
           </p>
@@ -146,7 +146,7 @@ function SearchResults() {
 
         {/* Change search */}
         <details className="group mb-6">
-          <summary className="tap-target inline-flex cursor-pointer list-none items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-forest shadow-soft transition-shadow hover:shadow-lift">
+          <summary className="tap-target inline-flex cursor-pointer list-none items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-forest shadow-soft transition-shadow hover:shadow-lift dark:border dark:border-white/10 dark:bg-forest/60 dark:text-cream-50">
             Change route, date or seats
             <span className="text-moss transition-transform group-open:rotate-180" aria-hidden>
               ▾
@@ -194,10 +194,10 @@ function SearchResults() {
         ) : (
           <>
             <div className="mb-4 flex items-center justify-between gap-3">
-              <p className="text-sm font-semibold text-ink-muted" aria-live="polite">
+              <p className="text-sm font-semibold text-ink-muted dark:text-cream-100/80" aria-live="polite">
                 {bookable.length} departure{bookable.length === 1 ? "" : "s"} available
               </p>
-              {isFetching && <span className="text-xs text-ink-soft">Refreshing…</span>}
+              {isFetching && <span className="text-xs text-ink-soft dark:text-cream-100/60">Refreshing…</span>}
             </div>
 
             <div className="space-y-4">
@@ -208,7 +208,7 @@ function SearchResults() {
 
             {soldOut.length > 0 && (
               <div className="mt-8">
-                <p className="mb-3 flex items-center gap-2 text-sm font-semibold text-ink-soft">
+                <p className="mb-3 flex items-center gap-2 text-sm font-semibold text-ink-soft dark:text-cream-100/70">
                   <TriangleAlert className="size-4" aria-hidden />
                   Not available for {seats} seat{seats === 1 ? "" : "s"}
                 </p>
@@ -222,7 +222,7 @@ function SearchResults() {
           </>
         )}
 
-        <p className="mt-10 text-center text-xs leading-relaxed text-ink-soft">
+        <p className="mt-10 text-center text-xs leading-relaxed text-ink-soft dark:text-cream-100/60">
           Fares are per seat and include all charges. Free cancellation up to 2 hours before
           departure.
         </p>

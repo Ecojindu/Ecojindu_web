@@ -7,13 +7,13 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        neutral: "bg-cream-200 text-ink-muted",
-        leaf: "bg-leaf/15 text-moss-dark",
-        forest: "bg-forest text-white",
-        teal: "bg-teal/15 text-teal-dark",
-        amber: "bg-[#F6E7C4] text-[#8A6414]",
-        clay: "bg-clay-light text-clay-dark",
-        outline: "border border-cream-400 bg-white text-ink-muted",
+        neutral: "bg-cream-200 text-ink-muted dark:bg-white/10 dark:text-cream-100",
+        leaf: "bg-leaf/15 text-moss-dark dark:bg-leaf/25 dark:text-leaf-light",
+        forest: "bg-forest text-white dark:bg-forest-light dark:text-cream-50",
+        teal: "bg-teal/15 text-teal-dark dark:bg-teal/25 dark:text-teal-light",
+        amber: "bg-[#F6E7C4] text-[#8A6414] dark:bg-amber-900/40 dark:text-amber-200",
+        clay: "bg-clay-light text-clay-dark dark:bg-clay/20 dark:text-clay-light",
+        outline: "border border-cream-400 bg-white text-ink-muted dark:border-white/20 dark:bg-transparent dark:text-cream-100",
       },
       size: {
         sm: "px-2.5 py-0.5 text-[11px]",

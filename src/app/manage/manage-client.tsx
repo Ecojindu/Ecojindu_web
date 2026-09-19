@@ -28,8 +28,8 @@ export function ManagePageClient() {
     <Suspense
       fallback={
         <div className="container max-w-lg py-10">
-          <h1 className="text-display-sm font-extrabold text-forest">Manage booking</h1>
-          <p className="mt-2 text-ink-muted">Enter your booking reference and phone number.</p>
+          <h1 className="text-display-sm font-extrabold text-forest dark:text-cream-50">Manage booking</h1>
+          <p className="mt-2 text-ink-muted dark:text-cream-100/70">Enter your booking reference and phone number.</p>
         </div>
       }
     >

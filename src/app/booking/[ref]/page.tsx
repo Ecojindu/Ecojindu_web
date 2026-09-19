@@ -86,8 +86,8 @@ function BookingConfirmation() {
     return (
       <div className="container py-12">
         <Card className="mx-auto max-w-md p-6 sm:p-8">
-          <h1 className="text-xl font-extrabold text-forest">View booking {ref}</h1>
-          <p className="mt-2 text-sm text-ink-muted">
+          <h1 className="text-xl font-extrabold text-forest dark:text-cream-50">View booking {ref}</h1>
+          <p className="mt-2 text-sm text-ink-muted dark:text-cream-100/70">
             For your security, confirm the phone number on this booking.
           </p>
           <form className="mt-6 space-y-4" onSubmit={verifyPhone} noValidate>
@@ -115,8 +115,8 @@ function BookingConfirmation() {
   if (!booking) {
     return (
       <div className="container py-16 text-center">
-        <h1 className="text-2xl font-extrabold text-forest">Booking not found</h1>
-        <p className="mt-2 text-ink-muted">We couldn&apos;t find a booking with that reference.</p>
+        <h1 className="text-2xl font-extrabold text-forest dark:text-cream-50">Booking not found</h1>
+        <p className="mt-2 text-ink-muted dark:text-cream-100/70">We couldn&apos;t find a booking with that reference.</p>
         <Button asChild className="mt-6">
           <Link href="/manage">Look it up another way</Link>
         </Button>
@@ -130,12 +130,12 @@ function BookingConfirmation() {
         {isNew && booking.status !== "pending_payment" && (
           <div className="mb-7 text-center">
             <span className="mx-auto grid size-16 animate-fade-up place-items-center rounded-full bg-leaf/20">
-              <CheckCircle2 className="size-9 text-moss" aria-hidden />
+              <CheckCircle2 className="size-9 text-moss dark:text-leaf" aria-hidden />
             </span>
-            <h1 className="mt-5 animate-fade-up text-balance text-display-sm font-extrabold text-forest">
+            <h1 className="mt-5 animate-fade-up text-balance text-display-sm font-extrabold text-forest dark:text-cream-50">
               You&apos;re on board
             </h1>
-            <p className="mx-auto mt-2 max-w-sm animate-fade-up text-pretty text-sm leading-relaxed text-ink-muted">
+            <p className="mx-auto mt-2 max-w-sm animate-fade-up text-pretty text-sm leading-relaxed text-ink-muted dark:text-cream-100/70">
               Your seat{booking.seats > 1 ? "s are" : " is"} confirmed. We&apos;ve emailed and
               texted this ticket to you as well.
             </p>
@@ -177,20 +177,20 @@ function BookingConfirmation() {
         </div>
 
         {booking.status === "confirmed" && (
-          <div className="mt-8 rounded-2xl bg-white/70 p-5">
-            <p className="mb-3 text-sm font-bold text-forest">Before you travel</p>
-            <ul className="space-y-2.5 text-sm text-ink-muted">
+          <div className="mt-8 rounded-2xl bg-white/70 p-5 dark:border dark:border-white/10 dark:bg-forest-light/25">
+            <p className="mb-3 text-sm font-bold text-forest dark:text-cream-50">Before you travel</p>
+            <ul className="space-y-2.5 text-sm text-ink-muted dark:text-cream-100/70">
               <li className="flex items-start gap-2.5">
-                <Clock className="mt-0.5 size-4 shrink-0 text-moss" aria-hidden />
+                <Clock className="mt-0.5 size-4 shrink-0 text-moss dark:text-leaf" aria-hidden />
                 Arrive 20 minutes early — boarding closes 10 minutes before departure.
               </li>
               <li className="flex items-start gap-2.5">
-                <Mail className="mt-0.5 size-4 shrink-0 text-moss" aria-hidden />
+                <Mail className="mt-0.5 size-4 shrink-0 text-moss dark:text-leaf" aria-hidden />
                 We&apos;ll email a reminder 24 hours and 2 hours before you travel.
               </li>
               <li className="flex items-start gap-2.5">
-                <MessageSquare className="mt-0.5 size-4 shrink-0 text-moss" aria-hidden />
-                Save your reference <strong className="font-mono">{booking.booking_ref}</strong> —
+                <MessageSquare className="mt-0.5 size-4 shrink-0 text-moss dark:text-leaf" aria-hidden />
+                Save your reference <strong className="font-mono text-ink dark:text-cream-50">{booking.booking_ref}</strong> —
                 it works at the gate even without the QR.
               </li>
             </ul>

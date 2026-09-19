@@ -88,8 +88,8 @@ function Dashboard() {
     <div className="container py-8 lg:py-12">
       <div className="mx-auto max-w-3xl">
         <header className="mb-7">
-          <p className="text-sm font-semibold text-moss">Welcome back</p>
-          <h1 className="mt-1 text-balance text-display-sm font-extrabold text-forest">
+          <p className="text-sm font-semibold text-moss dark:text-leaf">Welcome back</p>
+          <h1 className="mt-1 text-balance text-display-sm font-extrabold text-forest dark:text-cream-50">
             {user.full_name.split(" ")[0]}
           </h1>
         </header>
@@ -106,14 +106,14 @@ function Dashboard() {
         ) : subscription.data ? (
           <CreditMeter subscription={subscription.data} />
         ) : (
-          <Card className="bg-gradient-to-br from-teal/10 to-leaf/10 p-6">
+          <Card className="bg-gradient-to-br from-teal/10 to-leaf/10 dark:from-teal/20 dark:to-leaf/20 p-6">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div>
-                <h2 className="flex items-center gap-2 text-base font-extrabold text-forest">
-                  <Sparkles className="size-4 text-teal" aria-hidden />
+                <h2 className="flex items-center gap-2 text-base font-extrabold text-forest dark:text-cream-50">
+                  <Sparkles className="size-4 text-teal dark:text-teal/90" aria-hidden />
                   No active subscription
                 </h2>
-                <p className="mt-1 max-w-sm text-sm leading-relaxed text-ink-muted">
+                <p className="mt-1 max-w-sm text-sm leading-relaxed text-ink-muted dark:text-cream-100/70">
                   Travel often? Buy rides upfront and skip the payment step entirely.
                 </p>
               </div>
@@ -129,12 +129,12 @@ function Dashboard() {
 
         {/* Schedule a trip */}
         <section className="mt-7">
-          <h2 className="mb-3 flex items-center gap-2 text-lg font-extrabold text-forest">
-            <CalendarPlus className="size-5 text-moss" aria-hidden />
+          <h2 className="mb-3 flex items-center gap-2 text-lg font-extrabold text-forest dark:text-cream-50">
+            <CalendarPlus className="size-5 text-moss dark:text-leaf" aria-hidden />
             Schedule a trip
           </h2>
           {subscription.data && subscription.data.credits_remaining > 0 && (
-            <p className="mb-3 text-sm text-ink-muted">
+            <p className="mb-3 text-sm text-ink-muted dark:text-cream-100/70">
               Bookings you make will use your ride credits — nothing to pay at checkout.
             </p>
           )}
@@ -143,7 +143,7 @@ function Dashboard() {
 
         {/* Tabs */}
         <div
-          className="mt-9 flex gap-1 rounded-full bg-white p-1 shadow-soft"
+          className="mt-9 flex gap-1 rounded-full bg-white dark:bg-forest-light/30 dark:border dark:border-white/10 p-1 shadow-soft"
           role="tablist"
           aria-label="Dashboard sections"
         >
@@ -160,7 +160,9 @@ function Dashboard() {
               aria-selected={tab === item.id}
               onClick={() => setTab(item.id)}
               className={`tap-target flex flex-1 items-center justify-center gap-2 rounded-full px-3 text-sm font-semibold transition-colors ${
-                tab === item.id ? "bg-forest text-white" : "text-ink-muted hover:text-forest"
+                tab === item.id
+                  ? "bg-forest text-white dark:bg-leaf dark:text-forest"
+                  : "text-ink-muted hover:text-forest dark:text-cream-100/70 dark:hover:text-cream-50"
               }`}
             >
               <item.icon className="size-4" aria-hidden />
@@ -168,7 +170,7 @@ function Dashboard() {
               {"count" in item && item.count > 0 && (
                 <span
                   className={`tabular rounded-full px-1.5 text-[11px] ${
-                    tab === item.id ? "bg-white/20" : "bg-cream-200"
+                    tab === item.id ? "bg-white/20 dark:bg-forest/20" : "bg-cream-200 dark:bg-white/10 dark:text-cream-100"
                   }`}
                 >
                   {item.count}
@@ -250,21 +252,21 @@ function BookingList({
             <div className="p-5">
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0">
-                  <p className="font-mono text-sm font-bold tracking-wider text-forest">
+                  <p className="font-mono text-sm font-bold tracking-wider text-forest dark:text-cream-50">
                     {booking.booking_ref}
                   </p>
-                  <p className="mt-1.5 truncate text-sm font-semibold text-ink">
+                  <p className="mt-1.5 truncate text-sm font-semibold text-ink dark:text-cream-100">
                     {booking.trip?.route_name ?? "—"}
                   </p>
-                  <p className="mt-0.5 text-xs text-ink-soft">
+                  <p className="mt-0.5 text-xs text-ink-soft dark:text-cream-100/70">
                     {booking.trip ? formatDateTime(booking.trip.departure_datetime) : "—"}
                   </p>
                 </div>
                 <BookingStatusBadge status={booking.status} />
               </div>
 
-              <div className="mt-4 flex items-center justify-between gap-3 border-t border-cream-200 pt-3">
-                <p className="text-xs text-ink-soft">
+              <div className="mt-4 flex items-center justify-between gap-3 border-t border-cream-200 dark:border-white/10 pt-3">
+                <p className="text-xs text-ink-soft dark:text-cream-100/70">
                   {booking.seats} seat{booking.seats === 1 ? "" : "s"} ·{" "}
                   {booking.subscription_id ? "Ride credit" : naira(booking.amount_kobo)}
                 </p>
@@ -286,7 +288,7 @@ function BookingList({
             </div>
 
             {open && hasTicket && (
-              <div className="animate-fade-up border-t border-cream-200 bg-cream-50 p-5">
+              <div className="animate-fade-up border-t border-cream-200 dark:border-white/10 bg-cream-50 dark:bg-forest/40 p-5">
                 <QrTicket booking={booking} showActions />
               </div>
             )}
@@ -326,7 +328,7 @@ function ProfilePanel() {
   return (
     <div className="space-y-5">
       <Card className="p-5 sm:p-6">
-        <h2 className="text-lg font-bold text-forest">Your details</h2>
+        <h2 className="text-lg font-bold text-forest dark:text-cream-50">Your details</h2>
         <form
           className="mt-5 space-y-4"
           onSubmit={(e) => {
@@ -360,19 +362,19 @@ function ProfilePanel() {
       </Card>
 
       <Card className="p-5 sm:p-6">
-        <h2 className="text-lg font-bold text-forest">How we reach you</h2>
-        <p className="mt-1 text-sm text-ink-soft">
+        <h2 className="text-lg font-bold text-forest dark:text-cream-50">How we reach you</h2>
+        <p className="mt-1 text-sm text-ink-soft dark:text-cream-100/70">
           Trip reminders go out 24 hours and 2 hours before you travel.
         </p>
         <ul className="mt-5 space-y-1">
           {prefs.map((pref) => (
             <li
               key={pref.key}
-              className="flex items-center justify-between gap-4 border-b border-cream-200 py-3.5 last:border-0"
+              className="flex items-center justify-between gap-4 border-b border-cream-200 dark:border-white/10 py-3.5 last:border-0"
             >
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-ink">{pref.label}</p>
-                <p className="text-xs text-ink-soft">{pref.hint}</p>
+                <p className="text-sm font-semibold text-ink dark:text-cream-100">{pref.label}</p>
+                <p className="text-xs text-ink-soft dark:text-cream-100/70">{pref.hint}</p>
               </div>
               <Switch
                 checked={user[pref.key]}

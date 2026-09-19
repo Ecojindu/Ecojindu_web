@@ -219,7 +219,7 @@ function BookingFlow() {
       <div className="mx-auto max-w-lg">
         <Link
           href="/search"
-          className="mb-5 inline-flex items-center gap-1.5 text-sm font-semibold text-ink-muted transition-colors hover:text-forest"
+          className="mb-5 inline-flex items-center gap-1.5 text-sm font-semibold text-ink-muted transition-colors hover:text-forest dark:text-cream-100/75 dark:hover:text-cream-50"
         >
           <ArrowLeft className="size-4" aria-hidden />
           Back to departures
@@ -232,11 +232,11 @@ function BookingFlow() {
         {/* Step 1 — passenger details */}
         {step === 1 && (
           <Card className="mt-5 p-5 sm:p-6">
-            <h2 className="flex items-center gap-2 text-lg font-bold text-forest">
-              <User className="size-5 text-moss" aria-hidden />
+            <h2 className="flex items-center gap-2 text-lg font-bold text-forest dark:text-cream-50">
+              <User className="size-5 text-moss dark:text-leaf-light" aria-hidden />
               Who&apos;s travelling?
             </h2>
-            <p className="mt-1 text-sm text-ink-soft">
+            <p className="mt-1 text-sm text-ink-soft dark:text-cream-100/70">
               No account needed — we just need a name and number for the ticket.
             </p>
 
@@ -302,8 +302,8 @@ function BookingFlow() {
         {/* Step 2 — seats */}
         {step === 2 && (
           <Card className="mt-5 p-5 sm:p-6">
-            <h2 className="text-lg font-bold text-forest">How many seats?</h2>
-            <p className="mt-1 text-sm text-ink-soft">
+            <h2 className="text-lg font-bold text-forest dark:text-cream-50">How many seats?</h2>
+            <p className="mt-1 text-sm text-ink-soft dark:text-cream-100/70">
               {trip.seats_available} seat{trip.seats_available === 1 ? "" : "s"} left on this
               departure.
             </p>
@@ -319,8 +319,8 @@ function BookingFlow() {
                 <Minus aria-hidden />
               </Button>
               <div className="text-center" aria-live="polite">
-                <p className="tabular text-6xl font-extrabold leading-none text-forest">{seats}</p>
-                <p className="mt-1.5 text-xs font-semibold uppercase tracking-wider text-ink-soft">
+                <p className="tabular text-6xl font-extrabold leading-none text-forest dark:text-cream-50">{seats}</p>
+                <p className="mt-1.5 text-xs font-semibold uppercase tracking-wider text-ink-soft dark:text-cream-100/70">
                   {seats === 1 ? "seat" : "seats"}
                 </p>
               </div>
@@ -336,17 +336,17 @@ function BookingFlow() {
             </div>
 
             {seats >= maxSeats && trip.seats_available > 6 && (
-              <p className="mt-4 text-center text-xs text-ink-soft">
+              <p className="mt-4 text-center text-xs text-ink-soft dark:text-cream-100/70">
                 Need more than 6 seats? Message us on WhatsApp and we&apos;ll arrange it.
               </p>
             )}
 
-            <p className="mt-4 text-center text-sm text-ink-muted" aria-live="polite">
+            <p className="mt-4 text-center text-sm text-ink-muted dark:text-cream-100/75" aria-live="polite">
               {male > 0 && `${male} male`}
               {male > 0 && female > 0 && " · "}
               {female > 0 && `${female} female`}
               {!sexRecorded && (
-                <span className="text-ink-soft">Sex not recorded for this booking</span>
+                <span className="text-ink-soft dark:text-cream-100/60">Sex not recorded for this booking</span>
               )}
             </p>
 
@@ -374,9 +374,9 @@ function BookingFlow() {
         {/* Step 3 — confirm & pay */}
         {step === 3 && (
           <Card className="mt-5 p-5 sm:p-6">
-            <h2 className="text-lg font-bold text-forest">Confirm and pay</h2>
+            <h2 className="text-lg font-bold text-forest dark:text-cream-50">Confirm and pay</h2>
 
-            <dl className="mt-4 divide-y divide-cream-200 text-sm">
+            <dl className="mt-4 divide-y divide-cream-200 text-sm dark:divide-white/10">
               <Row label="Passenger" value={form.getValues("passenger_name")} />
               <Row label="Phone" value={form.getValues("passenger_phone")} />
               {form.getValues("passenger_email") && (
@@ -390,11 +390,11 @@ function BookingFlow() {
               )}
             </dl>
 
-            <div className="mt-5 flex items-baseline justify-between rounded-xl bg-cream-100 px-4 py-4">
-              <span className="text-sm font-semibold text-ink-muted">Total</span>
-              <span className="tabular text-3xl font-extrabold text-forest">
+            <div className="mt-5 flex items-baseline justify-between rounded-xl bg-cream-100 px-4 py-4 dark:bg-forest-dark/70">
+              <span className="text-sm font-semibold text-ink-muted dark:text-cream-100/80">Total</span>
+              <span className="tabular text-3xl font-extrabold text-forest dark:text-cream-50">
                 {canUseCredits ? (
-                  <span className="inline-flex items-center gap-2 text-2xl text-teal-dark">
+                  <span className="inline-flex items-center gap-2 text-2xl text-teal-dark dark:text-teal-light">
                     <Sparkles className="size-5" aria-hidden />
                     {seats} credit{seats === 1 ? "" : "s"}
                   </span>
@@ -435,7 +435,7 @@ function BookingFlow() {
               Back
             </Button>
 
-            <p className="mt-4 flex items-start gap-2 text-xs leading-relaxed text-ink-soft">
+            <p className="mt-4 flex items-start gap-2 text-xs leading-relaxed text-ink-soft dark:text-cream-100/70">
               <Clock className="mt-0.5 size-3.5 shrink-0" aria-hidden />
               {canUseCredits
                 ? "Your ticket is issued immediately and sent by email and SMS."
@@ -463,21 +463,21 @@ function StepIndicator({ step }: { step: Step }) {
                 done
                   ? "bg-moss text-white"
                   : active
-                    ? "bg-forest text-white"
-                    : "bg-cream-300 text-ink-soft"
+                    ? "bg-forest text-white dark:bg-leaf dark:text-forest-dark"
+                    : "bg-cream-300 text-ink-soft dark:bg-white/10 dark:text-cream-100/60"
               }`}
               aria-current={active ? "step" : undefined}
             >
               {done ? <Check className="size-4" aria-hidden /> : number}
             </span>
             <span
-              className={`text-xs font-semibold ${active ? "text-forest" : "text-ink-soft"}`}
+              className={`text-xs font-semibold ${active ? "text-forest dark:text-cream-50" : "text-ink-soft dark:text-cream-100/60"}`}
             >
               {label}
             </span>
             {index < labels.length - 1 && (
               <span
-                className={`h-0.5 flex-1 rounded-full ${done ? "bg-moss" : "bg-cream-300"}`}
+                className={`h-0.5 flex-1 rounded-full ${done ? "bg-moss" : "bg-cream-300 dark:bg-white/10"}`}
                 aria-hidden
               />
             )}
@@ -503,10 +503,10 @@ function TripSummary({
     <Card className="p-5">
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
-          <p className="tabular text-2xl font-extrabold text-forest">
+          <p className="tabular text-2xl font-extrabold text-forest dark:text-cream-50">
             {formatTime(trip.departure_datetime)}
           </p>
-          <p className="mt-0.5 truncate text-sm text-ink-muted">
+          <p className="mt-0.5 truncate text-sm text-ink-muted dark:text-cream-100/75">
             {formatDateLong(trip.departure_datetime)}
           </p>
         </div>
@@ -516,20 +516,20 @@ function TripSummary({
       </div>
 
       <div className="mt-4 flex items-center gap-3">
-        <span className="max-w-[38%] truncate text-xs font-semibold text-ink-muted">
+        <span className="max-w-[38%] truncate text-xs font-semibold text-ink-muted dark:text-cream-100/80">
           {trip.origin_terminal.split(",")[0]}
         </span>
         <StopConnector className="flex-1" />
-        <span className="max-w-[38%] truncate text-right text-xs font-semibold text-ink-muted">
+        <span className="max-w-[38%] truncate text-right text-xs font-semibold text-ink-muted dark:text-cream-100/80">
           {trip.destination.split(",")[0]}
         </span>
       </div>
 
-      <div className="mt-4 flex items-baseline justify-between border-t border-cream-200 pt-3">
-        <span className="text-xs text-ink-soft">
+      <div className="mt-4 flex items-baseline justify-between border-t border-cream-200 pt-3 dark:border-white/10">
+        <span className="text-xs text-ink-soft dark:text-cream-100/70">
           {seats} × {naira(trip.fare_kobo)}
         </span>
-        <span className="tabular text-lg font-extrabold text-forest">
+        <span className="tabular text-lg font-extrabold text-forest dark:text-cream-50">
           {usingCredits ? `${seats} credit${seats === 1 ? "" : "s"}` : naira(total)}
         </span>
       </div>
@@ -540,8 +540,8 @@ function TripSummary({
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-baseline justify-between gap-4 py-2.5">
-      <dt className="shrink-0 text-ink-soft">{label}</dt>
-      <dd className="truncate text-right font-semibold text-ink">{value}</dd>
+      <dt className="shrink-0 text-ink-soft dark:text-cream-100/70">{label}</dt>
+      <dd className="truncate text-right font-semibold text-ink dark:text-cream-50">{value}</dd>
     </div>
   );
 }

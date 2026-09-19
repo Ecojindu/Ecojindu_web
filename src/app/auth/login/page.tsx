@@ -61,8 +61,8 @@ function LoginForm() {
     <div className="container flex min-h-[70vh] items-center py-12">
       <div className="mx-auto w-full max-w-md">
         <div className="mb-7 text-center">
-          <h1 className="text-display-sm font-extrabold text-forest">Welcome back</h1>
-          <p className="mt-2 text-sm text-ink-muted">
+          <h1 className="text-display-sm font-extrabold text-forest dark:text-cream-50">Welcome back</h1>
+          <p className="mt-2 text-sm text-ink-muted dark:text-cream-100/70">
             Sign in to see your trips, tickets and ride credits.
           </p>
         </div>
@@ -98,7 +98,7 @@ function LoginForm() {
                 <button
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
-                  className="absolute right-1 top-1 grid size-12 place-items-center rounded-lg text-ink-soft transition-colors hover:text-forest"
+                  className="absolute right-1 top-1 grid size-12 place-items-center rounded-lg text-ink-soft dark:text-cream-100/70 transition-colors hover:text-forest dark:hover:text-cream-50"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? <EyeOff className="size-5" aria-hidden /> : <Eye className="size-5" aria-hidden />}
@@ -109,7 +109,7 @@ function LoginForm() {
             <div className="flex justify-end">
               <Link
                 href="/auth/forgot"
-                className="text-sm font-semibold text-moss hover:underline"
+                className="text-sm font-semibold text-moss dark:text-leaf hover:underline"
               >
                 Forgot password?
               </Link>
@@ -122,16 +122,16 @@ function LoginForm() {
           </form>
         </Card>
 
-        <p className="mt-6 text-center text-sm text-ink-muted">
+        <p className="mt-6 text-center text-sm text-ink-muted dark:text-cream-100/70">
           New here?{" "}
-          <Link href="/auth/register" className="font-semibold text-moss hover:underline">
+          <Link href="/auth/register" className="font-semibold text-moss dark:text-leaf hover:underline">
             Create an account
           </Link>
         </p>
 
-        <p className="mt-3 text-center text-xs text-ink-soft">
+        <p className="mt-3 text-center text-xs text-ink-soft dark:text-cream-100/70">
           You don&apos;t need an account to book —{" "}
-          <Link href="/search" className="font-semibold text-moss hover:underline">
+          <Link href="/search" className="font-semibold text-moss dark:text-leaf hover:underline">
             book as a guest
           </Link>
           .

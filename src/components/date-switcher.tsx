@@ -43,10 +43,10 @@ export function DateSwitcher({
       <button
         type="button"
         onClick={() => nudge(-1)}
-        className="absolute -left-1 top-1/2 z-10 hidden size-9 -translate-y-1/2 place-items-center rounded-full bg-white shadow-soft sm:grid"
+        className="absolute -left-1 top-1/2 z-10 hidden size-9 -translate-y-1/2 place-items-center rounded-full bg-white shadow-soft dark:border dark:border-white/10 dark:bg-forest sm:grid"
         aria-label="Scroll to earlier dates"
       >
-        <ChevronLeft className="size-4 text-forest" aria-hidden />
+        <ChevronLeft className="size-4 text-forest dark:text-cream-50" aria-hidden />
       </button>
 
       <div
@@ -75,19 +75,19 @@ export function DateSwitcher({
                 active
                   ? "border-moss bg-moss text-white shadow-soft"
                   : soldOut
-                    ? "cursor-not-allowed border-cream-300 bg-cream-100 text-ink-soft/60"
-                    : "border-cream-300 bg-white text-forest hover:border-leaf",
+                    ? "cursor-not-allowed border-cream-300 bg-cream-100 text-ink-soft/60 dark:border-white/10 dark:bg-forest-light/20 dark:text-white/30"
+                    : "border-cream-300 bg-white text-forest hover:border-leaf dark:border-white/15 dark:bg-forest-light/40 dark:text-cream-50 dark:hover:border-leaf/60",
               )}
             >
               <span className="text-sm font-bold">{humanDayLabel(date)}</span>
               <span
                 className={cn(
                   "text-[10px] font-semibold",
-                  active ? "text-white/80" : soldOut ? "text-clay" : "text-ink-soft",
+                  active ? "text-white/80" : soldOut ? "text-clay" : "text-ink-soft dark:text-cream-100/70",
                 )}
               >
                 {seatsLeft === undefined
-                  ? " "
+                  ? " "
                   : soldOut
                     ? "Sold out"
                     : `${seatsLeft} seats`}
@@ -100,10 +100,10 @@ export function DateSwitcher({
       <button
         type="button"
         onClick={() => nudge(1)}
-        className="absolute -right-1 top-1/2 z-10 hidden size-9 -translate-y-1/2 place-items-center rounded-full bg-white shadow-soft sm:grid"
+        className="absolute -right-1 top-1/2 z-10 hidden size-9 -translate-y-1/2 place-items-center rounded-full bg-white shadow-soft dark:border dark:border-white/10 dark:bg-forest sm:grid"
         aria-label="Scroll to later dates"
       >
-        <ChevronRight className="size-4 text-forest" aria-hidden />
+        <ChevronRight className="size-4 text-forest dark:text-cream-50" aria-hidden />
       </button>
     </div>
   );

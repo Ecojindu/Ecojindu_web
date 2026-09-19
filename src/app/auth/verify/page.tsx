@@ -68,7 +68,7 @@ function VerifyForm() {
   if (!phone) {
     return (
       <div className="container py-16 text-center">
-        <h1 className="text-2xl font-extrabold text-forest">No phone number to verify</h1>
+        <h1 className="text-2xl font-extrabold text-forest dark:text-cream-50">No phone number to verify</h1>
         <Button asChild className="mt-6">
           <Link href="/auth/login">Sign in first</Link>
         </Button>
@@ -80,12 +80,12 @@ function VerifyForm() {
     <div className="container flex min-h-[70vh] items-center py-12">
       <div className="mx-auto w-full max-w-md">
         <div className="mb-7 text-center">
-          <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-leaf/15">
-            <ShieldCheck className="size-7 text-moss" aria-hidden />
+          <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-leaf/15 dark:bg-leaf/20">
+            <ShieldCheck className="size-7 text-moss dark:text-leaf" aria-hidden />
           </span>
-          <h1 className="mt-5 text-display-sm font-extrabold text-forest">Verify your number</h1>
-          <p className="mt-2 text-sm text-ink-muted">
-            We&apos;ll text a 6-digit code to <strong className="text-ink">{phone}</strong>.
+          <h1 className="mt-5 text-display-sm font-extrabold text-forest dark:text-cream-50">Verify your number</h1>
+          <p className="mt-2 text-sm text-ink-muted dark:text-cream-100/70">
+            We&apos;ll text a 6-digit code to <strong className="text-ink dark:text-cream-50">{phone}</strong>.
           </p>
         </div>
 
@@ -137,7 +137,7 @@ function VerifyForm() {
           </div>
         </Card>
 
-        <p className="mt-6 text-center text-xs leading-relaxed text-ink-soft">
+        <p className="mt-6 text-center text-xs leading-relaxed text-ink-soft dark:text-cream-100/70">
           Codes expire after 10 minutes. Never share yours — we&apos;ll never ask for it.
         </p>
       </div>

@@ -69,8 +69,8 @@ function RegisterForm() {
     <div className="container flex min-h-[70vh] items-center py-12">
       <div className="mx-auto w-full max-w-md">
         <div className="mb-7 text-center">
-          <h1 className="text-display-sm font-extrabold text-forest">Create your account</h1>
-          <p className="mt-2 text-sm text-ink-muted">
+          <h1 className="text-display-sm font-extrabold text-forest dark:text-cream-50">Create your account</h1>
+          <p className="mt-2 text-sm text-ink-muted dark:text-cream-100/70">
             Keep all your trips, tickets and ride credits in one place.
           </p>
         </div>
@@ -139,7 +139,7 @@ function RegisterForm() {
                 <button
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
-                  className="absolute right-1 top-1 grid size-12 place-items-center rounded-lg text-ink-soft transition-colors hover:text-forest"
+                  className="absolute right-1 top-1 grid size-12 place-items-center rounded-lg text-ink-soft dark:text-cream-100/70 transition-colors hover:text-forest dark:hover:text-cream-50"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? <EyeOff className="size-5" aria-hidden /> : <Eye className="size-5" aria-hidden />}
@@ -154,9 +154,9 @@ function RegisterForm() {
           </form>
         </Card>
 
-        <p className="mt-6 text-center text-sm text-ink-muted">
+        <p className="mt-6 text-center text-sm text-ink-muted dark:text-cream-100/70">
           Already have an account?{" "}
-          <Link href="/auth/login" className="font-semibold text-moss hover:underline">
+          <Link href="/auth/login" className="font-semibold text-moss dark:text-leaf hover:underline">
             Sign in
           </Link>
         </p>

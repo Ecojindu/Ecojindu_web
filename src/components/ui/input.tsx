@@ -21,10 +21,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           "placeholder:text-ink-soft/70",
           "transition-colors duration-150",
           "focus:outline-none focus-visible:ring-0",
+          "dark:bg-forest/50 dark:border-white/15 dark:text-cream-50 dark:placeholder:text-cream-100/40 dark:focus:border-leaf",
           invalid
-            ? "border-clay focus:border-clay"
+            ? "border-clay focus:border-clay dark:border-clay"
             : "border-cream-300 focus:border-moss",
-          "disabled:cursor-not-allowed disabled:bg-cream-100 disabled:opacity-60",
+          "disabled:cursor-not-allowed disabled:bg-cream-100 disabled:opacity-60 dark:disabled:bg-forest-dark/50",
           leadingAddon && "rounded-l-none border-l-0 pl-2",
           className,
         )}
@@ -40,6 +41,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           className={cn(
             "flex h-14 items-center rounded-l-xl border-2 border-r-0 bg-cream-100 px-3",
             "text-base font-medium text-ink-muted",
+            "dark:bg-forest/70 dark:border-white/15 dark:text-cream-100/80",
             invalid ? "border-clay" : "border-cream-300",
           )}
           aria-hidden

@@ -16,12 +16,12 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary: "bg-moss text-white shadow-soft hover:bg-moss-dark hover:shadow-lift",
-        forest: "bg-forest text-white shadow-soft hover:bg-forest-light hover:shadow-lift",
+        forest: "bg-forest text-white shadow-soft hover:bg-forest-light hover:shadow-lift dark:bg-forest-light dark:hover:bg-forest",
         accent: "bg-teal text-white shadow-soft hover:bg-teal-dark hover:shadow-lift",
-        outline: "border-2 border-forest/20 bg-transparent text-forest hover:border-forest/40 hover:bg-white",
-        secondary: "bg-white text-forest shadow-soft hover:bg-cream-100",
-        ghost: "text-forest hover:bg-forest/[0.06]",
-        link: "text-moss underline-offset-4 hover:underline",
+        outline: "border-2 border-forest/20 bg-transparent text-forest hover:border-forest/40 hover:bg-white dark:border-white/20 dark:text-cream-50 dark:hover:bg-white/10 dark:hover:border-white/40",
+        secondary: "bg-white text-forest shadow-soft hover:bg-cream-100 dark:bg-forest-light/60 dark:text-cream-50 dark:hover:bg-forest-light",
+        ghost: "text-forest hover:bg-forest/[0.06] dark:text-cream-50 dark:hover:bg-white/10",
+        link: "text-moss underline-offset-4 hover:underline dark:text-leaf-light",
         danger: "bg-clay text-white shadow-soft hover:bg-clay-dark",
         whatsapp: "bg-[#25D366] text-white shadow-soft hover:bg-[#1EBE5A]",
       },

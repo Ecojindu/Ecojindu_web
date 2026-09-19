@@ -240,14 +240,14 @@ export default function ConfirmPage() {
     <div className="container max-w-lg pb-36 pt-6">
       <Link
         href="/"
-        className="mb-4 inline-flex items-center gap-1.5 text-sm font-semibold text-ink-muted hover:text-forest"
+        className="mb-4 inline-flex items-center gap-1.5 text-sm font-semibold text-ink-muted hover:text-forest dark:text-cream-100/75 dark:hover:text-cream-50"
       >
         <ArrowLeft className="size-4" aria-hidden />
         Back
       </Link>
 
       <h1 className="text-display-sm font-extrabold text-forest dark:text-cream-50">Confirm</h1>
-      <p className="mt-1 text-sm text-ink-muted">One screen — check the details, then pay.</p>
+      <p className="mt-1 text-sm text-ink-muted dark:text-cream-100/75">One screen — check the details, then pay.</p>
 
       {/* Shuttle */}
       <section className="mt-5 rounded-2xl border border-cream-300 bg-white p-4 shadow-soft dark:border-white/10 dark:bg-forest/50">
@@ -255,22 +255,22 @@ export default function ConfirmPage() {
           <>
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-moss">Your shuttle</p>
+                <p className="text-xs font-semibold uppercase tracking-wider text-moss dark:text-leaf-light">Your shuttle</p>
                 <p className="mt-1 text-lg font-extrabold tabular text-forest dark:text-cream-50">
                   {formatDate(trip.departure_datetime)} · {formatTime(trip.departure_datetime)}
                 </p>
-                <p className="mt-1 text-sm text-ink-muted">
+                <p className="mt-1 text-sm text-ink-muted dark:text-cream-100/75">
                   {trip.origin_terminal} → {trip.destination}
                 </p>
                 {trip.arrival_estimate ? (
-                  <p className="mt-1 text-sm text-ink-muted">
+                  <p className="mt-1 text-sm text-ink-muted dark:text-cream-100/75">
                     Arrive airport ~{formatTime(trip.arrival_estimate)}
                   </p>
                 ) : null}
               </div>
               <button
                 type="button"
-                className="shrink-0 text-sm font-bold text-moss underline-offset-2 hover:underline"
+                className="shrink-0 text-sm font-bold text-moss underline-offset-2 hover:underline dark:text-leaf-light"
                 onClick={() => setSheetOpen(true)}
               >
                 Change departure
@@ -281,7 +281,7 @@ export default function ConfirmPage() {
                 {matchMessage || "This is the nearest earlier option before your check-in time."}
               </Alert>
             ) : matchMessage ? (
-              <p className="mt-3 text-xs text-ink-soft">{matchMessage}</p>
+              <p className="mt-3 text-xs text-ink-soft dark:text-cream-100/70">{matchMessage}</p>
             ) : null}
           </>
         ) : (
@@ -341,7 +341,7 @@ export default function ConfirmPage() {
         <Field label="Sex (for seating)" htmlFor="sex" optional hint="Only if operations need it — leave blank if unsure.">
           <select
             id="sex"
-            className="h-12 w-full rounded-xl border border-cream-400 bg-white px-3 text-sm dark:border-white/20 dark:bg-forest-dark"
+            className="h-12 w-full rounded-xl border border-cream-400 bg-white px-3 text-sm text-ink focus:border-moss focus:outline-none dark:border-white/20 dark:bg-forest-dark dark:text-cream-50 dark:focus:border-leaf"
             value={sex}
             onChange={(e) => setSex(e.target.value as typeof sex)}
           >
@@ -359,17 +359,17 @@ export default function ConfirmPage() {
           onClick={() => setPickupSheet(true)}
           className="rounded-2xl border border-cream-300 bg-white p-4 text-left shadow-soft dark:border-white/10 dark:bg-forest/50"
         >
-          <p className="text-xs font-semibold uppercase tracking-wider text-ink-soft">Pickup</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-ink-soft dark:text-cream-100/70">Pickup</p>
           <p className="mt-1 text-base font-bold text-forest dark:text-cream-50">{pickup}</p>
-          <p className="mt-1 text-xs font-semibold text-moss">Change</p>
+          <p className="mt-1 text-xs font-semibold text-moss dark:text-leaf-light">Change</p>
         </button>
 
         <div className="rounded-2xl border border-cream-300 bg-white p-4 shadow-soft dark:border-white/10 dark:bg-forest/50">
-          <p className="text-xs font-semibold uppercase tracking-wider text-ink-soft">Seats</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-ink-soft dark:text-cream-100/70">Seats</p>
           <div className="mt-2 flex items-center justify-between gap-3">
             <button
               type="button"
-              className="tap-target grid place-items-center rounded-full border border-cream-400"
+              className="tap-target grid place-items-center rounded-full border border-cream-400 dark:border-white/20 text-forest dark:text-cream-50"
               aria-label="Fewer seats"
               disabled={seats <= 1}
               onClick={() => setSeats((s) => Math.max(1, s - 1))}
@@ -379,7 +379,7 @@ export default function ConfirmPage() {
             <span className="text-xl font-extrabold tabular text-forest dark:text-cream-50">{seats}</span>
             <button
               type="button"
-              className="tap-target grid place-items-center rounded-full border border-cream-400"
+              className="tap-target grid place-items-center rounded-full border border-cream-400 dark:border-white/20 text-forest dark:text-cream-50"
               aria-label="More seats"
               disabled={seats >= maxSeats}
               onClick={() => setSeats((s) => Math.min(maxSeats, s + 1))}
@@ -391,7 +391,7 @@ export default function ConfirmPage() {
       </section>
 
       {state.extraction.flight_number ? (
-        <p className="mt-4 text-xs text-ink-soft">
+        <p className="mt-4 text-xs text-ink-soft dark:text-cream-100/70">
           Flight {state.extraction.airline ? `${state.extraction.airline} ` : ""}
           {state.extraction.flight_number}
           {state.extraction.departure_datetime
@@ -442,17 +442,17 @@ export default function ConfirmPage() {
                 <button
                   type="button"
                   className={`w-full rounded-2xl border p-4 text-left ${
-                    selected ? "border-moss bg-leaf/10" : "border-cream-300 bg-white"
+                    selected ? "border-moss bg-leaf/10 dark:bg-leaf/20" : "border-cream-300 bg-white dark:border-white/10 dark:bg-forest/50"
                   }`}
                   onClick={() => {
                     setTrip(option);
                     setSheetOpen(false);
                   }}
                 >
-                  <p className="font-bold text-forest">
+                  <p className="font-bold text-forest dark:text-cream-50">
                     {formatTime(option.departure_datetime)} · {formatDate(option.departure_datetime)}
                   </p>
-                  <p className="mt-1 text-sm text-ink-muted">
+                  <p className="mt-1 text-sm text-ink-muted dark:text-cream-100/75">
                     {option.seats_available} seats · {naira(option.fare_kobo || productConfig.singleFareKobo)}
                   </p>
                 </button>
@@ -461,7 +461,7 @@ export default function ConfirmPage() {
           })}
         </ul>
         {!alternatives.length && !trip ? (
-          <p className="text-sm text-ink-muted">No other departures available. Try another pickup city.</p>
+          <p className="text-sm text-ink-muted dark:text-cream-100/75">No other departures available. Try another pickup city.</p>
         ) : null}
       </BottomSheet>
 

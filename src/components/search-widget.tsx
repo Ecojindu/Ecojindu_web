@@ -111,12 +111,12 @@ export function SearchWidget({
   return (
     <form
       onSubmit={submit}
-      className={cn("rounded-3xl border border-cream-300 bg-white p-3 shadow-lift sm:p-5", className)}
+      className={cn("rounded-3xl border border-cream-300 bg-white p-3 shadow-lift sm:p-5 dark:border-white/10 dark:bg-forest-light/40 dark:shadow-none", className)}
       aria-label="Find a departure"
     >
       {/* ── Service type ── */}
       <div
-        className="mb-4 flex gap-1 rounded-2xl bg-cream-100 p-1.5 sm:gap-1.5"
+        className="mb-4 flex gap-1 rounded-2xl bg-cream-100 p-1.5 sm:gap-1.5 dark:bg-forest-dark/70"
         role="tablist"
         aria-label="Service type"
       >
@@ -134,16 +134,16 @@ export function SearchWidget({
               className={cn(
                 "tap-target relative flex flex-1 items-center justify-center gap-1.5 rounded-xl px-2",
                 "text-[13px] font-bold transition-all sm:gap-2 sm:px-3 sm:text-sm",
-                active && "bg-white text-forest shadow-soft",
-                !active && item.live && "text-ink-muted hover:text-forest",
-                !item.live && "cursor-not-allowed text-ink-soft/50",
+                active && "bg-white text-forest shadow-soft dark:bg-forest dark:text-cream-50",
+                !active && item.live && "text-ink-muted hover:text-forest dark:text-cream-100/70 dark:hover:text-cream-50",
+                !item.live && "cursor-not-allowed text-ink-soft/50 dark:text-white/30",
               )}
             >
               <item.icon className="size-4 shrink-0" aria-hidden />
               <span className="whitespace-nowrap sm:hidden">{item.shortLabel}</span>
               <span className="hidden whitespace-nowrap sm:inline">{item.label}</span>
               {!item.live && (
-                <span className="ml-0.5 hidden rounded-full bg-cream-300 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-ink-soft md:inline">
+                <span className="ml-0.5 hidden rounded-full bg-cream-300 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-ink-soft md:inline dark:bg-white/10 dark:text-cream-100/60">
                   Soon
                 </span>
               )}
@@ -161,7 +161,7 @@ export function SearchWidget({
             <div className="min-w-0">
               <label
                 htmlFor="route"
-                className="mb-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink-soft"
+                className="mb-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink-soft dark:text-cream-100/70"
               >
                 <MapPin className="size-3.5" aria-hidden />
                 From → To
@@ -188,7 +188,7 @@ export function SearchWidget({
             <div className="min-w-0">
               <label
                 htmlFor="date"
-                className="mb-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink-soft"
+                className="mb-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink-soft dark:text-cream-100/70"
               >
                 <CalendarDays className="size-3.5" aria-hidden />
                 Travel date
@@ -200,7 +200,7 @@ export function SearchWidget({
                 min={today}
                 max={addDaysISO(today, 60)}
                 onChange={(e) => setDate(e.target.value)}
-                className="h-14 w-full rounded-xl border-2 border-cream-300 bg-white px-4 text-base text-ink focus:border-moss focus:outline-none"
+                className="h-14 w-full rounded-xl border-2 border-cream-300 bg-white px-4 text-base text-ink focus:border-moss focus:outline-none dark:border-white/15 dark:bg-forest/50 dark:text-cream-50 dark:focus:border-leaf"
               />
             </div>
 
@@ -208,7 +208,7 @@ export function SearchWidget({
             <div className="min-w-0">
               <label
                 htmlFor="passengers"
-                className="mb-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink-soft"
+                className="mb-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink-soft dark:text-cream-100/70"
               >
                 <Users className="size-3.5" aria-hidden />
                 Passengers
@@ -232,16 +232,16 @@ export function SearchWidget({
           <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
             <div aria-live="polite">
               {service === "charter" ? (
-                <p className="text-sm text-ink-muted">
+                <p className="text-sm text-ink-muted dark:text-cream-100/80">
                   Whole-vehicle hire ·{" "}
-                  <span className="font-semibold text-forest">{seats} passengers</span>
+                  <span className="font-semibold text-forest dark:text-cream-50">{seats} passengers</span>
                 </p>
               ) : (
                 <>
-                  <p className="tabular text-2xl font-extrabold leading-none text-forest">
+                  <p className="tabular text-2xl font-extrabold leading-none text-forest dark:text-cream-50">
                     {naira(total)}
                   </p>
-                  <p className="mt-1 text-xs text-ink-soft">
+                  <p className="mt-1 text-xs text-ink-soft dark:text-cream-100/70">
                     {seats} {seats === 1 ? "seat" : "seats"}
                     {` · ${naira(fareKobo)} each`}
                   </p>
@@ -271,7 +271,7 @@ export function SearchWidget({
           </div>
 
           {seats > GROUP_THRESHOLD && service !== "charter" && (
-            <p className="mt-3 rounded-xl bg-leaf/[0.10] px-3.5 py-2.5 text-[13px] leading-relaxed text-moss-dark">
+            <p className="mt-3 rounded-xl bg-leaf/[0.10] px-3.5 py-2.5 text-[13px] leading-relaxed text-moss-dark dark:bg-leaf/20 dark:text-leaf-light">
               That&apos;s a group booking — we may be able to offer you better terms.{" "}
               <button
                 type="button"
@@ -288,7 +288,7 @@ export function SearchWidget({
             <button
               type="button"
               onClick={() => setRouteId(reverse.id)}
-              className="mt-3 inline-flex items-center gap-1.5 rounded-full px-2 py-1.5 text-xs font-semibold text-moss transition-colors hover:text-moss-dark"
+              className="mt-3 inline-flex items-center gap-1.5 rounded-full px-2 py-1.5 text-xs font-semibold text-moss transition-colors hover:text-moss-dark dark:text-leaf-light dark:hover:text-leaf"
             >
               <ArrowRightLeft className="size-3.5" aria-hidden />
               Swap direction — {shortRouteLabel(reverse)}
@@ -306,10 +306,10 @@ export function SearchWidget({
 
 function ComingSoon() {
   return (
-    <div className="rounded-2xl border-2 border-dashed border-cream-400 px-6 py-10 text-center">
-      <TrainFront className="mx-auto size-8 text-ink-soft" aria-hidden />
-      <p className="mt-3 text-base font-bold text-forest">Railways transfers are coming</p>
-      <p className="mx-auto mt-1.5 max-w-sm text-sm leading-relaxed text-ink-soft">
+    <div className="rounded-2xl border-2 border-dashed border-cream-400 px-6 py-10 text-center dark:border-white/15 dark:bg-forest/30">
+      <TrainFront className="mx-auto size-8 text-ink-soft dark:text-cream-100/60" aria-hidden />
+      <p className="mt-3 text-base font-bold text-forest dark:text-cream-50">Railways transfers are coming</p>
+      <p className="mx-auto mt-1.5 max-w-sm text-sm leading-relaxed text-ink-soft dark:text-cream-100/70">
         We&apos;re working on connecting the rail terminus to the same fixed timetable. Airport
         transfers are running today.
       </p>

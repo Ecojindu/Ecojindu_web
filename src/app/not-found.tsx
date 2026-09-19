@@ -9,13 +9,13 @@ export default function NotFound() {
     <div className="container flex min-h-[70vh] items-center py-16">
       <div className="mx-auto max-w-md text-center">
         <RouteLine className="mx-auto mb-6 h-20 opacity-60" />
-        <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-leaf/15">
-          <Compass className="size-7 text-moss" aria-hidden />
+        <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-leaf/15 dark:bg-leaf/20">
+          <Compass className="size-7 text-moss dark:text-leaf" aria-hidden />
         </span>
-        <h1 className="mt-5 text-display-sm font-extrabold text-forest">
+        <h1 className="mt-5 text-display-sm font-extrabold text-forest dark:text-cream-50">
           This stop isn&apos;t on our route
         </h1>
-        <p className="mt-2 text-pretty text-sm leading-relaxed text-ink-muted">
+        <p className="mt-2 text-pretty text-sm leading-relaxed text-ink-muted dark:text-cream-100/70">
           The page you were after doesn&apos;t exist. Let&apos;s get you back on board.
         </p>
         <div className="mt-8 flex flex-col gap-2 sm:flex-row sm:justify-center">

@@ -57,8 +57,8 @@ function ResetForm() {
     return (
       <div className="container flex min-h-[70vh] items-center py-12">
         <Card className="mx-auto w-full max-w-md p-8 text-center">
-          <h1 className="text-xl font-extrabold text-forest">This link is incomplete</h1>
-          <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+          <h1 className="text-xl font-extrabold text-forest dark:text-cream-50">This link is incomplete</h1>
+          <p className="mt-2 text-sm leading-relaxed text-ink-muted dark:text-cream-100/70">
             Open the reset link from your email exactly as we sent it, or request a new one.
           </p>
           <Button asChild block className="mt-7">
@@ -73,10 +73,10 @@ function ResetForm() {
     <div className="container flex min-h-[70vh] items-center py-12">
       <div className="mx-auto w-full max-w-md">
         <div className="mb-7 text-center">
-          <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-leaf/15">
-            <KeyRound className="size-7 text-moss" aria-hidden />
+          <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-leaf/15 dark:bg-leaf/20">
+            <KeyRound className="size-7 text-moss dark:text-leaf" aria-hidden />
           </span>
-          <h1 className="mt-5 text-display-sm font-extrabold text-forest">Set a new password</h1>
+          <h1 className="mt-5 text-display-sm font-extrabold text-forest dark:text-cream-50">Set a new password</h1>
         </div>
 
         <Card className="p-6 sm:p-8">

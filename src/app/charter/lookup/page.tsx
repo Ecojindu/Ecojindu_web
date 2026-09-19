@@ -96,10 +96,10 @@ function CharterLookup() {
       <div className="mx-auto max-w-lg">
         <div className="text-center">
           <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-leaf/15">
-            <Bus className="size-7 text-moss" aria-hidden />
+            <Bus className="size-7 text-moss dark:text-leaf-light" aria-hidden />
           </span>
-          <h1 className="mt-5 text-display-sm font-extrabold text-forest">Your charter</h1>
-          <p className="mt-2 text-pretty text-sm leading-relaxed text-ink-muted">
+          <h1 className="mt-5 text-display-sm font-extrabold text-forest dark:text-cream-50">Your charter</h1>
+          <p className="mt-2 text-pretty text-sm leading-relaxed text-ink-muted dark:text-cream-100/75">
             Enter your reference and the phone number you booked with to see your quote.
           </p>
         </div>
@@ -147,17 +147,17 @@ function CharterLookup() {
           <Card className="mt-6 animate-fade-up p-6">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="font-mono text-lg font-extrabold tracking-wider text-forest">
+                <p className="font-mono text-lg font-extrabold tracking-wider text-forest dark:text-cream-50">
                   {charter.reference}
                 </p>
-                <p className="mt-0.5 text-sm text-ink-muted">
+                <p className="mt-0.5 text-sm text-ink-muted dark:text-cream-100/75">
                   {charter.origin_text} → {charter.destination_text}
                 </p>
               </div>
               <Badge variant={badge.variant}>{badge.label}</Badge>
             </div>
 
-            <dl className="mt-5 divide-y divide-cream-200 text-sm">
+            <dl className="mt-5 divide-y divide-cream-200 text-sm dark:divide-white/10">
               <Row label="Date" value={formatDate(`${charter.service_date}T09:00:00+01:00`)} />
               {charter.preferred_time && (
                 <Row label="Preferred time" value={charter.preferred_time.slice(0, 5)} />
@@ -169,11 +169,11 @@ function CharterLookup() {
             </dl>
 
             {charter.quoted_amount_kobo !== null && (
-              <div className="mt-5 flex items-baseline justify-between rounded-xl bg-cream-100 px-4 py-4">
-                <span className="text-sm font-semibold text-ink-muted">
+              <div className="mt-5 flex items-baseline justify-between rounded-xl bg-cream-100 px-4 py-4 dark:bg-forest-dark/70">
+                <span className="text-sm font-semibold text-ink-muted dark:text-cream-100/80">
                   {charter.status === "quoted" ? "Your quote" : "Amount"}
                 </span>
-                <span className="tabular text-3xl font-extrabold text-forest">
+                <span className="tabular text-3xl font-extrabold text-forest dark:text-cream-50">
                   {naira(charter.quoted_amount_kobo)}
                 </span>
               </div>
@@ -218,16 +218,16 @@ function CharterLookup() {
           </Card>
         )}
 
-        <p className="mt-8 text-center text-xs leading-relaxed text-ink-soft">
+        <p className="mt-8 text-center text-xs leading-relaxed text-ink-soft dark:text-cream-100/70">
           Need to change something?{" "}
-          <a href="tel:+2348154471570" className="font-semibold text-moss hover:underline">
+          <a href="tel:+2348154471570" className="font-semibold text-moss hover:underline dark:text-leaf-light">
             Call +234 815 447 1570
           </a>{" "}
           quoting your reference.
         </p>
 
         <p className="mt-3 text-center text-sm">
-          <Link href="/charter" className="font-semibold text-moss hover:underline">
+          <Link href="/charter" className="font-semibold text-moss hover:underline dark:text-leaf-light">
             Request a new charter
           </Link>
         </p>
@@ -239,8 +239,8 @@ function CharterLookup() {
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-baseline justify-between gap-4 py-2.5">
-      <dt className="shrink-0 text-xs text-ink-soft">{label}</dt>
-      <dd className="text-right font-semibold text-ink">{value}</dd>
+      <dt className="shrink-0 text-xs text-ink-soft dark:text-cream-100/70">{label}</dt>
+      <dd className="text-right font-semibold text-ink dark:text-cream-50">{value}</dd>
     </div>
   );
 }

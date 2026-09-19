@@ -22,11 +22,11 @@ export default async function CharterPage() {
   return (
     <div>
       <div className="container max-w-2xl pt-8 sm:pt-12">
-        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-moss">Charter</p>
+        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-moss dark:text-leaf-light">Charter</p>
         <h1 className="mt-2 text-display-sm font-extrabold text-forest dark:text-cream-50">
           Private EV for your group
         </h1>
-        <p className="mt-2 text-ink-muted">
+        <p className="mt-2 text-ink-muted dark:text-cream-100/75">
           Tell us the route, date, passenger count and a callback number. If we can quote instantly
           from published rules, you will see an estimate — otherwise operations call you back.
         </p>
@@ -38,7 +38,7 @@ export default async function CharterPage() {
                 className="flex justify-between rounded-xl border border-cream-300 bg-white/80 px-4 py-3 dark:border-white/10 dark:bg-forest/40"
               >
                 <span className="font-medium text-forest dark:text-cream-100">{route.name}</span>
-                <span className="font-bold tabular">
+                <span className="font-bold tabular text-forest dark:text-cream-50">
                   {route.charter_fare_kobo
                     ? `from ${naira(route.charter_fare_kobo)}`
                     : "Quote on request"}
@@ -47,10 +47,10 @@ export default async function CharterPage() {
             ))}
           </ul>
         ) : (
-          <p className="mt-4 text-sm text-ink-muted">
+          <p className="mt-4 text-sm text-ink-muted dark:text-cream-100/75">
             Single seats are {naira(productConfig.singleFareKobo)}. For a full vehicle, submit the
             form below or email{" "}
-            <a className="font-semibold text-moss" href={`mailto:${config.contactEmail}`}>
+            <a className="font-semibold text-moss dark:text-leaf-light" href={`mailto:${config.contactEmail}`}>
               {config.contactEmail}
             </a>
             .
@@ -58,7 +58,7 @@ export default async function CharterPage() {
         )}
         <p className="mt-3 text-sm">
           Already requested?{" "}
-          <Link href="/charter/lookup" className="font-semibold text-moss underline-offset-2 hover:underline">
+          <Link href="/charter/lookup" className="font-semibold text-moss underline-offset-2 hover:underline dark:text-leaf-light">
             Look up your charter
           </Link>
         </p>

@@ -36,13 +36,35 @@
     color-scheme: dark;
   }
 
+  /* Global dark-mode color accessibility overrides */
+  .dark .text-forest {
+    color: #FAFAF6;
+  }
+  .dark .text-ink {
+    color: #F5F4EC;
+  }
+  .dark .text-ink-muted {
+    color: rgba(245, 244, 236, 0.80);
+  }
+  .dark .text-ink-soft {
+    color: rgba(245, 244, 236, 0.65);
+  }
+
   /* Visible, on-brand focus. Never remove the outline — WCAG 2.4.7. */
   :focus-visible {
     @apply outline-none ring-2 ring-moss ring-offset-2 ring-offset-cream;
   }
 
+  .dark :focus-visible {
+    @apply ring-leaf ring-offset-forest-dark;
+  }
+
   ::selection {
     @apply bg-leaf/30 text-forest;
+  }
+
+  .dark ::selection {
+    @apply bg-leaf/40 text-cream-50;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -62,7 +84,7 @@
   .skip-link {
     @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100]
            focus:rounded-full focus:bg-forest focus:px-5 focus:py-3 focus:text-sm
-           focus:font-semibold focus:text-white;
+           focus:font-semibold focus:text-white dark:focus:bg-leaf dark:focus:text-forest-dark;
   }
 
   /* Every interactive target is at least 48px — thumbs, not cursors. */
@@ -71,15 +93,15 @@
   }
 
   .card-surface {
-    @apply rounded-2xl border border-cream-300 bg-white shadow-soft;
+    @apply rounded-2xl border border-cream-300 bg-white shadow-soft dark:border-white/10 dark:bg-forest/40 dark:shadow-none;
   }
 
   .shimmer {
-    @apply relative overflow-hidden bg-cream-200;
+    @apply relative overflow-hidden bg-cream-200 dark:bg-forest/60;
   }
   .shimmer::after {
     @apply absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r
-           from-transparent via-white/60 to-transparent;
+           from-transparent via-white/60 dark:via-white/15 to-transparent;
     content: "";
   }
 
@@ -88,7 +110,7 @@
     @apply relative flex-1;
   }
   .route-connector::before {
-    @apply absolute left-0 right-0 top-1/2 border-t-2 border-dashed border-cream-400;
+    @apply absolute left-0 right-0 top-1/2 border-t-2 border-dashed border-cream-400 dark:border-white/20;
     content: "";
   }
 }

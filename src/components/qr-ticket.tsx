@@ -46,26 +46,26 @@ export function QrTicket({
 
   return (
     <div className={cn("mx-auto w-full max-w-sm", className)}>
-      <div className="overflow-hidden rounded-3xl bg-white shadow-lift">
+      <div className="overflow-hidden rounded-3xl bg-white shadow-lift dark:border dark:border-white/10 dark:bg-forest-light/30 dark:shadow-none">
         {/* Stub header */}
-        <div className="bg-forest px-6 py-5 text-white">
+        <div className="bg-forest px-6 py-5 text-white dark:bg-forest-light">
           <div className="flex items-start justify-between gap-3">
             <div>
               <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-leaf-light">
                 Boarding pass
               </p>
-              <p className="mt-1 text-lg font-extrabold tracking-tight">Ecojindu Shuttle</p>
+              <p className="mt-1 text-lg font-extrabold tracking-tight text-white">Ecojindu Shuttle</p>
             </div>
             <Ticket className="size-6 text-leaf" aria-hidden />
           </div>
         </div>
 
         {/* Reference */}
-        <div className="border-b border-dashed border-cream-400 px-6 py-5 text-center">
-          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-moss">
+        <div className="border-b border-dashed border-cream-400 px-6 py-5 text-center dark:border-white/15">
+          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-moss dark:text-leaf-light">
             Booking reference
           </p>
-          <p className="tabular mt-1 font-mono text-3xl font-extrabold tracking-[0.12em] text-forest">
+          <p className="tabular mt-1 font-mono text-3xl font-extrabold tracking-[0.12em] text-forest dark:text-cream-50">
             {booking.booking_ref}
           </p>
           <div className="mt-3 flex justify-center">
@@ -77,17 +77,17 @@ export function QrTicket({
         <div className="relative px-6 py-6">
           {/* Perforation notches */}
           <span
-            className="absolute -left-3 top-0 size-6 -translate-y-1/2 rounded-full bg-cream"
+            className="absolute -left-3 top-0 size-6 -translate-y-1/2 rounded-full bg-cream dark:bg-forest-dark"
             aria-hidden
           />
           <span
-            className="absolute -right-3 top-0 size-6 -translate-y-1/2 rounded-full bg-cream"
+            className="absolute -right-3 top-0 size-6 -translate-y-1/2 rounded-full bg-cream dark:bg-forest-dark"
             aria-hidden
           />
 
-          <div className="mx-auto grid aspect-square w-full max-w-[240px] place-items-center rounded-2xl border-2 border-dashed border-cream-400 p-3">
+          <div className="mx-auto grid aspect-square w-full max-w-[240px] place-items-center rounded-2xl border-2 border-dashed border-cream-400 bg-white p-3 dark:border-white/20">
             {imageFailed ? (
-              <p className="px-4 text-center text-xs text-ink-soft">
+              <p className="px-4 text-center text-xs text-ink-soft dark:text-forest">
                 The QR image couldn&apos;t load. Your reference above is still valid at the gate.
               </p>
             ) : (
@@ -101,14 +101,14 @@ export function QrTicket({
               />
             )}
           </div>
-          <p className="mt-3 text-center text-xs text-ink-soft">
+          <p className="mt-3 text-center text-xs text-ink-soft dark:text-cream-100/70">
             Show this at the Nnenna Otti Bus Terminal gate
           </p>
         </div>
 
         {/* Trip detail */}
         {trip && (
-          <dl className="border-t border-cream-200 px-6 py-5 text-sm">
+          <dl className="border-t border-cream-200 px-6 py-5 text-sm dark:border-white/10">
             <Row label="Passenger" value={booking.passenger_name} />
             <Row label="Route" value={trip.route_name} />
             <Row label="Date" value={formatDateLong(trip.departure_datetime)} />
@@ -135,7 +135,7 @@ export function QrTicket({
             <Download aria-hidden />
             Download ticket
           </Button>
-          <p className="flex items-center justify-center gap-4 pt-1 text-xs text-ink-soft">
+          <p className="flex items-center justify-center gap-4 pt-1 text-xs text-ink-soft dark:text-cream-100/70">
             <span className="inline-flex items-center gap-1.5">
               <Mail className="size-3.5" aria-hidden />
               Emailed
@@ -153,12 +153,12 @@ export function QrTicket({
 
 function Row({ label, value, emphasis }: { label: string; value: string; emphasis?: boolean }) {
   return (
-    <div className="flex items-baseline justify-between gap-4 border-b border-cream-200 py-2.5 last:border-0">
-      <dt className="shrink-0 text-xs text-ink-soft">{label}</dt>
+    <div className="flex items-baseline justify-between gap-4 border-b border-cream-200 py-2.5 last:border-0 dark:border-white/10">
+      <dt className="shrink-0 text-xs text-ink-soft dark:text-cream-100/70">{label}</dt>
       <dd
         className={cn(
-          "text-right text-sm font-semibold text-ink",
-          emphasis && "text-base font-extrabold text-forest",
+          "text-right text-sm font-semibold text-ink dark:text-cream-50",
+          emphasis && "text-base font-extrabold text-forest dark:text-leaf-light",
         )}
       >
         {value}

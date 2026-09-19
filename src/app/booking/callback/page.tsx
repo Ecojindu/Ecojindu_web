@@ -23,9 +23,9 @@ function Verifying() {
   return (
     <div className="container flex min-h-[60vh] items-center justify-center py-16">
       <div className="text-center">
-        <Loader2 className="mx-auto size-10 animate-spin text-moss" aria-hidden />
-        <h1 className="mt-6 text-xl font-extrabold text-forest">Confirming your payment…</h1>
-        <p className="mt-2 text-sm text-ink-muted">This usually takes a second or two.</p>
+        <Loader2 className="mx-auto size-10 animate-spin text-moss dark:text-leaf" aria-hidden />
+        <h1 className="mt-6 text-xl font-extrabold text-forest dark:text-cream-50">Confirming your payment…</h1>
+        <p className="mt-2 text-sm text-ink-muted dark:text-cream-100/70">This usually takes a second or two.</p>
       </div>
     </div>
   );
@@ -93,11 +93,11 @@ function Outcome({ title, body }: { title: string; body: string }) {
   return (
     <div className="container py-16">
       <Card className="mx-auto max-w-md p-8 text-center">
-        <span className="mx-auto grid size-14 place-items-center rounded-full bg-clay-light">
+        <span className="mx-auto grid size-14 place-items-center rounded-full bg-clay-light dark:bg-clay/20">
           <XCircle className="size-7 text-clay" aria-hidden />
         </span>
-        <h1 className="mt-5 text-xl font-extrabold text-forest">{title}</h1>
-        <p className="mt-2 text-pretty text-sm leading-relaxed text-ink-muted">{body}</p>
+        <h1 className="mt-5 text-xl font-extrabold text-forest dark:text-cream-50">{title}</h1>
+        <p className="mt-2 text-pretty text-sm leading-relaxed text-ink-muted dark:text-cream-100/70">{body}</p>
         <div className="mt-7 flex flex-col gap-2">
           <Button asChild block>
             <Link href="/search">Find another departure</Link>
