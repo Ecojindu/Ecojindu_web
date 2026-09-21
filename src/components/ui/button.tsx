@@ -10,24 +10,40 @@ import { cn } from "@/lib/utils";
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-semibold " +
     "transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-moss " +
-    "focus-visible:ring-offset-2 focus-visible:ring-offset-cream disabled:pointer-events-none " +
-    "disabled:opacity-50 active:scale-[0.98] [&_svg]:size-[1.15em] [&_svg]:shrink-0",
+    "focus-visible:ring-offset-2 focus-visible:ring-offset-cream " +
+    "disabled:pointer-events-none active:scale-[0.98] [&_svg]:size-[1.15em] [&_svg]:shrink-0 " +
+    /* Disabled reads as disabled — neutral fill, not faded primary green */
+    "disabled:bg-cream-300 disabled:text-ink-soft disabled:shadow-none disabled:opacity-100 " +
+    "dark:disabled:bg-white/10 dark:disabled:text-cream-100/45",
   {
     variants: {
       variant: {
-        primary: "bg-moss text-white shadow-soft hover:bg-moss-dark hover:shadow-lift",
-        forest: "bg-forest text-white shadow-soft hover:bg-forest-light hover:shadow-lift dark:bg-forest-light dark:hover:bg-forest",
+        primary:
+          "bg-moss text-white shadow-soft hover:bg-moss-dark hover:shadow-lift enabled:dark:bg-moss enabled:dark:hover:bg-moss-dark",
+        forest:
+          "bg-forest text-white shadow-soft hover:bg-forest-light hover:shadow-lift dark:bg-forest-light dark:hover:bg-forest",
         accent: "bg-teal text-white shadow-soft hover:bg-teal-dark hover:shadow-lift",
-        outline: "border-2 border-forest/20 bg-transparent text-forest hover:border-forest/40 hover:bg-white dark:border-white/20 dark:text-cream-50 dark:hover:bg-white/10 dark:hover:border-white/40",
-        secondary: "bg-white text-forest shadow-soft hover:bg-cream-100 dark:bg-forest-light/60 dark:text-cream-50 dark:hover:bg-forest-light",
-        ghost: "text-forest hover:bg-forest/[0.06] dark:text-cream-50 dark:hover:bg-white/10",
-        link: "text-moss underline-offset-4 hover:underline dark:text-leaf-light",
+        outline:
+          "border-2 border-forest/25 bg-transparent text-forest hover:border-forest/45 hover:bg-white " +
+          "dark:border-white/25 dark:text-cream-50 dark:hover:bg-white/10 dark:hover:border-white/40 " +
+          "disabled:border-cream-400 disabled:bg-transparent",
+        secondary:
+          "bg-white text-forest shadow-soft hover:bg-cream-100 " +
+          "dark:bg-[var(--surface-raised)] dark:text-cream-50 dark:hover:bg-[var(--surface)] " +
+          "disabled:bg-cream-200",
+        ghost:
+          "text-forest hover:bg-forest/[0.06] dark:text-cream-50 dark:hover:bg-white/10 " +
+          "disabled:bg-transparent disabled:text-ink-soft",
+        link:
+          "text-moss underline-offset-4 hover:underline dark:text-[#B8E08A] " +
+          "disabled:bg-transparent disabled:no-underline",
         danger: "bg-clay text-white shadow-soft hover:bg-clay-dark",
-        whatsapp: "bg-[#25D366] text-white shadow-soft hover:bg-[#1EBE5A]",
+        /* WhatsApp brand green needs dark text for contrast (~7:1 vs white's 1.98) */
+        whatsapp:
+          "bg-[#25D366] text-[#0B3D1F] shadow-soft hover:bg-[#1EBE5A] hover:text-[#062816] " +
+          "disabled:bg-[#25D366]/40 disabled:text-[#0B3D1F]/50",
       },
       size: {
-        // Every size clears the 48px minimum tap target except `xs`, which is
-        // only used inside rows that already have a large parent target.
         sm: "h-11 px-4 text-[13px]",
         md: "h-12 px-6",
         lg: "h-14 px-8 text-base",

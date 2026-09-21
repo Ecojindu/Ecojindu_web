@@ -148,7 +148,7 @@ export function SiteFooter() {
               href={whatsappLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="tap-target mt-5 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[#1EBE5A]"
+              className="tap-target mt-5 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-3 text-sm font-bold text-[#0B3D1F] transition-colors hover:bg-[#1EBE5A] hover:text-[#062816]"
             >
               <MessageCircle className="size-4" aria-hidden />
               Book on WhatsApp

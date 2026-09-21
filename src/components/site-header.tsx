@@ -58,7 +58,7 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-cream-300/80 bg-cream/85 backdrop-blur-md dark:border-white/10 dark:bg-forest-dark/90">
+    <header className="sticky top-0 z-40 border-b border-cream-300/80 bg-cream-50/90 backdrop-blur-md dark:border-white/15 dark:bg-[var(--surface)]/95">
       <div className="container flex h-[60px] items-center justify-between gap-4 sm:h-[68px]">
         <Logo />
 
@@ -72,8 +72,8 @@ export function SiteHeader() {
                 className={cn(
                   "rounded-full px-4 py-2.5 text-sm font-semibold transition-colors",
                   active
-                    ? "bg-white text-forest shadow-soft dark:bg-white/10 dark:text-cream-50"
-                    : "text-ink-muted hover:text-forest dark:text-cream-100/70 dark:hover:text-cream-50",
+                    ? "bg-white text-forest shadow-soft dark:bg-[var(--surface-raised)] dark:text-cream-50 dark:ring-1 dark:ring-white/20"
+                    : "text-ink-muted hover:text-forest dark:text-cream-100/75 dark:hover:text-cream-50",
                 )}
                 aria-current={active ? "page" : undefined}
               >

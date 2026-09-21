@@ -11,24 +11,52 @@ interface StickyActionBarProps {
   className?: string;
   /** When true, lift above the bottom nav (default). */
   aboveNav?: boolean;
+  /** Hide the bar (e.g. while the in-page CTA is still visible). */
+  hidden?: boolean;
 }
 
 /**
- * Thumb-reachable primary actions for every booking step.
- * Always keep the fare visible here — never let the total drop to ₦0.
+ * Thumb-reachable primary actions for booking steps.
+ * Sets --sticky-action-h so main content clears both this bar and the tab bar.
  */
-export function StickyActionBar({ children, meta, className, aboveNav = true }: StickyActionBarProps) {
+export function StickyActionBar({
+  children,
+  meta,
+  className,
+  aboveNav = true,
+  hidden = false,
+}: StickyActionBarProps) {
+  React.useEffect(() => {
+    if (hidden) {
+      document.documentElement.style.setProperty("--sticky-action-h", "0px");
+      return;
+    }
+    // ~81px content + safe area is already on the nav; sticky sits above nav on mobile.
+    document.documentElement.style.setProperty(
+      "--sticky-action-h",
+      aboveNav ? "5.25rem" : "5.25rem",
+    );
+    return () => {
+      document.documentElement.style.setProperty("--sticky-action-h", "0px");
+    };
+  }, [hidden, aboveNav]);
+
+  if (hidden) return null;
+
   return (
     <div
       className={cn(
-        "fixed inset-x-0 z-30 border-t border-cream-300 bg-cream-50/95 backdrop-blur-md dark:border-white/10 dark:bg-forest-dark/95",
-        aboveNav ? "bottom-[calc(3.5rem+env(safe-area-inset-bottom))] lg:bottom-0" : "bottom-0",
+        "fixed inset-x-0 z-30 border-t border-cream-300 bg-cream-50/95 backdrop-blur-md",
+        "dark:border-white/15 dark:bg-[var(--surface-raised)]/95",
+        aboveNav ? "bottom-[calc(var(--bottom-nav-h)+env(safe-area-inset-bottom,0px))] lg:bottom-0" : "bottom-0",
         className,
       )}
       style={aboveNav ? undefined : { paddingBottom: "env(safe-area-inset-bottom)" }}
     >
-      <div className="container flex flex-col gap-2 py-3 sm:flex-row sm:items-center sm:justify-between">
-        {meta ? <div className="min-w-0 text-sm text-ink-muted dark:text-cream-100/70">{meta}</div> : null}
+      <div className="section-shell flex flex-col gap-2 py-3 sm:flex-row sm:items-center sm:justify-between">
+        {meta ? (
+          <div className="min-w-0 text-sm text-ink-muted dark:text-cream-100/75">{meta}</div>
+        ) : null}
         <div className={cn("flex w-full gap-2", meta && "sm:w-auto sm:min-w-[280px]")}>{children}</div>
       </div>
     </div>

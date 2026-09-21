@@ -22,7 +22,7 @@ export function BottomNav() {
 
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-cream-300/90 bg-cream-50/95 backdrop-blur-md dark:border-white/10 dark:bg-forest-dark/95 lg:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-cream-300/90 bg-cream-50/95 backdrop-blur-md dark:border-white/15 dark:bg-[var(--surface-raised)]/95 lg:hidden"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       aria-label="Primary"
     >
@@ -36,7 +36,7 @@ export function BottomNav() {
                 href={item.href}
                 className={cn(
                   "tap-target flex flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-semibold transition-colors",
-                  active ? "text-forest dark:text-leaf-light" : "text-ink-muted dark:text-cream-100/55",
+                  active ? "text-moss dark:text-[#B8E08A]" : "text-ink-muted dark:text-cream-100/60",
                 )}
                 aria-current={active ? "page" : undefined}
               >

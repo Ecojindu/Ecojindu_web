@@ -39,7 +39,7 @@ export function MobileActionBar() {
           href={whatsappLink()}
           target="_blank"
           rel="noopener noreferrer"
-          className="tap-target flex flex-1 items-center justify-center gap-2 rounded-full bg-[#25D366] text-sm font-bold text-white shadow-soft active:scale-[0.98]"
+          className="tap-target flex flex-1 items-center justify-center gap-2 rounded-full bg-[#25D366] text-sm font-bold text-[#0B3D1F] shadow-soft active:scale-[0.98]"
         >
           <MessageCircle className="size-4" aria-hidden />
           WhatsApp

@@ -1,15 +1,14 @@
 import type { Config } from "tailwindcss";
 
 /**
- * Ecojindu's identity, expressed as tokens.
+ * Ecojindu tokens — one action green, neutrals for surfaces, forest reserved
+ * for chrome (header accents / footer) and headings.
  *
- * cream    #EAE8DB  page background — warm, not clinical
- * leaf     #7CB342  primary green
- * moss     #4C8C2B  darker green for actions and links
- * forest   #2F5233  deep green for headers and headings
- * teal     #2BAE8E  accent, used sparingly for highlights
- * ink      #15181A  near-black body text
- * clay     #C4562F  errors only
+ * cream    page + section backgrounds
+ * moss     #3D7223  primary actions (clears 4.5:1 with white)
+ * leaf     #7CB342  decorative accent only — never body text on light
+ * forest   #2F5233  headings, footer, logo mark
+ * ink      body text / muted captions
  */
 const config: Config = {
   darkMode: ["class"],
@@ -22,34 +21,39 @@ const config: Config = {
     container: {
       center: true,
       padding: { DEFAULT: "1rem", sm: "1.5rem", lg: "2rem" },
-      screens: { "2xl": "1200px" },
+      screens: { "2xl": "1120px" },
     },
     extend: {
       colors: {
         cream: {
-          DEFAULT: "#EAE8DB",
-          50: "#FAFAF6",
-          100: "#F5F4EC",
-          200: "#EAE8DB",
-          300: "#E2E0D2",
-          400: "#D4D1BF",
+          DEFAULT: "#F4F3EE",
+          50: "#FAFAF8",
+          100: "#F7F6F2",
+          200: "#F4F3EE",
+          300: "#E8E6DE",
+          400: "#D9D6CC",
         },
         leaf: { DEFAULT: "#7CB342", light: "#9CCB6A", dark: "#68A032" },
-        moss: { DEFAULT: "#4C8C2B", light: "#5FA338", dark: "#3D7222" },
-        forest: { DEFAULT: "#2F5233", light: "#3F6B44", dark: "#223D25" },
+        moss: { DEFAULT: "#3D7223", light: "#4C8C2B", dark: "#2F5A1B" },
+        forest: { DEFAULT: "#2F5233", light: "#3F6B44", dark: "#1A2E1C" },
         teal: { DEFAULT: "#2BAE8E", light: "#4FC7A9", dark: "#1F7A63" },
-        ink: { DEFAULT: "#15181A", muted: "#4A5450", soft: "#8A918D" },
+        ink: { DEFAULT: "#15181A", muted: "#3F4744", soft: "#5C6561" },
         clay: { DEFAULT: "#C4562F", light: "#FBF3EE", dark: "#9E3F1E" },
+        surface: {
+          DEFAULT: "#FFFFFF",
+          raised: "#FFFFFF",
+          sunken: "#F4F3EE",
+        },
 
-        border: "#E2E0D2",
-        input: "#E2E0D2",
-        ring: "#4C8C2B",
-        background: "#EAE8DB",
+        border: "#E8E6DE",
+        input: "#E8E6DE",
+        ring: "#3D7223",
+        background: "#F4F3EE",
         foreground: "#15181A",
-        primary: { DEFAULT: "#4C8C2B", foreground: "#FFFFFF" },
-        secondary: { DEFAULT: "#F5F4EC", foreground: "#2F5233" },
+        primary: { DEFAULT: "#3D7223", foreground: "#FFFFFF" },
+        secondary: { DEFAULT: "#F7F6F2", foreground: "#2F5233" },
         destructive: { DEFAULT: "#C4562F", foreground: "#FFFFFF" },
-        muted: { DEFAULT: "#F5F4EC", foreground: "#8A918D" },
+        muted: { DEFAULT: "#F7F6F2", foreground: "#5C6561" },
         accent: { DEFAULT: "#2BAE8E", foreground: "#FFFFFF" },
         card: { DEFAULT: "#FFFFFF", foreground: "#15181A" },
       },
@@ -65,16 +69,15 @@ const config: Config = {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
       fontSize: {
-        // Slightly tighter tracking on display sizes — the brand reads confident.
         "display-sm": ["1.875rem", { lineHeight: "1.2", letterSpacing: "-0.02em" }],
         "display-md": ["2.5rem", { lineHeight: "1.15", letterSpacing: "-0.025em" }],
         "display-lg": ["3.25rem", { lineHeight: "1.08", letterSpacing: "-0.03em" }],
         "display-xl": ["4rem", { lineHeight: "1.04", letterSpacing: "-0.035em" }],
       },
       boxShadow: {
-        soft: "0 1px 2px rgba(47,82,51,0.04), 0 4px 16px rgba(47,82,51,0.06)",
-        lift: "0 2px 4px rgba(47,82,51,0.05), 0 12px 32px rgba(47,82,51,0.10)",
-        ring: "0 0 0 3px rgba(76,140,43,0.18)",
+        soft: "0 1px 2px rgba(21,24,26,0.04), 0 4px 16px rgba(21,24,26,0.06)",
+        lift: "0 2px 4px rgba(21,24,26,0.05), 0 12px 32px rgba(21,24,26,0.10)",
+        ring: "0 0 0 3px rgba(61,114,35,0.22)",
       },
       keyframes: {
         "accordion-down": {
