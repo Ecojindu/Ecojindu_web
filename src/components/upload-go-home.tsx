@@ -61,9 +61,9 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   });
 }
 
-/** Home hero: 2-column desktop layout with rich supporting content and accessible form. */
+/** Home hero: 2-column desktop layout with rich supporting content and unified booking card. */
 export function BookHome({ className }: { className?: string }) {
-  const [uploadOpen, setUploadOpen] = React.useState(false);
+  const [mode, setMode] = React.useState<"search" | "upload">("search");
 
   return (
     <section className={cn("relative", className)}>
@@ -72,15 +72,15 @@ export function BookHome({ className }: { className?: string }) {
         <div className="lg:col-span-6 lg:pt-2">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#1E481A]/20 bg-[#1E481A]/10 px-3.5 py-1 text-xs font-extrabold uppercase tracking-[0.16em] text-[#1E481A] dark:border-leaf-light/30 dark:bg-leaf-light/15 dark:text-leaf-light">
             <Plane className="size-3.5" aria-hidden />
-            Upload &amp; Go · Airport Shuttles
+            Fast Airport Shuttles
           </div>
 
           <h1 className="mt-3 text-balance text-display-sm font-extrabold tracking-tight text-forest dark:text-cream-50 sm:text-display-md lg:text-display-lg">
-            100% Electric Airport Transfers
+            Ecojindu Shuttle
           </h1>
 
           <p className="mt-3 max-w-xl text-pretty text-base leading-relaxed text-ink-muted dark:text-cream-100/80 sm:text-lg">
-            Fast, zero-tailpipe electric shuttles between <strong>Umuahia</strong>, <strong>Aba</strong>, and <strong>Sam Mbakwe Airport, Owerri</strong>. Choose your scheduled departure or upload your flight ticket to get your boarding QR code in seconds.
+            Scheduled 100% electric airport transfers between <strong>Umuahia</strong>, <strong>Aba</strong>, and <strong>Sam Mbakwe Airport, Owerri</strong>. Choose your scheduled departure or upload your flight ticket to get your boarding QR pass in seconds.
           </p>
 
           {/* Key Value Props Grid */}
@@ -127,31 +127,54 @@ export function BookHome({ className }: { className?: string }) {
           </div>
         </div>
 
-        {/* Right Column: Search & Booking Card */}
+        {/* Right Column: Unified Booking Card with Mode Switcher */}
         <div className="lg:col-span-6">
-          <SearchWidget />
+          <div className="overflow-hidden rounded-3xl border border-cream-300 bg-white shadow-lift dark:border-white/10 dark:bg-[var(--surface-raised)]">
+            {/* Top Method Switcher: Search Timetable vs Upload Flight Ticket */}
+            <div className="border-b border-cream-300/80 bg-cream-100/70 p-2 dark:border-white/10 dark:bg-forest-dark/50">
+              <div className="grid grid-cols-2 gap-1.5" role="tablist">
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={mode === "search"}
+                  onClick={() => setMode("search")}
+                  className={cn(
+                    "flex items-center justify-center gap-2 rounded-2xl py-3 text-xs font-bold transition-all sm:text-sm",
+                    mode === "search"
+                      ? "bg-white text-forest shadow-soft dark:bg-white dark:text-[#0A2411] dark:shadow-md"
+                      : "text-ink-muted hover:text-forest dark:text-cream-100/75 dark:hover:text-cream-50",
+                  )}
+                >
+                  <Search className="size-4 shrink-0" aria-hidden />
+                  <span>Choose route &amp; date</span>
+                </button>
 
-          <div className="mt-4">
-            <button
-              type="button"
-              onClick={() => setUploadOpen((v) => !v)}
-              className="tap-target flex w-full items-center justify-between gap-3 rounded-2xl border border-cream-300 bg-white px-4 py-3.5 text-left text-sm font-bold text-forest shadow-soft transition-colors hover:border-cream-400 dark:border-white/15 dark:bg-[var(--surface-raised)] dark:text-cream-50 dark:hover:border-white/25"
-              aria-expanded={uploadOpen}
-            >
-              <span className="inline-flex items-center gap-2">
-                <Upload className="size-4 shrink-0 text-moss dark:text-leaf-light" aria-hidden />
-                Have a flight ticket? Upload &amp; Go
-              </span>
-              <ChevronDown
-                className={cn(
-                  "size-5 shrink-0 text-ink-muted transition-transform dark:text-cream-100/70",
-                  uploadOpen && "rotate-180",
-                )}
-                aria-hidden
-              />
-            </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={mode === "upload"}
+                  onClick={() => setMode("upload")}
+                  className={cn(
+                    "flex items-center justify-center gap-2 rounded-2xl py-3 text-xs font-bold transition-all sm:text-sm",
+                    mode === "upload"
+                      ? "bg-white text-forest shadow-soft dark:bg-white dark:text-[#0A2411] dark:shadow-md"
+                      : "text-ink-muted hover:text-forest dark:text-cream-100/75 dark:hover:text-cream-50",
+                  )}
+                >
+                  <Upload className="size-4 shrink-0" aria-hidden />
+                  <span>Upload flight ticket</span>
+                </button>
+              </div>
+            </div>
 
-            {uploadOpen ? <UploadGoPanel className="mt-3" /> : null}
+            {/* Content Body */}
+            <div className="p-4 sm:p-6">
+              {mode === "search" ? (
+                <SearchWidget className="border-0 p-0 shadow-none dark:bg-transparent" />
+              ) : (
+                <UploadGoPanel />
+              )}
+            </div>
           </div>
         </div>
       </div>
