@@ -134,8 +134,8 @@ export function SearchWidget({
               className={cn(
                 "tap-target relative flex flex-1 items-center justify-center gap-1.5 rounded-xl px-2",
                 "text-[13px] font-bold transition-all sm:gap-2 sm:px-3 sm:text-sm",
-                active && "bg-white text-forest shadow-soft dark:bg-forest dark:text-cream-50",
-                !active && item.live && "text-ink-muted hover:text-forest dark:text-cream-100/70 dark:hover:text-cream-50",
+                active && "bg-white text-forest shadow-soft dark:bg-white dark:text-[#0A2411] dark:shadow-md",
+                !active && item.live && "text-ink-muted hover:text-forest dark:text-cream-100/80 dark:hover:text-cream-50",
                 !item.live && "cursor-not-allowed text-ink-soft/50 dark:text-white/30",
               )}
             >
@@ -161,7 +161,7 @@ export function SearchWidget({
             <div className="min-w-0">
               <label
                 htmlFor="route"
-                className="mb-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink-soft dark:text-cream-100/70"
+                className="mb-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#1E481A] dark:text-leaf-light"
               >
                 <MapPin className="size-3.5" aria-hidden />
                 From → To
@@ -188,7 +188,7 @@ export function SearchWidget({
             <div className="min-w-0">
               <label
                 htmlFor="date"
-                className="mb-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink-soft dark:text-cream-100/70"
+                className="mb-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#1E481A] dark:text-leaf-light"
               >
                 <CalendarDays className="size-3.5" aria-hidden />
                 Travel date
@@ -200,7 +200,7 @@ export function SearchWidget({
                 min={today}
                 max={addDaysISO(today, 60)}
                 onChange={(e) => setDate(e.target.value)}
-                className="h-14 w-full rounded-xl border-2 border-cream-300 bg-white px-4 text-base text-ink focus:border-moss focus:outline-none dark:border-white/15 dark:bg-forest/50 dark:text-cream-50 dark:focus:border-leaf"
+                className="h-14 w-full rounded-xl border-2 border-cream-300 bg-white px-4 text-base font-semibold text-ink focus:border-moss focus:outline-none dark:border-white/15 dark:bg-[var(--surface-raised)] dark:text-cream-50 dark:focus:border-leaf-light"
               />
             </div>
 
@@ -208,7 +208,7 @@ export function SearchWidget({
             <div className="min-w-0">
               <label
                 htmlFor="passengers"
-                className="mb-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink-soft dark:text-cream-100/70"
+                className="mb-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#1E481A] dark:text-leaf-light"
               >
                 <Users className="size-3.5" aria-hidden />
                 Passengers
@@ -288,7 +288,7 @@ export function SearchWidget({
             <button
               type="button"
               onClick={() => setRouteId(reverse.id)}
-              className="mt-3 inline-flex items-center gap-1.5 rounded-full px-2 py-1.5 text-xs font-semibold text-moss transition-colors hover:text-moss-dark dark:text-leaf-light dark:hover:text-leaf"
+              className="mt-3 inline-flex items-center gap-1.5 rounded-full px-2 py-1.5 text-xs font-bold text-moss transition-colors hover:text-moss-dark dark:text-leaf-light dark:hover:text-leaf"
             >
               <ArrowRightLeft className="size-3.5" aria-hidden />
               Swap direction — {shortRouteLabel(reverse)}

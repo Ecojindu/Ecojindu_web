@@ -2,10 +2,24 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { ChevronDown, FileText, ImageIcon, Loader2, Search, Upload } from "lucide-react";
+import {
+  ArrowRight,
+  BatteryCharging,
+  CheckCircle2,
+  ChevronDown,
+  Clock,
+  FileText,
+  ImageIcon,
+  Loader2,
+  Plane,
+  QrCode,
+  Search,
+  ShieldCheck,
+  Upload,
+  Zap,
+} from "lucide-react";
 
 import { SearchWidget } from "@/components/search-widget";
-import { StickyActionBar } from "@/components/sticky-action-bar";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -47,57 +61,86 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   });
 }
 
-/** Home hero: book by filling the form first; Upload & Go is an optional expand. */
+/** Home hero: 2-column desktop layout with rich supporting content and accessible form. */
 export function BookHome({ className }: { className?: string }) {
-  const searchCtaRef = React.useRef<HTMLDivElement>(null);
-  const [showSticky, setShowSticky] = React.useState(false);
   const [uploadOpen, setUploadOpen] = React.useState(false);
-
-  React.useEffect(() => {
-    const node = searchCtaRef.current;
-    if (!node || typeof IntersectionObserver === "undefined") return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setShowSticky(!entry.isIntersecting),
-      { root: null, threshold: 0.15, rootMargin: "0px 0px -48px 0px" },
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <section className={cn("relative", className)}>
-      <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
-        <div className="lg:pt-4">
-          <p className="text-xs font-bold uppercase tracking-[0.14em] text-forest dark:text-cream-100/75">
-            Book a seat
-          </p>
-          <h1 className="mt-2 text-balance text-display-sm font-extrabold tracking-tight text-forest dark:text-cream-50 sm:text-display-md">
-            Ecojindu Shuttle
+      <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-10 xl:gap-14">
+        {/* Left Column: Hero Copy & Value Props */}
+        <div className="lg:col-span-6 lg:pt-2">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#1E481A]/20 bg-[#1E481A]/10 px-3.5 py-1 text-xs font-extrabold uppercase tracking-[0.16em] text-[#1E481A] dark:border-leaf-light/30 dark:bg-leaf-light/15 dark:text-leaf-light">
+            <Plane className="size-3.5" aria-hidden />
+            Upload &amp; Go · Airport Shuttles
+          </div>
+
+          <h1 className="mt-3 text-balance text-display-sm font-extrabold tracking-tight text-forest dark:text-cream-50 sm:text-display-md lg:text-display-lg">
+            100% Electric Airport Transfers
           </h1>
-          <p className="mt-3 max-w-md text-pretty text-base text-ink-muted dark:text-cream-100/80">
-            Choose your route, date and seats — then confirm and pay. Electric shuttles between
-            Umuahia, Aba and Sam Mbakwe Airport.
+
+          <p className="mt-3 max-w-xl text-pretty text-base leading-relaxed text-ink-muted dark:text-cream-100/80 sm:text-lg">
+            Fast, zero-tailpipe electric shuttles between <strong>Umuahia</strong>, <strong>Aba</strong>, and <strong>Sam Mbakwe Airport, Owerri</strong>. Choose your scheduled departure or upload your flight ticket to get your boarding QR code in seconds.
           </p>
-          <p className="mt-5 hidden text-sm text-ink-muted dark:text-cream-100/70 lg:block">
-            4 departures daily · 100% electric · QR ticket after payment
-          </p>
+
+          {/* Key Value Props Grid */}
+          <div className="mt-6 grid grid-cols-2 gap-3">
+            <div className="flex items-start gap-2.5 rounded-2xl border border-cream-300 bg-white p-3.5 shadow-sm dark:border-white/10 dark:bg-[var(--surface-raised)]">
+              <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-moss/10 text-moss dark:bg-leaf/20 dark:text-leaf-light">
+                <Zap className="size-4" aria-hidden />
+              </span>
+              <div>
+                <p className="text-xs font-bold text-forest dark:text-cream-50">100% Electric Fleet</p>
+                <p className="text-[11px] text-ink-muted dark:text-cream-100/70">Quiet, zero emissions</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-2.5 rounded-2xl border border-cream-300 bg-white p-3.5 shadow-sm dark:border-white/10 dark:bg-[var(--surface-raised)]">
+              <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-moss/10 text-moss dark:bg-leaf/20 dark:text-leaf-light">
+                <ShieldCheck className="size-4" aria-hidden />
+              </span>
+              <div>
+                <p className="text-xs font-bold text-forest dark:text-cream-50">₦15,000 Fixed Fare</p>
+                <p className="text-[11px] text-ink-muted dark:text-cream-100/70">No surge or haggling</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-2.5 rounded-2xl border border-cream-300 bg-white p-3.5 shadow-sm dark:border-white/10 dark:bg-[var(--surface-raised)]">
+              <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-moss/10 text-moss dark:bg-leaf/20 dark:text-leaf-light">
+                <Clock className="size-4" aria-hidden />
+              </span>
+              <div>
+                <p className="text-xs font-bold text-forest dark:text-cream-50">4 Runs Daily</p>
+                <p className="text-[11px] text-ink-muted dark:text-cream-100/70">Timed for flights</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-2.5 rounded-2xl border border-cream-300 bg-white p-3.5 shadow-sm dark:border-white/10 dark:bg-[var(--surface-raised)]">
+              <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-moss/10 text-moss dark:bg-leaf/20 dark:text-leaf-light">
+                <QrCode className="size-4" aria-hidden />
+              </span>
+              <div>
+                <p className="text-xs font-bold text-forest dark:text-cream-50">Instant QR Pass</p>
+                <p className="text-[11px] text-ink-muted dark:text-cream-100/70">SMS &amp; WhatsApp</p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div>
-          <div ref={searchCtaRef}>
-            <SearchWidget />
-          </div>
+        {/* Right Column: Search & Booking Card */}
+        <div className="lg:col-span-6">
+          <SearchWidget />
 
           <div className="mt-4">
             <button
               type="button"
               onClick={() => setUploadOpen((v) => !v)}
-              className="tap-target flex w-full items-center justify-between gap-3 rounded-2xl border border-cream-300 bg-white px-4 py-3 text-left text-sm font-semibold text-forest shadow-soft dark:border-white/15 dark:bg-[var(--surface-raised)] dark:text-cream-50"
+              className="tap-target flex w-full items-center justify-between gap-3 rounded-2xl border border-cream-300 bg-white px-4 py-3.5 text-left text-sm font-bold text-forest shadow-soft transition-colors hover:border-cream-400 dark:border-white/15 dark:bg-[var(--surface-raised)] dark:text-cream-50 dark:hover:border-white/25"
               aria-expanded={uploadOpen}
             >
               <span className="inline-flex items-center gap-2">
-                <Upload className="size-4 shrink-0 text-moss dark:text-[#B8E08A]" aria-hidden />
-                Have a flight ticket? Upload instead
+                <Upload className="size-4 shrink-0 text-moss dark:text-leaf-light" aria-hidden />
+                Have a flight ticket? Upload &amp; Go
               </span>
               <ChevronDown
                 className={cn(
@@ -110,28 +153,8 @@ export function BookHome({ className }: { className?: string }) {
 
             {uploadOpen ? <UploadGoPanel className="mt-3" /> : null}
           </div>
-
-          <p className="mt-4 text-center text-sm text-ink-muted dark:text-cream-100/70 lg:hidden">
-            4 departures daily · 100% electric · QR ticket after payment
-          </p>
         </div>
       </div>
-
-      <StickyActionBar hidden={!showSticky}>
-        <Button
-          size="lg"
-          block
-          className="min-h-12"
-          onClick={() => {
-            searchCtaRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-            const form = searchCtaRef.current?.querySelector("form");
-            form?.requestSubmit();
-          }}
-        >
-          <Search aria-hidden />
-          Search departures
-        </Button>
-      </StickyActionBar>
     </section>
   );
 }
@@ -233,15 +256,15 @@ function UploadGoPanel({ className }: { className?: string }) {
             <button
               type="button"
               onClick={() => inputRef.current?.click()}
-              className="tap-target flex w-full flex-col items-center gap-3 rounded-2xl border border-dashed border-cream-400 bg-cream-50 py-6 text-center dark:border-white/20 dark:bg-[var(--surface)]"
+              className="tap-target flex w-full flex-col items-center gap-3 rounded-2xl border border-dashed border-cream-400 bg-cream-50 py-6 text-center transition-colors hover:border-moss dark:border-white/20 dark:bg-[var(--surface)] dark:hover:border-leaf-light"
             >
-              <span className="grid size-14 place-items-center rounded-2xl bg-moss text-white">
+              <span className="grid size-14 place-items-center rounded-2xl bg-moss text-white dark:bg-white dark:text-[#0A2411]">
                 <Upload className="size-7" aria-hidden />
               </span>
               <span className="text-base font-bold text-forest dark:text-cream-50">
                 Upload your flight ticket
               </span>
-              <span className="flex items-center gap-3 text-xs font-medium text-ink-muted dark:text-cream-100/65">
+              <span className="flex items-center gap-3 text-xs font-semibold text-ink-muted dark:text-cream-100/75">
                 <span className="inline-flex items-center gap-1">
                   <ImageIcon className="size-3.5" aria-hidden /> Photo
                 </span>
@@ -254,7 +277,7 @@ function UploadGoPanel({ className }: { className?: string }) {
 
             <div className="mt-4 flex items-center gap-3">
               <div className="h-px flex-1 bg-cream-400 dark:bg-white/20" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-ink-muted dark:text-cream-100/70">
+              <span className="text-xs font-bold uppercase tracking-wider text-ink-muted dark:text-cream-100/80">
                 or
               </span>
               <div className="h-px flex-1 bg-cream-400 dark:bg-white/20" />

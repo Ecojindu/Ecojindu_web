@@ -5,21 +5,21 @@
 @layer base {
   :root {
     --radius: 1rem;
-    /* Bottom chrome — nav only by default; sticky CTA pages bump this. */
-    --bottom-nav-h: 3.5rem;
+    /* Bottom chrome: 4rem (64px) bottom nav on mobile; sticky actions add to this. */
+    --bottom-nav-h: 4rem;
     --sticky-action-h: 0px;
-    --page-pad-bottom: calc(var(--bottom-nav-h) + var(--sticky-action-h) + env(safe-area-inset-bottom, 0px));
+    --page-pad-bottom: calc(var(--bottom-nav-h) + var(--sticky-action-h) + env(safe-area-inset-bottom, 0px) + 1.5rem);
     --surface: #ffffff;
     --surface-raised: #ffffff;
-    --page-bg: #f4f3ee;
+    --page-bg: #f8f7f2;
   }
 
   .dark {
     color-scheme: dark;
-    --surface: #243528;
-    --surface-raised: #2c4031;
-    --page-bg: #1a2e1c;
-    --bottom-nav-h: 3.5rem;
+    --surface: #18261b;
+    --surface-raised: #223525;
+    --page-bg: #111b13;
+    --bottom-nav-h: 4rem;
   }
 
   * {
@@ -43,16 +43,16 @@
 
   /* Global dark-mode text accessibility */
   .dark .text-forest {
-    color: #fafaf6;
+    color: #fcfbf7;
   }
   .dark .text-ink {
-    color: #f5f4ec;
+    color: #f7f6f2;
   }
   .dark .text-ink-muted {
-    color: rgba(245, 244, 236, 0.82);
+    color: rgba(247, 246, 242, 0.82);
   }
   .dark .text-ink-soft {
-    color: rgba(245, 244, 236, 0.68);
+    color: rgba(247, 246, 242, 0.68);
   }
 
   :focus-visible {
@@ -60,7 +60,7 @@
   }
 
   .dark :focus-visible {
-    @apply ring-leaf ring-offset-[var(--page-bg)];
+    @apply ring-leaf-light ring-offset-[var(--page-bg)];
   }
 
   ::selection {

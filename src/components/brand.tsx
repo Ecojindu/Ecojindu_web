@@ -30,8 +30,8 @@ export function Logo({
         </span>
         <span
           className={cn(
-            "mt-0.5 text-xs font-semibold uppercase tracking-[0.14em]",
-            variant === "dark" ? "text-ink-muted dark:text-cream-100/80" : "text-cream-100",
+            "mt-0.5 text-xs font-bold uppercase tracking-[0.16em]",
+            variant === "dark" ? "text-ink-muted dark:text-cream-100/90" : "text-cream-100",
           )}
         >
           Shuttle
@@ -135,7 +135,7 @@ export function SectionHeading({
   return (
     <div className={cn(align === "center" && "mx-auto max-w-2xl text-center", className)}>
       {eyebrow && (
-        <p className="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-forest dark:text-cream-100/75">
+        <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.16em] text-[#1E481A] dark:text-leaf-light">
           {eyebrow}
         </p>
       )}
