@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   description:
     "Scheduled, zero-emission electric shuttles between Umuahia, Aba and Sam Mbakwe Airport, Owerri. " +
-    "Fixed fare, QR tickets. Upload your flight ticket and book in three taps.",
+    "QR tickets. Book a seat, confirm, and pay in a few taps.",
   keywords: [
     "Umuahia airport shuttle",
     "Aba airport transfer",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Ecojindu Shuttle — Bridging Cities, Powering Green Mobility",
     description:
-      "Scheduled electric airport shuttles across Abia State. Upload your flight ticket, confirm, pay — QR in three taps.",
+      "Scheduled electric airport shuttles across Abia State. Book a seat, confirm, pay — QR ticket in a few taps.",
     url: config.siteUrl,
     siteName: "Ecojindu Shuttle",
     locale: "en_NG",

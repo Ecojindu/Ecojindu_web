@@ -8,7 +8,7 @@ const COLUMNS = [
   {
     title: "Travel",
     links: [
-      { href: "/", label: "Upload & Go" },
+      { href: "/", label: "Book a seat" },
       { href: "/search", label: "Timetable" },
       { href: "/charter", label: "Charter a vehicle" },
       { href: "/subscriptions", label: "Ride subscriptions" },
@@ -21,7 +21,6 @@ const COLUMNS = [
     links: [
       { href: "/#how-it-works", label: "How it works" },
       { href: "/#green", label: "Our EV fleet" },
-      { href: "/#fares", label: "Fares" },
       { href: "/help", label: "Help & FAQ" },
     ],
   },
