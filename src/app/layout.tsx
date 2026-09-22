@@ -75,7 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <Providers>
           <SiteHeader />
-          <main id="main" className="flex-1 pb-[calc(3.5rem+env(safe-area-inset-bottom))] lg:pb-0">
+          <main id="main" className="flex-1">
             {children}
           </main>
           <SiteFooter />

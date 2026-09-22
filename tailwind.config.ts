@@ -37,6 +37,10 @@ const config: Config = {
         leaf: { DEFAULT: "#7CB342", light: "#9CCB6A", dark: "#68A032" },
         moss: { DEFAULT: "#4C8C2B", light: "#5FA338", dark: "#3D7222" },
         forest: { DEFAULT: "#2F5233", light: "#3F6B44", dark: "#223D25" },
+        /** Hero photo tint + frosted overlay */
+        "hero-tint": { DEFAULT: "#1E4927" },
+        /** How-it-works section wash */
+        "mint-section": { DEFAULT: "#C5EDCB" },
         teal: { DEFAULT: "#2BAE8E", light: "#4FC7A9", dark: "#1F7A63" },
         ink: { DEFAULT: "#15181A", muted: "#4A5450", soft: "#8A918D" },
         clay: { DEFAULT: "#C4562F", light: "#FBF3EE", dark: "#9E3F1E" },

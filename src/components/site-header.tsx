@@ -92,10 +92,14 @@ export function SiteHeader() {
           >
             {dark ? <Sun aria-hidden /> : <Moon aria-hidden />}
           </Button>
-          <Button asChild variant="ghost" size="sm">
-            <a href={whatsappLink()} target="_blank" rel="noopener noreferrer">
-              <MessageCircle className="text-[#25D366]" aria-hidden />
-              WhatsApp
+          <Button asChild variant="whatsapp" size="sm" className="px-5 font-bold">
+            <a
+              href={whatsappLink("Hi Ecojindu, I'd like to book a seat.")}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <MessageCircle aria-hidden />
+              Book on WhatsApp
             </a>
           </Button>
           {user ? (
@@ -110,11 +114,7 @@ export function SiteHeader() {
                 <LogOut aria-hidden />
               </Button>
             </>
-          ) : (
-            <Button asChild size="sm" variant="forest">
-              <Link href="/">Book</Link>
-            </Button>
-          )}
+          ) : null}
         </div>
 
         <div className="flex items-center gap-1 lg:hidden">

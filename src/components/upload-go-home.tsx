@@ -4,7 +4,6 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { FileText, ImageIcon, Loader2, Upload } from "lucide-react";
 
-import { StickyActionBar } from "@/components/sticky-action-bar";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -49,9 +48,13 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 
 interface UploadGoHomeProps {
   className?: string;
+  /** When false, only the upload card and actions (headline lives elsewhere). */
+  showIntro?: boolean;
+  /** Section heading on #1E4927 background (duplicate of hero copy for now). */
+  introOnDark?: boolean;
 }
 
-export function UploadGoHome({ className }: UploadGoHomeProps) {
+export function UploadGoHome({ className, showIntro = true, introOnDark }: UploadGoHomeProps) {
   const router = useRouter();
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [pnr, setPnr] = React.useState("");
@@ -116,18 +119,48 @@ export function UploadGoHome({ className }: UploadGoHomeProps) {
   return (
     <section className={cn("relative", className)}>
       <div className="mx-auto max-w-lg">
-        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-moss">Upload &amp; Go</p>
-        <h1 className="mt-2 text-balance text-display-sm font-extrabold tracking-tight text-forest dark:text-cream-50 sm:text-display-md">
-          Ecojindu Shuttle
-        </h1>
-        <p className="mt-3 text-pretty text-base text-ink-muted dark:text-cream-100/75">
-          Upload your flight ticket. We pick the shuttle that gets you to Sam Mbakwe in time —
-          then you confirm and pay.
-        </p>
+        {showIntro ? (
+          <>
+            <p
+              className={cn(
+                "text-sm font-semibold uppercase tracking-[0.16em]",
+                introOnDark ? "text-leaf" : "text-moss",
+              )}
+            >
+              Upload &amp; Go
+            </p>
+            {introOnDark ? (
+              <h2
+                id="upload-go-heading"
+                className="mt-2 text-balance text-display-sm font-extrabold tracking-tight text-white sm:text-display-md"
+              >
+                Ecojindu Shuttle
+              </h2>
+            ) : (
+              <h1 className="mt-2 text-balance text-display-sm font-extrabold tracking-tight text-forest dark:text-cream-50 sm:text-display-md">
+                Ecojindu Shuttle
+              </h1>
+            )}
+            <p
+              className={cn(
+                "mt-3 text-pretty text-base",
+                introOnDark ? "text-white/90" : "text-ink-muted dark:text-cream-100/75",
+              )}
+            >
+              Upload your flight ticket. We pick the shuttle that gets you to Sam Mbakwe in time —
+              then you confirm and pay.
+            </p>
+          </>
+        ) : (
+          <h2 id="upload-go-heading" className="sr-only">
+            Upload your flight ticket
+          </h2>
+        )}
 
         <div
           className={cn(
-            "mt-6 rounded-3xl border-2 border-dashed bg-white/80 p-5 shadow-soft transition-colors dark:bg-forest/40",
+            "rounded-3xl border-2 border-dashed bg-white p-5 shadow-soft transition-colors dark:bg-forest/40",
+            showIntro ? "mt-6" : "mt-0",
             dragOver ? "border-moss bg-leaf/10" : "border-cream-400 dark:border-white/20",
             reading && "pointer-events-none opacity-80",
           )}
@@ -214,7 +247,12 @@ export function UploadGoHome({ className }: UploadGoHomeProps) {
           />
         </div>
 
-        <p className="mt-3 text-xs leading-relaxed text-ink-muted dark:text-cream-100/60">
+        <p
+          className={cn(
+            "mt-3 text-xs leading-relaxed",
+            introOnDark ? "text-white/75" : "text-ink-muted dark:text-cream-100/60",
+          )}
+        >
           Your uploaded ticket is deleted after we read it. We only keep the passenger and flight
           fields you confirm before paying.
         </p>
@@ -233,42 +271,35 @@ export function UploadGoHome({ className }: UploadGoHomeProps) {
         ) : null}
 
         <div className="mt-6 flex flex-col gap-2 sm:flex-row">
-          <Button asChild variant="outline" size="lg" block>
+          <Button
+            asChild
+            variant="outline"
+            size="lg"
+            block
+            className={cn(introOnDark && "border-white/35 bg-transparent text-white hover:bg-white/10")}
+          >
             <a href="/search">Book without a flight ticket</a>
           </Button>
         </div>
 
-        <p className="mt-5 text-center text-sm text-ink-muted dark:text-cream-100/65">
+        <p
+          className={cn(
+            "mt-5 text-center text-sm",
+            introOnDark ? "text-white/80" : "text-ink-muted dark:text-cream-100/65",
+          )}
+        >
           Fixed fare from{" "}
-          <span className="font-bold tabular text-forest dark:text-cream-50">
+          <span
+            className={cn(
+              "font-bold tabular",
+              introOnDark ? "text-white" : "text-forest dark:text-cream-50",
+            )}
+          >
             ₦{(productConfig.singleFareKobo / 100).toLocaleString("en-NG")}
           </span>{" "}
           · 4 departures daily · 100% electric
         </p>
       </div>
-
-      {!reading ? (
-        <StickyActionBar
-          meta={
-            <span>
-              Total from{" "}
-              <strong className="tabular text-forest dark:text-cream-50">
-                ₦{(productConfig.singleFareKobo / 100).toLocaleString("en-NG")}
-              </strong>
-            </span>
-          }
-        >
-          <Button
-            size="lg"
-            block
-            onClick={() => inputRef.current?.click()}
-            className="min-h-12"
-          >
-            <Upload aria-hidden />
-            Upload your flight ticket
-          </Button>
-        </StickyActionBar>
-      ) : null}
     </section>
   );
 }
