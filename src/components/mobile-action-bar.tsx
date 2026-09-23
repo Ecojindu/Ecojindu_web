@@ -24,7 +24,7 @@ export function MobileActionBar() {
 
   return (
     <div
-      className="fixed inset-x-0 bottom-0 z-30 border-t border-cream-300 bg-cream/95 backdrop-blur-md dark:border-white/10 dark:bg-forest-dark/95 lg:hidden"
+      className="fixed inset-x-0 bottom-0 z-30 border-t border-cream-300 bg-white/95 backdrop-blur-md dark:border-white/10 dark:bg-forest-dark/95 lg:hidden"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
       <div className="container flex gap-2 py-2.5">

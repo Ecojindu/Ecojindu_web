@@ -6,22 +6,22 @@ const STEPS = [
   {
     step: "01",
     title: "Upload your ticket",
-    body: "Photo, PDF, or booking code — we read your flight time.",
+    body: "Snap a photo, upload a PDF, or paste your booking code. We pull your flight time and route so you are not retyping details.",
   },
   {
     step: "02",
     title: "We pick your shuttle",
-    body: "Matched to a scheduled run from Umuahia or Aba.",
+    body: "We match you to the next scheduled electric run from Umuahia or Aba — the right direction for your flight, with live seat counts.",
   },
   {
     step: "03",
     title: "Confirm details",
-    body: "Seats, pickup, and phone on one screen.",
+    body: "Review passengers, pickup city, travel date, and your mobile number on one screen. Adjust anything before you continue to payment.",
   },
   {
     step: "04",
     title: "Pay & get QR",
-    body: "Card, transfer, or USSD — board with your pass.",
+    body: "Pay with card, bank transfer, or USSD. Your QR boarding pass is ready right away — show it when you board the shuttle.",
   },
 ] as const;
 
@@ -36,58 +36,55 @@ export function HowItWorksSection({ fareLabel }: HowItWorksSectionProps) {
       className="snap-start bg-mint-section py-10 sm:py-12 lg:py-14"
       aria-labelledby="how-it-works-heading"
     >
-      <div className="container">
-        <div className="mx-auto flex w-full max-w-[58rem] flex-col gap-8 lg:flex-row lg:items-stretch lg:justify-center lg:gap-5 xl:max-w-[60rem] xl:gap-6">
-          {/* How it works — 2×2 card grid beside pricing */}
-          <div className="min-w-0 w-full lg:w-[min(100%,36rem)] lg:shrink-0">
-            <h2
-              id="how-it-works-heading"
-              className="text-display-sm font-extrabold tracking-tight text-hero-tint sm:text-display-md"
-            >
-              How it works
-            </h2>
-            <ul className="mt-5 grid grid-cols-2 gap-2 sm:gap-3 lg:mt-6 lg:gap-3">
+      <div className="container px-4 sm:px-5 lg:px-6 xl:px-8">
+        <div className="mx-auto w-full max-w-[62rem] xl:max-w-[66rem]">
+          <h2
+            id="how-it-works-heading"
+            className="text-center text-display-sm font-extrabold tracking-tight text-hero-tint sm:text-display-md"
+          >
+            How it works
+          </h2>
+
+          <div className="mt-5 grid grid-cols-1 gap-10 lg:mt-6 lg:grid-cols-[minmax(0,36rem)_minmax(0,20rem)] lg:items-start lg:justify-between lg:gap-x-10 xl:grid-cols-[minmax(0,36rem)_minmax(0,22rem)] xl:gap-x-12">
+            <ul className="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-3">
               {STEPS.map((item) => (
                 <li
                   key={item.step}
-                  className="flex min-h-[9.5rem] flex-col justify-between rounded-xl bg-white p-3.5 text-hero-tint shadow-soft sm:min-h-[10.5rem] sm:rounded-2xl sm:p-4 lg:min-h-[11rem] lg:p-5"
+                  className="flex min-h-[10.5rem] flex-col rounded-xl bg-white p-3.5 text-hero-tint shadow-soft sm:min-h-[11.5rem] sm:rounded-2xl sm:p-4 lg:min-h-[12rem] lg:p-5"
                 >
-                  <span className="text-[0.6875rem] font-semibold tabular tracking-widest text-hero-tint/70 sm:text-xs">
+                  <span
+                    className="inline-flex size-9 shrink-0 items-center justify-center self-start rounded-full bg-mint-section text-[0.6875rem] font-bold tabular tracking-wide text-hero-tint sm:size-10 sm:text-xs"
+                    aria-hidden
+                  >
                     {item.step}
                   </span>
-                  <div>
+                  <div className="mt-3 flex flex-1 flex-col items-center text-center sm:mt-3.5">
                     <h3 className="text-sm font-bold leading-snug sm:text-base">{item.title}</h3>
-                    <p className="mt-1.5 text-[0.6875rem] leading-relaxed text-hero-tint/85 sm:text-xs">
+                    <p className="mt-2 text-[0.6875rem] leading-relaxed text-hero-tint/85 sm:text-xs sm:leading-relaxed">
                       {item.body}
                     </p>
                   </div>
                 </li>
               ))}
             </ul>
-          </div>
 
-          {/* Pricing — height aligned with the 2×2 grid */}
-          <div className="flex min-w-0 w-full flex-col lg:w-[min(100%,20rem)] lg:shrink-0 xl:w-[min(100%,22rem)]">
-            <h2
-              id="pricing-heading"
-              className="text-display-sm font-extrabold tracking-tight text-hero-tint sm:text-display-md"
-            >
-              Pricing
-            </h2>
             <article
-              className="mt-5 flex min-h-[9.5rem] flex-1 flex-col justify-between rounded-xl bg-white p-5 text-hero-tint shadow-soft sm:min-h-[10rem] sm:rounded-2xl sm:p-6 lg:mt-6 lg:min-h-0 lg:flex-1"
+              className="flex min-h-[9.5rem] flex-col justify-between rounded-xl bg-white p-5 text-hero-tint shadow-soft sm:min-h-[10rem] sm:rounded-2xl sm:p-6 lg:min-h-0 lg:self-stretch"
               aria-labelledby="pricing-heading"
             >
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-hero-tint/75">
-                  Single seat
-                </p>
+                <h3
+                  id="pricing-heading"
+                  className="text-xs font-semibold uppercase tracking-[0.14em] text-hero-tint/75"
+                >
+                  Pricing per seat
+                </h3>
                 <p className="mt-2 text-3xl font-extrabold tabular tracking-tight sm:text-4xl">
                   {fareLabel}
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-hero-tint/90">
-                  Fixed fare on every scheduled airport shuttle between Umuahia or Aba and Sam
-                  Mbakwe. No haggling at the terminal.
+                  Fixed fare on every scheduled airport shuttle between Umuahia or Aba and Sam Mbakwe.
+                  No haggling at the terminal.
                 </p>
               </div>
               <ul className="mt-4 space-y-1 text-xs text-hero-tint/85 sm:text-sm">
@@ -97,9 +94,8 @@ export function HowItWorksSection({ fareLabel }: HowItWorksSectionProps) {
               </ul>
               <Button
                 asChild
-                variant="secondary"
                 size="sm"
-                className="mt-5 w-full border-0 bg-mint-section text-hero-tint hover:bg-mint-section/80"
+                className="mt-5 w-full bg-hero-tint text-white hover:bg-hero-tint/90"
               >
                 <Link href="/subscriptions">View subscription plans</Link>
               </Button>

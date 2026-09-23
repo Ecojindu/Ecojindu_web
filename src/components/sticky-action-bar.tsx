@@ -21,7 +21,7 @@ export function StickyActionBar({ children, meta, className, aboveNav = true }: 
   return (
     <div
       className={cn(
-        "fixed inset-x-0 z-30 border-t border-cream-300 bg-cream-50/95 backdrop-blur-md dark:border-white/10 dark:bg-forest-dark/95",
+        "fixed inset-x-0 z-30 border-t border-cream-300 bg-white/95 backdrop-blur-md dark:border-white/10 dark:bg-forest-dark/95",
         aboveNav ? "bottom-[calc(3.5rem+env(safe-area-inset-bottom))] lg:bottom-0" : "bottom-0",
         className,
       )}

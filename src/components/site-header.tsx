@@ -15,8 +15,8 @@ const NAV = [
   { href: "/", label: "Book" },
   { href: "/trips", label: "My trips" },
   { href: "/subscriptions", label: "Subscriptions" },
-  { href: "/help", label: "Help" },
   { href: "/charter", label: "Charter" },
+  { href: "/help", label: "Help" },
 ];
 
 function useThemeToggle() {
@@ -58,7 +58,7 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-cream-300/80 bg-cream/85 backdrop-blur-md dark:border-white/10 dark:bg-forest-dark/90">
+    <header className="sticky top-0 z-40 border-b border-cream-300/80 bg-white/90 backdrop-blur-md dark:border-white/10 dark:bg-forest-dark/90">
       <div className="container flex h-[60px] items-center justify-between gap-4 sm:h-[68px]">
         <Logo />
 
@@ -92,16 +92,6 @@ export function SiteHeader() {
           >
             {dark ? <Sun aria-hidden /> : <Moon aria-hidden />}
           </Button>
-          <Button asChild variant="whatsapp" size="sm" className="px-5 font-bold">
-            <a
-              href={whatsappLink("Hi Ecojindu, I'd like to book a seat.")}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MessageCircle aria-hidden />
-              Book on WhatsApp
-            </a>
-          </Button>
           {user ? (
             <>
               <Button asChild variant="secondary" size="sm">
@@ -114,7 +104,21 @@ export function SiteHeader() {
                 <LogOut aria-hidden />
               </Button>
             </>
-          ) : null}
+          ) : (
+            <Button asChild variant="ghost" size="sm" className="font-semibold">
+              <Link href="/auth/login">Sign in</Link>
+            </Button>
+          )}
+          <Button asChild variant="whatsapp" size="sm" className="px-5 font-bold">
+            <a
+              href={whatsappLink("Hi Ecojindu, I'd like to book a seat.")}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <MessageCircle aria-hidden />
+              Book on WhatsApp
+            </a>
+          </Button>
         </div>
 
         <div className="flex items-center gap-1 lg:hidden">
@@ -134,59 +138,78 @@ export function SiteHeader() {
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
           >
-            {open ? <X className="size-6" aria-hidden /> : <Menu className="size-6" aria-hidden />}
+            {open ? (
+              <X className="size-6 transition-transform duration-200" aria-hidden />
+            ) : (
+              <Menu className="size-6 transition-transform duration-200" aria-hidden />
+            )}
           </button>
         </div>
       </div>
 
-      {open && (
-        <div
-          id="mobile-menu"
-          className="animate-fade-up border-t border-cream-300 bg-cream dark:border-white/10 dark:bg-forest-dark lg:hidden"
-        >
-          <nav className="container flex flex-col py-3" aria-label="Mobile">
-            {NAV.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="tap-target flex items-center border-b border-cream-300/70 py-4 text-base font-semibold text-forest last:border-0 dark:border-white/10 dark:text-cream-50"
-              >
-                {item.label}
-              </Link>
-            ))}
-            <Link
-              href="/manage"
-              className="tap-target flex items-center border-b border-cream-300/70 py-4 text-base font-semibold text-forest dark:border-white/10 dark:text-cream-50"
-            >
-              Manage booking
-            </Link>
-            <Link
-              href="/search"
-              className="tap-target flex items-center py-4 text-base font-semibold text-forest dark:text-cream-50"
-            >
-              Timetable (no flight ticket)
-            </Link>
-          </nav>
-          <div className="container flex flex-col gap-2 pb-5">
-            <Button asChild block variant="whatsapp">
-              <a href={whatsappLink()} target="_blank" rel="noopener noreferrer">
-                <MessageCircle aria-hidden />
-                Book on WhatsApp
-              </a>
-            </Button>
-            {user ? (
-              <Button block variant="ghost" onClick={signOut}>
-                <LogOut aria-hidden />
-                Sign out
-              </Button>
-            ) : (
-              <Button asChild block variant="outline">
-                <Link href="/auth/login">Sign in</Link>
-              </Button>
+      <div
+        id="mobile-menu"
+        className={cn(
+          "grid overflow-hidden transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none lg:hidden",
+          open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+        )}
+        aria-hidden={!open}
+      >
+        <div className="min-h-0 overflow-hidden">
+          <div
+            className={cn(
+              "border-t border-cream-300 bg-white transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none dark:border-white/10 dark:bg-forest-dark",
+              open ? "translate-y-0 opacity-100" : "-translate-y-1 opacity-0",
+              !open && "pointer-events-none",
             )}
+          >
+            <nav className="container flex flex-col py-3" aria-label="Mobile">
+              {NAV.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  tabIndex={open ? undefined : -1}
+                  className="tap-target flex items-center border-b border-cream-300/70 py-4 text-base font-semibold text-forest last:border-0 dark:border-white/10 dark:text-cream-50"
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <Link
+                href="/manage"
+                tabIndex={open ? undefined : -1}
+                className="tap-target flex items-center border-b border-cream-300/70 py-4 text-base font-semibold text-forest dark:border-white/10 dark:text-cream-50"
+              >
+                Manage booking
+              </Link>
+              <Link
+                href="/search"
+                tabIndex={open ? undefined : -1}
+                className="tap-target flex items-center py-4 text-base font-semibold text-forest dark:text-cream-50"
+              >
+                Timetable (no flight ticket)
+              </Link>
+            </nav>
+            <div className="container flex flex-col gap-2 pb-5">
+              <Button asChild block variant="whatsapp">
+                <a href={whatsappLink()} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle aria-hidden />
+                  Book on WhatsApp
+                </a>
+              </Button>
+              {user ? (
+                <Button block variant="ghost" onClick={signOut}>
+                  <LogOut aria-hidden />
+                  Sign out
+                </Button>
+              ) : (
+                <Button asChild block variant="outline">
+                  <Link href="/auth/login">Sign in</Link>
+                </Button>
+              )}
+            </div>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }

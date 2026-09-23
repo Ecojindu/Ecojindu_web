@@ -4,10 +4,8 @@ import { BatteryCharging } from "lucide-react";
 
 import { HowItWorksSection } from "@/components/how-it-works-section";
 import { UploadGoHome } from "@/components/upload-go-home";
-import { HomeSubscriptionsSection } from "@/components/home-subscriptions-section";
 import { HomeFaqSection } from "@/components/home-faq-section";
-import { OurServicesSection } from "@/components/our-services-section";
-import { WhyChooseUsSection } from "@/components/why-choose-us-section";
+import { HomeSubscriptionsSection } from "@/components/home-subscriptions-section";
 import { config } from "@/lib/config";
 import { productConfig } from "@/lib/product-config";
 import { getRoutes } from "@/lib/server-api";
@@ -16,7 +14,7 @@ import { naira } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Ecojindu Shuttle — Upload & Go to Sam Mbakwe Airport",
   description:
-    "Scheduled 100% electric shuttles between Umuahia, Aba and Sam Mbakwe Airport. Upload your flight ticket, confirm, and pay — QR ticket in three taps.",
+    "Scheduled 100% electric shuttles between Umuahia, Aba and Sam Mbakwe Airport. Upload your ticket or plan your trip, confirm, and pay — QR boarding pass ready to board.",
   openGraph: {
     title: "Ecojindu Shuttle — Upload & Go",
     description:
@@ -50,15 +48,12 @@ export default async function HomePage() {
         />
         <div className="container relative z-[2] flex h-full flex-col justify-center py-10 sm:py-12">
           <div className="max-w-xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-white/85">
-              Upload &amp; Go
-            </p>
-            <h1 className="mt-2 text-balance text-display-sm font-extrabold tracking-tight text-white sm:text-display-md">
-              Ecojindu Shuttle
+            <h1 className="max-w-xl text-balance text-display-sm font-extrabold tracking-tight text-white sm:text-display-md">
+              Book your airport shuttle
             </h1>
-            <p className="mt-3 max-w-md text-pretty text-base text-white/90">
-              Upload your flight ticket. We pick the shuttle that gets you to Sam Mbakwe in time —
-              then you confirm and pay.
+            <p className="mt-3 max-w-lg text-pretty text-base leading-snug text-white/90 sm:leading-relaxed">
+              Upload a ticket or booking code for a matched departure. Or plan city, date, and
+              seats—one checkout, QR pass to board.
             </p>
           </div>
         </div>
@@ -76,11 +71,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <WhyChooseUsSection />
-
       <HomeSubscriptionsSection />
-
-      <OurServicesSection />
 
       <section className="bg-[#009E61] py-10 sm:py-14" id="green">
         <div className="container">
