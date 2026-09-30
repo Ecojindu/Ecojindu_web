@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
@@ -122,7 +122,7 @@ export function PlanTripHomeFoam({ className }: PlanTripHomeFoamProps) {
     >
       <p className="text-base font-bold text-forest dark:text-cream-50">Plan your trip</p>
       <p className="mt-1 text-sm text-ink-muted dark:text-cream-100/75">
-        Pick city, date, and seats — we&apos;ll show the next departures.
+        Pick city, date, and seats ΓÇö we&apos;ll show the next departures.
       </p>
 
       <div className="mt-4 space-y-4">
@@ -251,7 +251,7 @@ export function PlanTripHomeFoam({ className }: PlanTripHomeFoamProps) {
                   id="plan-notes"
                   rows={2}
                   maxLength={280}
-                  placeholder="Extra luggage, pickup detail, delay…"
+                  placeholder="Extra luggage, pickup detail, delayΓÇª"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   className="w-full resize-none rounded-xl border-2 border-cream-300 bg-white px-4 py-3 text-sm text-forest outline-none focus-visible:border-moss focus-visible:ring-2 focus-visible:ring-moss/20 dark:border-white/20 dark:bg-forest-dark/50 dark:text-cream-50"

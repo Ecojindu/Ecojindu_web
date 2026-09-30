@@ -338,7 +338,7 @@ function Charter() {
           </Card>
 
           <aside className="space-y-4">
-            <Card className="bg-gradient-to-br from-forest to-forest-light p-6 text-white">
+            <Card className="border-0 bg-[#009E61] p-6 text-white shadow-soft">
               <Bus className="size-7 text-leaf" aria-hidden />
               <h2 className="mt-3 text-lg font-extrabold text-white">Whole vehicle, your schedule</h2>
               <p className="mt-2 text-sm leading-relaxed text-cream-100/80">

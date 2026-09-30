@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { BatteryCharging } from "lucide-react";
 
+import { HomeHeroSection } from "@/components/home-hero-section";
 import { HowItWorksSection } from "@/components/how-it-works-section";
 import { UploadGoHome } from "@/components/upload-go-home";
 import { HomeFaqSection } from "@/components/home-faq-section";
@@ -31,33 +31,7 @@ export default async function HomePage() {
 
   return (
     <div className="snap-y snap-proximity">
-      {/* Hero — one screen below the header; next section begins on first scroll */}
-      <section className="relative h-[calc(100svh-60px)] snap-start overflow-hidden sm:h-[calc(100svh-68px)]">
-        <Image
-          src="/images/hero-airport-shuttle.png"
-          alt=""
-          fill
-          priority
-          className="z-0 object-cover object-[center_28%]"
-          sizes="100vw"
-        />
-        {/* Flat #1E4927 wash — image stays sharp and visible (no blur) */}
-        <div
-          className="pointer-events-none absolute inset-0 z-[1] bg-hero-tint/[0.52]"
-          aria-hidden
-        />
-        <div className="container relative z-[2] flex h-full flex-col justify-center py-10 sm:py-12">
-          <div className="max-w-xl">
-            <h1 className="max-w-xl text-balance text-display-sm font-extrabold tracking-tight text-white sm:text-display-md">
-              Book your airport shuttle
-            </h1>
-            <p className="mt-3 max-w-lg text-pretty text-base leading-snug text-white/90 sm:leading-relaxed">
-              Upload a ticket or booking code for a matched departure. Or plan city, date, and
-              seats—one checkout, QR pass to board.
-            </p>
-          </div>
-        </div>
-      </section>
+      <HomeHeroSection />
 
       <HowItWorksSection fareLabel={naira(sampleFare)} />
 
@@ -76,7 +50,7 @@ export default async function HomePage() {
       <section className="bg-[#009E61] py-10 sm:py-14" id="green">
         <div className="container">
           <div className="mx-auto flex max-w-2xl flex-col items-start gap-4 sm:flex-row sm:items-center">
-            <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-forest text-leaf">
+            <span className="grid size-14 shrink-0 place-items-center rounded-full bg-mint-section text-hero-tint">
               <BatteryCharging className="size-7" aria-hidden />
             </span>
             <div>

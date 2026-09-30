@@ -45,7 +45,11 @@ export default function HelpPage() {
                     WhatsApp {config.contactPhone}
                   </a>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="border-hero-tint/30 text-hero-tint sm:min-w-[14rem]">
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-hero-tint text-white hover:bg-hero-tint/90 sm:min-w-[14rem]"
+                >
                   <a href={`mailto:${config.contactEmail}`}>Email {config.contactEmail}</a>
                 </Button>
               </div>

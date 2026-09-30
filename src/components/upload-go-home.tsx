@@ -110,7 +110,7 @@ function UploadFoamCard({
             onClick={() => inputRef.current?.click()}
             className="tap-target flex w-full flex-col items-center gap-3 rounded-2xl py-6 text-center"
           >
-            <span className="grid size-14 place-items-center rounded-2xl bg-forest text-leaf">
+            <span className="grid size-14 place-items-center rounded-full bg-mint-section text-hero-tint">
               <Upload className="size-7" aria-hidden />
             </span>
             <span className="text-base font-bold text-forest dark:text-cream-50">
@@ -277,11 +277,11 @@ export function UploadGoHome({ className, showIntro = true, introOnDark }: Uploa
                 id="upload-go-heading"
                 className="max-w-xl text-balance text-display-sm font-extrabold tracking-tight text-white sm:text-display-md"
               >
-                Book your airport shuttle
+                Plan.Book.Travel
               </h2>
             ) : (
               <h1 className="max-w-xl text-balance text-display-sm font-extrabold tracking-tight text-forest dark:text-cream-50 sm:text-display-md">
-                Book your airport shuttle
+                Plan.Book.Travel
               </h1>
             )}
             <p
@@ -290,8 +290,8 @@ export function UploadGoHome({ className, showIntro = true, introOnDark }: Uploa
                 introOnDark ? "text-white/90" : "text-ink-muted dark:text-cream-100/75",
               )}
             >
-              Upload a ticket photo, PDF, or booking code—we match your flight from Umuahia or Aba.
-              No ticket? Plan city, date, and seats below, then pay and board with your QR pass.
+              Plan or book your shuttle to airport by uploading your ticket or booking code for a
+              matched departure. Or plan city, date, and seats—one checkout, QR pass to board.
             </p>
           </>
         ) : (
@@ -393,12 +393,12 @@ export function UploadGoHome({ className, showIntro = true, introOnDark }: Uploa
           </Alert>
         ) : null}
 
-        <div className="mt-6 flex flex-col gap-2">
+        <div className="mt-6 flex flex-col items-center gap-2 md:items-stretch">
           <Button
             asChild
             size="lg"
             block
-            className="bg-hero-tint text-white hover:bg-hero-tint/90"
+            className="w-full max-w-[17.5rem] bg-hero-tint text-white hover:bg-hero-tint/90 md:max-w-none"
           >
             <a href="/search">Book without a flight ticket</a>
           </Button>
