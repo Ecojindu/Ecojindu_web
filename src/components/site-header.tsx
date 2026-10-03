@@ -72,8 +72,8 @@ export function SiteHeader() {
                 className={cn(
                   "rounded-full px-4 py-2.5 text-sm font-semibold transition-colors",
                   active
-                    ? "bg-white text-forest shadow-soft dark:bg-white/10 dark:text-cream-50"
-                    : "text-ink-muted hover:text-forest dark:text-cream-100/70 dark:hover:text-cream-50",
+                    ? "bg-white text-forest shadow-soft dark:bg-[var(--surface-raised)] dark:text-cream-50 dark:ring-1 dark:ring-white/20"
+                    : "text-ink-muted hover:text-forest dark:text-cream-100/75 dark:hover:text-cream-50",
                 )}
                 aria-current={active ? "page" : undefined}
               >
