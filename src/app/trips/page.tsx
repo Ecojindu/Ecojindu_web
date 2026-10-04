@@ -26,7 +26,7 @@ export default function TripsPage() {
 
   if (loading) {
     return (
-      <div className="container max-w-lg space-y-4 py-8">
+      <div className="container max-w-lg space-y-4 pb-8 pt-12 sm:pt-14">
         <BookingCardSkeleton />
         <BookingCardSkeleton />
       </div>
@@ -35,13 +35,22 @@ export default function TripsPage() {
 
   if (!user) {
     return (
-      <div className="container max-w-lg py-10">
-        <h1 className="text-display-sm font-extrabold text-forest dark:text-cream-50">My trips</h1>
-        <p className="mt-2 text-ink-muted dark:text-cream-100/75">
-          Sign in to see upcoming QR tickets, or look up a booking with your reference and phone.
-        </p>
-        <div className="mt-6 flex flex-col gap-3">
-          <Button asChild size="lg" block>
+      <div className="container max-w-lg pb-10 pt-14 sm:pt-16">
+        <header className="mx-auto max-w-md text-center">
+          <h1 className="text-balance text-display-sm font-extrabold text-forest dark:text-cream-50">
+            My trips
+          </h1>
+          <p className="mt-2 text-pretty text-ink-muted dark:text-cream-100/75">
+            Sign in to see upcoming QR tickets, or look up a booking with your reference and phone.
+          </p>
+        </header>
+        <div className="mx-auto mt-10 flex max-w-md flex-col gap-3 sm:mt-12">
+          <Button
+            asChild
+            size="lg"
+            block
+            className="bg-hero-tint text-white hover:bg-hero-tint/90"
+          >
             <Link href="/auth/login">
               <LogIn aria-hidden />
               Sign in
@@ -60,9 +69,15 @@ export default function TripsPage() {
   const past = bookings?.filter((b) => !upcoming.includes(b)) ?? [];
 
   return (
-    <div className="container max-w-lg py-8">
-      <h1 className="text-display-sm font-extrabold text-forest dark:text-cream-50">My trips</h1>
-      <p className="mt-1 text-sm text-ink-muted dark:text-cream-100/75">Upcoming first — tap a trip for your QR code.</p>
+    <div className="container max-w-lg pb-8 pt-12 sm:pt-14">
+      <header className="mx-auto max-w-md text-center">
+        <h1 className="text-balance text-display-sm font-extrabold text-forest dark:text-cream-50">
+          My trips
+        </h1>
+        <p className="mt-1 text-pretty text-sm text-ink-muted dark:text-cream-100/75">
+          Upcoming first — tap a trip for your QR code.
+        </p>
+      </header>
 
       {error ? (
         <Alert variant="error" className="mt-4" title="Couldn't load trips">

@@ -9,6 +9,7 @@ import { StickyActionBar } from "@/components/sticky-action-bar";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PlanTripHomeFoam } from "@/components/plan-trip-home-foam";
 import { ApiError, api } from "@/lib/api";
 import type { PickupCity } from "@/lib/product-config";
 import { cn } from "@/lib/utils";
@@ -144,6 +145,43 @@ function UploadGoPanel({ className }: { className?: string }) {
   const [reading, setReading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [dragOver, setDragOver] = React.useState(false);
+  const [foamMode, setFoamMode] = React.useState<"upload" | "plan">("upload");
+  const [reduceMotion, setReduceMotion] = React.useState(false);
+  const [foamShellHeight, setFoamShellHeight] = React.useState<number | null>(null);
+  const uploadFaceRef = React.useRef<HTMLDivElement>(null);
+  const planFaceRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReduceMotion(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  const syncFoamShellHeight = React.useCallback(() => {
+    const active =
+      foamMode === "upload" ? uploadFaceRef.current : planFaceRef.current;
+    if (!active) return;
+    setFoamShellHeight(active.scrollHeight);
+  }, [foamMode]);
+
+  React.useLayoutEffect(() => {
+    syncFoamShellHeight();
+  }, [syncFoamShellHeight, reading, foamMode]);
+
+  React.useEffect(() => {
+    const nodes = [uploadFaceRef.current, planFaceRef.current].filter(Boolean);
+    if (!nodes.length) return;
+    const observer = new ResizeObserver(() => syncFoamShellHeight());
+    nodes.forEach((node) => observer.observe(node!));
+    return () => observer.disconnect();
+  }, [syncFoamShellHeight]);
+
+  function switchFoam(mode: "upload" | "plan") {
+    setFoamMode(mode);
+    if (mode === "plan") setError(null);
+  }
 
   async function runRead(file?: File | null) {
     setError(null);

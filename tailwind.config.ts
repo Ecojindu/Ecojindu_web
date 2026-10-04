@@ -34,8 +34,12 @@ const config: Config = {
           400: "#D9D6CC",
         },
         leaf: { DEFAULT: "#7CB342", light: "#9CCB6A", dark: "#68A032" },
-        moss: { DEFAULT: "#3D7223", light: "#4C8C2B", dark: "#2F5A1B" },
-        forest: { DEFAULT: "#2F5233", light: "#3F6B44", dark: "#1A2E1C" },
+        moss: { DEFAULT: "#4C8C2B", light: "#5FA338", dark: "#3D7222" },
+        forest: { DEFAULT: "#2F5233", light: "#3F6B44", dark: "#223D25" },
+        /** Hero photo tint + frosted overlay */
+        "hero-tint": { DEFAULT: "#1E4927" },
+        /** How-it-works section wash */
+        "mint-section": { DEFAULT: "#C5EDCB" },
         teal: { DEFAULT: "#2BAE8E", light: "#4FC7A9", dark: "#1F7A63" },
         ink: { DEFAULT: "#15181A", muted: "#3F4744", soft: "#5C6561" },
         clay: { DEFAULT: "#C4562F", light: "#FBF3EE", dark: "#9E3F1E" },
@@ -92,6 +96,10 @@ const config: Config = {
           from: { opacity: "0", transform: "translateY(8px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
+        "foam-in": {
+          from: { opacity: "0", transform: "translateY(10px) scale(0.985)" },
+          to: { opacity: "1", transform: "translateY(0) scale(1)" },
+        },
         shimmer: {
           "100%": { transform: "translateX(100%)" },
         },
@@ -104,6 +112,7 @@ const config: Config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-up": "fade-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "foam-in": "foam-in 0.38s cubic-bezier(0.16, 1, 0.3, 1) both",
         shimmer: "shimmer 1.6s infinite",
         "draw-line": "draw-line 2.4s ease-out forwards",
       },

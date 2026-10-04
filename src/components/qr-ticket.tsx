@@ -77,11 +77,11 @@ export function QrTicket({
         <div className="relative px-6 py-6">
           {/* Perforation notches */}
           <span
-            className="absolute -left-3 top-0 size-6 -translate-y-1/2 rounded-full bg-cream dark:bg-forest-dark"
+            className="absolute -left-3 top-0 size-6 -translate-y-1/2 rounded-full bg-white dark:bg-forest-dark"
             aria-hidden
           />
           <span
-            className="absolute -right-3 top-0 size-6 -translate-y-1/2 rounded-full bg-cream dark:bg-forest-dark"
+            className="absolute -right-3 top-0 size-6 -translate-y-1/2 rounded-full bg-white dark:bg-forest-dark"
             aria-hidden
           />
 
