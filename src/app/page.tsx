@@ -3,7 +3,7 @@ import { BatteryCharging } from "lucide-react";
 
 import { HomeHeroSection } from "@/components/home-hero-section";
 import { HowItWorksSection } from "@/components/how-it-works-section";
-import { UploadGoHome } from "@/components/upload-go-home";
+import { BookHome } from "@/components/upload-go-home";
 import { HomeFaqSection } from "@/components/home-faq-section";
 import { HomeSubscriptionsSection } from "@/components/home-subscriptions-section";
 import { config } from "@/lib/config";
@@ -36,12 +36,12 @@ export default async function HomePage() {
       <HowItWorksSection fareLabel={naira(sampleFare)} />
 
       <section
-        className="snap-start border-b border-white/10 bg-[#009E61] py-8 sm:py-12 lg:py-14"
         id="upload-go"
-        aria-labelledby="upload-go-heading"
+        className="snap-start border-b border-cream-300/80 bg-cream-50 py-8 sm:py-12 lg:py-14 dark:border-white/10 dark:bg-[var(--page-bg)]"
+        aria-label="Book a seat"
       >
         <div className="container">
-          <UploadGoHome showIntro introOnDark />
+          <BookHome />
         </div>
       </section>
 
