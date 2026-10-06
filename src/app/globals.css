@@ -5,6 +5,21 @@
 @layer base {
   :root {
     --radius: 1rem;
+    /* Bottom chrome — nav only by default; sticky CTA pages bump this. */
+    --bottom-nav-h: 3.5rem;
+    --sticky-action-h: 0px;
+    --page-pad-bottom: calc(var(--bottom-nav-h) + var(--sticky-action-h) + env(safe-area-inset-bottom, 0px));
+    --surface: #ffffff;
+    --surface-raised: #ffffff;
+    --page-bg: #f4f3ee;
+  }
+
+  .dark {
+    color-scheme: dark;
+    --surface: #243528;
+    --surface-raised: #2c4031;
+    --page-bg: #1a2e1c;
+    --bottom-nav-h: 3.5rem;
   }
 
   * {
@@ -22,45 +37,37 @@
   }
 
   .dark body {
-    @apply bg-forest-dark text-cream-100;
-    background-image:
-      radial-gradient(circle at 12% 8%, rgba(124, 179, 66, 0.12), transparent 42%),
-      radial-gradient(circle at 88% 4%, rgba(43, 174, 142, 0.08), transparent 38%);
+    @apply text-cream-100;
   }
 
-  .dark {
-    color-scheme: dark;
-  }
-
-  /* Global dark-mode color accessibility overrides */
+  /* Global dark-mode text accessibility */
   .dark .text-forest {
-    color: #FAFAF6;
+    color: #fafaf6;
   }
   .dark .text-ink {
-    color: #F5F4EC;
+    color: #f5f4ec;
   }
   .dark .text-ink-muted {
-    color: rgba(245, 244, 236, 0.80);
+    color: rgba(245, 244, 236, 0.82);
   }
   .dark .text-ink-soft {
-    color: rgba(245, 244, 236, 0.65);
+    color: rgba(245, 244, 236, 0.68);
   }
 
-  /* Visible, on-brand focus. Never remove the outline — WCAG 2.4.7. */
   :focus-visible {
     @apply outline-none ring-2 ring-moss ring-offset-2 ring-offset-cream;
   }
 
   .dark :focus-visible {
-    @apply ring-leaf ring-offset-forest-dark;
+    @apply ring-leaf ring-offset-[var(--page-bg)];
   }
 
   ::selection {
-    @apply bg-leaf/30 text-forest;
+    @apply bg-moss/20 text-forest;
   }
 
   .dark ::selection {
-    @apply bg-leaf/40 text-cream-50;
+    @apply bg-leaf/30 text-cream-50;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -73,35 +80,44 @@
       scroll-behavior: auto !important;
     }
   }
+
+  /* Desktop: no bottom nav */
+  @media (min-width: 1024px) {
+    :root {
+      --bottom-nav-h: 0px;
+    }
+  }
 }
 
 @layer components {
-  /* Skip link — the first tab stop on every page. */
   .skip-link {
     @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100]
            focus:rounded-full focus:bg-forest focus:px-5 focus:py-3 focus:text-sm
            focus:font-semibold focus:text-white dark:focus:bg-leaf dark:focus:text-forest-dark;
   }
 
-  /* Every interactive target is at least 48px — thumbs, not cursors. */
   .tap-target {
     @apply min-h-[48px] min-w-[48px];
   }
 
   .card-surface {
-    @apply rounded-2xl border border-cream-300 bg-white shadow-soft dark:border-white/10 dark:bg-forest/40 dark:shadow-none;
+    @apply rounded-2xl border border-cream-300 bg-white shadow-soft
+           dark:border-white/15 dark:bg-[var(--surface-raised)] dark:shadow-none;
+  }
+
+  .section-shell {
+    @apply mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8;
   }
 
   .shimmer {
-    @apply relative overflow-hidden bg-cream-200 dark:bg-forest/60;
+    @apply relative overflow-hidden bg-cream-200 dark:bg-[var(--surface)];
   }
   .shimmer::after {
     @apply absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r
-           from-transparent via-white/60 dark:via-white/15 to-transparent;
+           from-transparent via-white/60 dark:via-white/10 to-transparent;
     content: "";
   }
 
-  /* The dashed connector between origin and destination on trip cards. */
   .route-connector {
     @apply relative flex-1;
   }
@@ -118,8 +134,10 @@
   .text-pretty {
     text-wrap: pretty;
   }
-  /* Reserve height so number changes never reflow the layout. */
   .tabular {
     font-variant-numeric: tabular-nums;
+  }
+  .page-pad-bottom {
+    padding-bottom: var(--page-pad-bottom);
   }
 }
