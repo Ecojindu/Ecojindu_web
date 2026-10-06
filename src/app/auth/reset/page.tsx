@@ -108,7 +108,14 @@ function ResetForm() {
               />
             </Field>
 
-            <Button type="submit" block size="lg" loading={reset.isPending} loadingText="Saving…">
+            <Button
+              type="submit"
+              block
+              size="lg"
+              loading={reset.isPending}
+              loadingText="Saving…"
+              className="bg-hero-tint text-white hover:bg-hero-tint/90"
+            >
               Update password
             </Button>
           </form>

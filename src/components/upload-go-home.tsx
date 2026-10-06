@@ -51,7 +51,7 @@ interface UploadGoHomeProps {
   className?: string;
   /** When false, only the upload card and actions (headline lives elsewhere). */
   showIntro?: boolean;
-  /** Section heading on #1E4927 background (duplicate of hero copy for now). */
+  /** White intro copy on green (#009E61) section background. */
   introOnDark?: boolean;
 }
 
@@ -271,29 +271,30 @@ export function UploadGoHome({ className, showIntro = true, introOnDark }: Uploa
     <section className={cn("relative", className)}>
       <div className="mx-auto w-full min-w-0 max-w-lg">
         {showIntro ? (
-          <>
+          <div className="mx-auto max-w-lg text-center sm:max-w-xl">
             {introOnDark ? (
               <h2
                 id="upload-go-heading"
-                className="max-w-xl text-balance text-display-sm font-extrabold tracking-tight text-white sm:text-display-md"
+                className="text-balance text-display-sm font-extrabold tracking-tight text-white sm:text-display-md"
               >
-                Plan.Book.Travel
+                Upload &amp; Go
               </h2>
             ) : (
-              <h1 className="max-w-xl text-balance text-display-sm font-extrabold tracking-tight text-forest dark:text-cream-50 sm:text-display-md">
-                Plan.Book.Travel
+              <h1 className="text-balance text-display-sm font-extrabold tracking-tight text-forest dark:text-cream-50 sm:text-display-md">
+                Upload &amp; Go
               </h1>
             )}
             <p
               className={cn(
-                "mt-3 max-w-lg text-pretty text-base leading-snug sm:leading-relaxed",
+                "mx-auto mt-3 max-w-sm text-pretty text-base leading-snug sm:max-w-md sm:leading-snug",
                 introOnDark ? "text-white/90" : "text-ink-muted dark:text-cream-100/75",
               )}
             >
-              Plan or book your shuttle to airport by uploading your ticket or booking code for a
-              matched departure. Or plan city, date, and seats—one checkout, QR pass to board.
+              Upload a ticket or booking code for matched shuttle times.
+              <br />
+              No ticket? Use Plan a trip here to set city, date, and seats.
             </p>
-          </>
+          </div>
         ) : (
           <h2 id="upload-go-heading" className="sr-only">
             Upload your flight ticket

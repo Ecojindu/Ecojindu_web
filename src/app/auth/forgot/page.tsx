@@ -85,7 +85,14 @@ export default function ForgotPasswordPage() {
               />
             </Field>
 
-            <Button type="submit" block size="lg" loading={request.isPending} loadingText="Sending…">
+            <Button
+              type="submit"
+              block
+              size="lg"
+              loading={request.isPending}
+              loadingText="Sending…"
+              className="bg-hero-tint text-white hover:bg-hero-tint/90"
+            >
               <Send aria-hidden />
               Send reset link
             </Button>

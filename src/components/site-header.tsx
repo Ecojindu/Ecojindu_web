@@ -58,7 +58,7 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-cream-300/80 bg-white/90 backdrop-blur-md dark:border-white/10 dark:bg-forest-dark/90">
+    <header className="sticky top-0 z-40 border-b border-cream-300/80 bg-white/90 backdrop-blur-md dark:border-white/15 dark:bg-[#009E61] dark:backdrop-blur-none">
       <div className="container flex h-[60px] items-center justify-between gap-4 sm:h-[68px]">
         <Logo />
 
@@ -158,7 +158,7 @@ export function SiteHeader() {
         <div className="min-h-0 overflow-hidden">
           <div
             className={cn(
-              "border-t border-cream-300 bg-white transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none dark:border-white/10 dark:bg-forest-dark",
+              "border-t border-cream-300 bg-white transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none dark:border-white/15 dark:bg-[#009E61]",
               open ? "translate-y-0 opacity-100" : "-translate-y-1 opacity-0",
               !open && "pointer-events-none",
             )}
