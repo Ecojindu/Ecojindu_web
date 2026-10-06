@@ -119,6 +119,7 @@ function VerifyForm() {
               disabled={code.length < 4}
               loading={verify.isPending}
               loadingText="Checking…"
+              className="bg-hero-tint text-white hover:bg-hero-tint/90"
             >
               <CheckCircle2 aria-hidden />
               Verify

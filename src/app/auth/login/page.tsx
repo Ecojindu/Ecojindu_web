@@ -76,7 +76,7 @@ function LoginForm() {
             >
               <Input
                 autoComplete="username"
-                placeholder="you@example.com or 0815 447 1570"
+                placeholder="you@gmail.com"
                 invalid={Boolean(form.formState.errors.identifier)}
                 {...form.register("identifier")}
               />
@@ -115,7 +115,14 @@ function LoginForm() {
               </Link>
             </div>
 
-            <Button type="submit" block size="lg" loading={submitting} loadingText="Signing in…">
+            <Button
+              type="submit"
+              block
+              size="lg"
+              loading={submitting}
+              loadingText="Signing in…"
+              className="bg-hero-tint text-white hover:bg-hero-tint/90"
+            >
               <LogIn aria-hidden />
               Sign in
             </Button>

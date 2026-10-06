@@ -123,7 +123,14 @@ function ManageBooking() {
               />
             </Field>
 
-            <Button type="submit" block size="lg" loading={lookup.isPending} loadingText="Looking…">
+            <Button
+              type="submit"
+              block
+              size="lg"
+              loading={lookup.isPending}
+              loadingText="Looking…"
+              className="bg-hero-tint text-white hover:bg-hero-tint/90"
+            >
               <Search aria-hidden />
               Find my booking
             </Button>

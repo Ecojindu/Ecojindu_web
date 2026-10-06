@@ -64,7 +64,10 @@ export function SiteFooter() {
         <div className="py-9 sm:py-14">
           <div className="grid gap-6 md:grid-cols-[1.4fr_1fr_1fr_1.3fr] md:gap-10">
           <div>
-            <Logo variant="dark" />
+            <Logo
+              variant="dark"
+              className="[&>span:last-child>span:last-child]:!text-white [&>span:last-child>span:first-child>span.text-leaf]:!text-inherit"
+            />
             <p className="mt-4 hidden max-w-xs text-pretty text-sm leading-relaxed text-white/90 sm:block">
               Scheduled, zero-emission electric shuttles between Umuahia, Aba and Sam Mbakwe Airport —
               on a fixed timetable you can plan a flight around.

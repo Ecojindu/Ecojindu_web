@@ -147,7 +147,14 @@ function RegisterForm() {
               </div>
             </Field>
 
-            <Button type="submit" block size="lg" loading={submitting} loadingText="Creating…">
+            <Button
+              type="submit"
+              block
+              size="lg"
+              loading={submitting}
+              loadingText="Creating…"
+              className="bg-hero-tint text-white hover:bg-hero-tint/90"
+            >
               <UserPlus aria-hidden />
               Create account
             </Button>
