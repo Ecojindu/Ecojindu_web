@@ -1,7 +1,3 @@
-import Link from "next/link";
-
-import { Button } from "@/components/ui/button";
-
 const STEPS = [
   {
     step: "01",
@@ -25,11 +21,7 @@ const STEPS = [
   },
 ] as const;
 
-interface HowItWorksSectionProps {
-  fareLabel: string;
-}
-
-export function HowItWorksSection({ fareLabel }: HowItWorksSectionProps) {
+export function HowItWorksSection() {
   return (
     <section
       id="how-it-works"
@@ -45,12 +37,11 @@ export function HowItWorksSection({ fareLabel }: HowItWorksSectionProps) {
             How it works
           </h2>
 
-          <div className="mt-5 grid grid-cols-1 gap-10 lg:mt-6 lg:grid-cols-[minmax(0,36rem)_minmax(0,20rem)] lg:items-start lg:justify-between lg:gap-x-10 xl:grid-cols-[minmax(0,36rem)_minmax(0,22rem)] xl:gap-x-12">
-            <ul className="grid grid-cols-2 gap-2 sm:gap-3 lg:gap-3">
+          <ul className="mx-auto mt-5 grid w-full max-w-lg grid-cols-1 gap-3 sm:max-w-2xl sm:grid-cols-2 sm:gap-3 md:max-w-4xl lg:mt-6 lg:max-w-none lg:gap-4 xl:gap-5">
               {STEPS.map((item) => (
                 <li
                   key={item.step}
-                  className="flex min-h-[10.5rem] flex-col rounded-xl bg-white p-3.5 text-hero-tint shadow-soft sm:min-h-[11.5rem] sm:rounded-2xl sm:p-4 lg:min-h-[12rem] lg:p-5"
+                  className="flex flex-col rounded-xl bg-white p-4 text-hero-tint shadow-soft sm:min-h-[11.5rem] sm:rounded-2xl sm:p-5 lg:min-h-[12rem] lg:p-6"
                 >
                   <span
                     className="inline-flex size-9 shrink-0 items-center justify-center self-start rounded-full bg-mint-section text-[0.6875rem] font-bold tabular tracking-wide text-hero-tint sm:size-10 sm:text-xs"
@@ -58,49 +49,15 @@ export function HowItWorksSection({ fareLabel }: HowItWorksSectionProps) {
                   >
                     {item.step}
                   </span>
-                  <div className="mt-3 flex flex-1 flex-col items-center text-center sm:mt-3.5">
-                    <h3 className="text-sm font-bold leading-snug sm:text-base">{item.title}</h3>
-                    <p className="mt-2 text-[0.6875rem] leading-relaxed text-hero-tint/85 sm:text-xs sm:leading-relaxed">
+                  <div className="mt-3 flex flex-1 flex-col items-start text-left sm:mt-3.5 sm:items-center sm:text-center">
+                    <h3 className="text-sm font-bold leading-snug sm:text-base lg:text-lg">{item.title}</h3>
+                    <p className="mt-2 text-[0.6875rem] leading-relaxed text-hero-tint/85 sm:text-xs sm:leading-relaxed lg:text-sm lg:leading-relaxed">
                       {item.body}
                     </p>
                   </div>
                 </li>
               ))}
-            </ul>
-
-            <article
-              className="flex min-h-[9.5rem] flex-col justify-between rounded-xl bg-white p-5 text-hero-tint shadow-soft sm:min-h-[10rem] sm:rounded-2xl sm:p-6 lg:min-h-0 lg:self-stretch"
-              aria-labelledby="pricing-heading"
-            >
-              <div>
-                <h3
-                  id="pricing-heading"
-                  className="text-xs font-semibold uppercase tracking-[0.14em] text-hero-tint/75"
-                >
-                  Pricing per seat
-                </h3>
-                <p className="mt-2 text-3xl font-extrabold tabular tracking-tight sm:text-4xl">
-                  {fareLabel}
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-hero-tint/90">
-                  Fixed fare on every scheduled airport shuttle between Umuahia or Aba and Sam Mbakwe.
-                  No haggling at the terminal.
-                </p>
-              </div>
-              <ul className="mt-4 space-y-1 text-xs text-hero-tint/85 sm:text-sm">
-                <li>· 4 departures daily</li>
-                <li>· 100% electric 14-seat shuttles</li>
-                <li>· QR ticket in three taps</li>
-              </ul>
-              <Button
-                asChild
-                size="sm"
-                className="mt-5 w-full bg-hero-tint text-white hover:bg-hero-tint/90"
-              >
-                <Link href="/subscriptions">View subscription plans</Link>
-              </Button>
-            </article>
-          </div>
+          </ul>
         </div>
       </div>
     </section>

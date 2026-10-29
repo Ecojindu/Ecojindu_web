@@ -2,10 +2,9 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { ChevronDown, FileText, ImageIcon, Loader2, Search, Upload } from "lucide-react";
+import { ChevronDown, FileText, ImageIcon, Loader2, Upload } from "lucide-react";
 
 import { SearchWidget } from "@/components/search-widget";
-import { StickyActionBar } from "@/components/sticky-action-bar";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -49,19 +48,15 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 
 /** Home hero: book by filling the form first; Upload & Go is an optional expand. */
 export function BookHome({ className }: { className?: string }) {
-  const searchCtaRef = React.useRef<HTMLDivElement>(null);
-  const [showSticky, setShowSticky] = React.useState(false);
   const [uploadOpen, setUploadOpen] = React.useState(false);
+  const [reduceMotion, setReduceMotion] = React.useState(false);
 
   React.useEffect(() => {
-    const node = searchCtaRef.current;
-    if (!node || typeof IntersectionObserver === "undefined") return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setShowSticky(!entry.isIntersecting),
-      { root: null, threshold: 0.15, rootMargin: "0px 0px -48px 0px" },
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReduceMotion(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
   }, []);
 
   return (
@@ -84,16 +79,27 @@ export function BookHome({ className }: { className?: string }) {
         </div>
 
         <div>
-          <div ref={searchCtaRef}>
+          <div>
             <SearchWidget />
           </div>
 
-          <div className="mt-4">
+          <div
+            className={cn(
+              "mt-4 overflow-hidden rounded-2xl border border-cream-300 bg-white shadow-soft",
+              "dark:border-white/15 dark:bg-[var(--surface-raised)]",
+            )}
+          >
             <button
               type="button"
+              id="upload-go-toggle"
               onClick={() => setUploadOpen((v) => !v)}
-              className="tap-target flex w-full items-center justify-between gap-3 rounded-2xl border border-cream-300 bg-white px-4 py-3 text-left text-sm font-semibold text-forest shadow-soft dark:border-white/15 dark:bg-[var(--surface-raised)] dark:text-cream-50"
+              className={cn(
+                "tap-target flex w-full items-center justify-between gap-3 px-4 py-3.5 text-left text-sm font-semibold text-forest",
+                "transition-colors hover:bg-forest/[0.04] dark:text-cream-50 dark:hover:bg-white/5",
+                uploadOpen && "border-b border-cream-300 dark:border-white/15",
+              )}
               aria-expanded={uploadOpen}
+              aria-controls="upload-go-panel"
             >
               <span className="inline-flex items-center gap-2">
                 <Upload className="size-4 shrink-0 text-moss dark:text-[#B8E08A]" aria-hidden />
@@ -101,14 +107,38 @@ export function BookHome({ className }: { className?: string }) {
               </span>
               <ChevronDown
                 className={cn(
-                  "size-5 shrink-0 text-ink-muted transition-transform dark:text-cream-100/70",
+                  "size-5 shrink-0 text-ink-muted transition-transform duration-300 dark:text-cream-100/70",
+                  reduceMotion && "duration-0",
                   uploadOpen && "rotate-180",
                 )}
                 aria-hidden
               />
             </button>
 
-            {uploadOpen ? <UploadGoPanel className="mt-3" /> : null}
+            <div
+              id="upload-go-panel"
+              className={cn(
+                "grid overflow-hidden",
+                reduceMotion
+                  ? uploadOpen
+                    ? "grid-rows-[1fr]"
+                    : "grid-rows-[0fr]"
+                  : cn(
+                      "transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+                      uploadOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+                    ),
+              )}
+              aria-hidden={!uploadOpen}
+            >
+              <div
+                className={cn(
+                  "min-h-0 overflow-hidden",
+                  !uploadOpen && "pointer-events-none",
+                )}
+              >
+                <UploadGoPanel />
+              </div>
+            </div>
           </div>
 
           <p className="mt-4 text-center text-sm text-ink-muted dark:text-cream-100/70 lg:hidden">
@@ -116,71 +146,18 @@ export function BookHome({ className }: { className?: string }) {
           </p>
         </div>
       </div>
-
-      <StickyActionBar hidden={!showSticky}>
-        <Button
-          size="lg"
-          block
-          className="min-h-12"
-          onClick={() => {
-            searchCtaRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-            const form = searchCtaRef.current?.querySelector("form");
-            form?.requestSubmit();
-          }}
-        >
-          <Search aria-hidden />
-          Search departures
-        </Button>
-      </StickyActionBar>
     </section>
   );
 }
 
-/** Optional Upload & Go panel — only after the traveller opts in. */
-function UploadGoPanel({ className }: { className?: string }) {
+/** Upload body — rendered inside the attached BookHome expander. */
+function UploadGoPanel() {
   const router = useRouter();
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [pnr, setPnr] = React.useState("");
   const [reading, setReading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [dragOver, setDragOver] = React.useState(false);
-  const [foamMode, setFoamMode] = React.useState<"upload" | "plan">("upload");
-  const [reduceMotion, setReduceMotion] = React.useState(false);
-  const [foamShellHeight, setFoamShellHeight] = React.useState<number | null>(null);
-  const uploadFaceRef = React.useRef<HTMLDivElement>(null);
-  const planFaceRef = React.useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setReduceMotion(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
-
-  const syncFoamShellHeight = React.useCallback(() => {
-    const active =
-      foamMode === "upload" ? uploadFaceRef.current : planFaceRef.current;
-    if (!active) return;
-    setFoamShellHeight(active.scrollHeight);
-  }, [foamMode]);
-
-  React.useLayoutEffect(() => {
-    syncFoamShellHeight();
-  }, [syncFoamShellHeight, reading, foamMode]);
-
-  React.useEffect(() => {
-    const nodes = [uploadFaceRef.current, planFaceRef.current].filter(Boolean);
-    if (!nodes.length) return;
-    const observer = new ResizeObserver(() => syncFoamShellHeight());
-    nodes.forEach((node) => observer.observe(node!));
-    return () => observer.disconnect();
-  }, [syncFoamShellHeight]);
-
-  function switchFoam(mode: "upload" | "plan") {
-    setFoamMode(mode);
-    if (mode === "plan") setError(null);
-  }
 
   async function runRead(file?: File | null) {
     setError(null);
@@ -237,12 +214,11 @@ function UploadGoPanel({ className }: { className?: string }) {
   }
 
   return (
-    <div className={cn(className)}>
+    <div className="px-4 pb-5 pt-1 sm:px-5 sm:pb-6">
       <div
         className={cn(
-          "rounded-3xl border border-cream-300 bg-white p-5 shadow-soft transition-colors",
-          "dark:border-white/15 dark:bg-[var(--surface-raised)]",
-          dragOver && "border-moss ring-2 ring-moss/25",
+          "transition-colors",
+          dragOver && "rounded-2xl ring-2 ring-moss/25",
           reading && "pointer-events-none opacity-90",
         )}
         onDragOver={(e) => {

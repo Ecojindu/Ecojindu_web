@@ -31,9 +31,9 @@ export default async function HomePage() {
 
   return (
     <div className="snap-y snap-proximity">
-      <HomeHeroSection />
+      <HomeHeroSection fareLabel={naira(sampleFare)} />
 
-      <HowItWorksSection fareLabel={naira(sampleFare)} />
+      <HowItWorksSection />
 
       <section
         id="upload-go"
@@ -47,10 +47,10 @@ export default async function HomePage() {
 
       <HomeSubscriptionsSection />
 
-      <section className="bg-[#009E61] py-10 sm:py-14" id="green">
+      <section className="bg-hero-tint py-10 sm:py-14" id="green">
         <div className="container">
           <div className="mx-auto flex max-w-2xl flex-col items-start gap-4 sm:flex-row sm:items-center">
-            <span className="grid size-14 shrink-0 place-items-center rounded-full bg-mint-section text-hero-tint">
+            <span className="grid size-14 shrink-0 place-items-center rounded-full bg-white/15 text-white">
               <BatteryCharging className="size-7" aria-hidden />
             </span>
             <div>

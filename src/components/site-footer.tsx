@@ -2,8 +2,9 @@ import Link from "next/link";
 import { Instagram, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 
 import { Logo } from "@/components/brand";
-import { Button } from "@/components/ui/button";
 import { config, whatsappLink } from "@/lib/config";
+
+const FOOTER_WHATSAPP_MESSAGE = "Hi Ecojindu, I would like to book a seat.";
 
 const COLUMNS = [
   {
@@ -34,7 +35,7 @@ const COLUMNS = [
 export function SiteFooter() {
   return (
     <div className="bg-white pt-16 sm:pt-20 lg:pt-24">
-      <footer className="overflow-hidden rounded-t-[1.75rem] bg-[#009E61] pb-[calc(3.5rem+env(safe-area-inset-bottom))] text-white sm:rounded-t-[2rem] lg:pb-0">
+      <footer className="overflow-hidden rounded-t-[1.75rem] bg-hero-tint pb-[calc(3.5rem+env(safe-area-inset-bottom))] text-white sm:rounded-t-[2rem] lg:pb-0">
         <div className="container">
         <section
           className="px-5 pb-8 pt-9 text-center sm:px-8 sm:pb-10 sm:pt-11"
@@ -46,19 +47,18 @@ export function SiteFooter() {
           <p className="mx-auto mt-2 max-w-lg text-sm text-white/90">
             Send a ticket photo or message {config.contactPhone} — same booking API as the web.
           </p>
-          <Button asChild variant="whatsapp" size="lg" className="mt-5">
-            <a
-              href={whatsappLink("Hi Ecojindu, I'd like to book a seat.")}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MessageCircle aria-hidden />
-              Book on WhatsApp
-            </a>
-          </Button>
+          <a
+            href={whatsappLink(FOOTER_WHATSAPP_MESSAGE)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 inline-flex h-14 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-white px-8 text-base font-semibold text-hero-tint shadow-soft transition-all duration-200 hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-moss focus-visible:ring-offset-2 focus-visible:ring-offset-cream active:scale-[0.98] [&_svg]:size-[1.15em] [&_svg]:shrink-0"
+          >
+            <MessageCircle aria-hidden />
+            Book on WhatsApp
+          </a>
         </section>
 
-        <div className="border-t border-white/15" aria-hidden />
+        <div className="border-t border-white/40" aria-hidden />
 
         <div className="py-9 sm:py-14">
           <div className="grid gap-6 md:grid-cols-[1.4fr_1fr_1fr_1.3fr] md:gap-10">
@@ -168,8 +168,10 @@ export function SiteFooter() {
           </div>
           </div>
 
-          <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-white/80 sm:mt-12 sm:flex-row sm:items-center sm:justify-between sm:pt-7">
-            <p>© {new Date().getFullYear()} Ecojindu Shuttle. All rights reserved.</p>
+          <div className="mt-8 flex flex-col gap-3 border-t border-white/40 pt-6 text-xs text-white/80 sm:mt-12 sm:flex-row sm:items-center sm:justify-between sm:pt-7">
+            <p suppressHydrationWarning>
+              © {new Date().getFullYear()} Ecojindu Shuttle. All rights reserved.
+            </p>
             <p>Operated in partnership with Abia State · Powered by 100% electric vehicles.</p>
           </div>
         </div>
