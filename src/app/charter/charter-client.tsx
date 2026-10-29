@@ -325,6 +325,7 @@ function Charter() {
                 block
                 loading={submit.isPending}
                 loadingText="Sending…"
+                className="bg-hero-tint text-white hover:bg-hero-tint/90"
               >
                 <Send aria-hidden />
                 Request a quote
@@ -338,14 +339,14 @@ function Charter() {
           </Card>
 
           <aside className="space-y-4">
-            <Card className="border-0 bg-[#009E61] p-6 text-white shadow-soft">
-              <Bus className="size-7 text-leaf" aria-hidden />
+            <Card className="border-0 bg-hero-tint p-6 text-white shadow-soft">
+              <Bus className="size-7 text-white" aria-hidden />
               <h2 className="mt-3 text-lg font-extrabold text-white">Whole vehicle, your schedule</h2>
-              <p className="mt-2 text-sm leading-relaxed text-cream-100/80">
+              <p className="mt-2 text-sm leading-relaxed text-white/85">
                 A charter takes the entire 14-seat electric minibus, departing when you need it
                 rather than on the published timetable.
               </p>
-              <ul className="mt-5 space-y-2.5 text-sm text-cream-100/85">
+              <ul className="mt-5 space-y-2.5 text-sm text-white/90">
                 {[
                   "Your own departure time",
                   "Door-to-door, not terminal-to-terminal",
@@ -353,7 +354,7 @@ function Charter() {
                   "Same QR ticket and driver portal",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-2.5">
-                    <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-leaf" aria-hidden />
+                    <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-white" aria-hidden />
                     {item}
                   </li>
                 ))}

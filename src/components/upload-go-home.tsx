@@ -2,20 +2,19 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { FileText, ImageIcon, Loader2, Upload } from "lucide-react";
+import { ChevronDown, FileText, ImageIcon, Loader2, Upload } from "lucide-react";
 
+import { SearchWidget } from "@/components/search-widget";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { PlanTripHomeFoam } from "@/components/plan-trip-home-foam";
 import { ApiError, api } from "@/lib/api";
-import { productConfig, type PickupCity } from "@/lib/product-config";
+import type { PickupCity } from "@/lib/product-config";
 import { cn } from "@/lib/utils";
 
 const ACCEPT = "image/jpeg,image/png,image/webp,application/pdf";
 const MAX_BYTES = 10 * 1024 * 1024;
 const READ_TIMEOUT_MS = 45_000;
-
 const PICKUP_KEY = "ejs.pickup_city";
 
 export function rememberPickup(city: PickupCity) {
@@ -47,139 +46,10 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   });
 }
 
-interface UploadGoHomeProps {
-  className?: string;
-  /** When false, only the upload card and actions (headline lives elsewhere). */
-  showIntro?: boolean;
-  /** White intro copy on green (#009E61) section background. */
-  introOnDark?: boolean;
-}
-
-interface UploadFoamCardProps {
-  inputRef: React.RefObject<HTMLInputElement>;
-  reading: boolean;
-  dragOver: boolean;
-  pnr: string;
-  setPnr: (value: string) => void;
-  setDragOver: (value: boolean) => void;
-  runRead: (file?: File | null) => Promise<void>;
-  onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-function UploadFoamCard({
-  inputRef,
-  reading,
-  dragOver,
-  pnr,
-  setPnr,
-  setDragOver,
-  runRead,
-  onFileChange,
-}: UploadFoamCardProps) {
-  return (
-    <div
-      className={cn(
-        "rounded-3xl border-2 border-dashed bg-white p-5 shadow-soft transition-colors dark:bg-forest/40",
-        dragOver ? "border-moss bg-leaf/10" : "border-cream-400 dark:border-white/20",
-        reading && "pointer-events-none opacity-80",
-      )}
-      onDragOver={(e) => {
-        e.preventDefault();
-        setDragOver(true);
-      }}
-      onDragLeave={() => setDragOver(false)}
-      onDrop={(e) => {
-        e.preventDefault();
-        setDragOver(false);
-        const file = e.dataTransfer.files?.[0];
-        if (file) void runRead(file);
-      }}
-    >
-      {reading ? (
-        <div className="flex flex-col items-center gap-3 py-8 text-center" role="status">
-          <Loader2 className="size-10 animate-spin text-moss" aria-hidden />
-          <p className="text-base font-bold text-forest dark:text-cream-50">Reading your ticket…</p>
-          <p className="text-sm text-ink-muted dark:text-cream-100/70">
-            Extracting flight details. This usually takes a few seconds.
-          </p>
-        </div>
-      ) : (
-        <>
-          <button
-            type="button"
-            onClick={() => inputRef.current?.click()}
-            className="tap-target flex w-full flex-col items-center gap-3 rounded-2xl py-6 text-center"
-          >
-            <span className="grid size-14 place-items-center rounded-full bg-mint-section text-hero-tint">
-              <Upload className="size-7" aria-hidden />
-            </span>
-            <span className="text-base font-bold text-forest dark:text-cream-50">
-              Upload your flight ticket
-            </span>
-            <span className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs font-medium text-ink-muted dark:text-cream-100/60">
-              <span className="inline-flex items-center gap-1">
-                <ImageIcon className="size-3.5" aria-hidden /> Photo
-              </span>
-              <span className="inline-flex items-center gap-1">
-                <FileText className="size-3.5" aria-hidden /> PDF
-              </span>
-              <span>· max 10 MB</span>
-            </span>
-          </button>
-
-          <div className="mt-2 flex items-center gap-3">
-            <div className="h-px flex-1 bg-cream-400 dark:bg-white/15" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-ink-soft">or</span>
-            <div className="h-px flex-1 bg-cream-400 dark:bg-white/15" />
-          </div>
-
-          <label className="mt-3 block">
-            <span className="sr-only">Booking code (PNR)</span>
-            <Input
-              value={pnr}
-              onChange={(e) => setPnr(e.target.value.toUpperCase())}
-              placeholder="Paste booking code (PNR)"
-              autoComplete="off"
-              className="h-12"
-            />
-          </label>
-          <Button
-            type="button"
-            block
-            size="lg"
-            className="mt-3"
-            onClick={() => void runRead(null)}
-            disabled={!pnr.trim()}
-          >
-            Read booking code
-          </Button>
-        </>
-      )}
-
-      <input
-        ref={inputRef}
-        type="file"
-        accept={ACCEPT}
-        capture="environment"
-        className="sr-only"
-        onChange={onFileChange}
-      />
-    </div>
-  );
-}
-
-export function UploadGoHome({ className, showIntro = true, introOnDark }: UploadGoHomeProps) {
-  const router = useRouter();
-  const inputRef = React.useRef<HTMLInputElement>(null);
-  const [pnr, setPnr] = React.useState("");
-  const [reading, setReading] = React.useState(false);
-  const [error, setError] = React.useState<string | null>(null);
-  const [dragOver, setDragOver] = React.useState(false);
-  const [foamMode, setFoamMode] = React.useState<"upload" | "plan">("upload");
+/** Home hero: book by filling the form first; Upload & Go is an optional expand. */
+export function BookHome({ className }: { className?: string }) {
+  const [uploadOpen, setUploadOpen] = React.useState(false);
   const [reduceMotion, setReduceMotion] = React.useState(false);
-  const [foamShellHeight, setFoamShellHeight] = React.useState<number | null>(null);
-  const uploadFaceRef = React.useRef<HTMLDivElement>(null);
-  const planFaceRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -189,29 +59,105 @@ export function UploadGoHome({ className, showIntro = true, introOnDark }: Uploa
     return () => mq.removeEventListener("change", sync);
   }, []);
 
-  const syncFoamShellHeight = React.useCallback(() => {
-    const active =
-      foamMode === "upload" ? uploadFaceRef.current : planFaceRef.current;
-    if (!active) return;
-    setFoamShellHeight(active.scrollHeight);
-  }, [foamMode]);
+  return (
+    <section className={cn("relative", className)}>
+      <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+        <div className="lg:pt-4">
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-forest dark:text-cream-100/75">
+            Book a seat
+          </p>
+          <h1 className="mt-2 text-balance text-display-sm font-extrabold tracking-tight text-forest dark:text-cream-50 sm:text-display-md">
+            Ecojindu Shuttle
+          </h1>
+          <p className="mt-3 max-w-md text-pretty text-base text-ink-muted dark:text-cream-100/80">
+            Choose your route, date and seats — then confirm and pay. Electric shuttles between
+            Umuahia, Aba and Sam Mbakwe Airport.
+          </p>
+          <p className="mt-5 hidden text-sm text-ink-muted dark:text-cream-100/70 lg:block">
+            4 departures daily · 100% electric · QR ticket after payment
+          </p>
+        </div>
 
-  React.useLayoutEffect(() => {
-    syncFoamShellHeight();
-  }, [syncFoamShellHeight, reading, foamMode]);
+        <div>
+          <div>
+            <SearchWidget />
+          </div>
 
-  React.useEffect(() => {
-    const nodes = [uploadFaceRef.current, planFaceRef.current].filter(Boolean);
-    if (!nodes.length) return;
-    const observer = new ResizeObserver(() => syncFoamShellHeight());
-    nodes.forEach((node) => observer.observe(node!));
-    return () => observer.disconnect();
-  }, [syncFoamShellHeight]);
+          <div
+            className={cn(
+              "mt-4 overflow-hidden rounded-2xl border border-cream-300 bg-white shadow-soft",
+              "dark:border-white/15 dark:bg-[var(--surface-raised)]",
+            )}
+          >
+            <button
+              type="button"
+              id="upload-go-toggle"
+              onClick={() => setUploadOpen((v) => !v)}
+              className={cn(
+                "tap-target flex w-full items-center justify-between gap-3 px-4 py-3.5 text-left text-sm font-semibold text-forest",
+                "transition-colors hover:bg-forest/[0.04] dark:text-cream-50 dark:hover:bg-white/5",
+                uploadOpen && "border-b border-cream-300 dark:border-white/15",
+              )}
+              aria-expanded={uploadOpen}
+              aria-controls="upload-go-panel"
+            >
+              <span className="inline-flex items-center gap-2">
+                <Upload className="size-4 shrink-0 text-moss dark:text-[#B8E08A]" aria-hidden />
+                Have a flight ticket? Upload instead
+              </span>
+              <ChevronDown
+                className={cn(
+                  "size-5 shrink-0 text-ink-muted transition-transform duration-300 dark:text-cream-100/70",
+                  reduceMotion && "duration-0",
+                  uploadOpen && "rotate-180",
+                )}
+                aria-hidden
+              />
+            </button>
 
-  function switchFoam(mode: "upload" | "plan") {
-    setFoamMode(mode);
-    if (mode === "plan") setError(null);
-  }
+            <div
+              id="upload-go-panel"
+              className={cn(
+                "grid overflow-hidden",
+                reduceMotion
+                  ? uploadOpen
+                    ? "grid-rows-[1fr]"
+                    : "grid-rows-[0fr]"
+                  : cn(
+                      "transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+                      uploadOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+                    ),
+              )}
+              aria-hidden={!uploadOpen}
+            >
+              <div
+                className={cn(
+                  "min-h-0 overflow-hidden",
+                  !uploadOpen && "pointer-events-none",
+                )}
+              >
+                <UploadGoPanel />
+              </div>
+            </div>
+          </div>
+
+          <p className="mt-4 text-center text-sm text-ink-muted dark:text-cream-100/70 lg:hidden">
+            4 departures daily · 100% electric · QR ticket after payment
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Upload body — rendered inside the attached BookHome expander. */
+function UploadGoPanel() {
+  const router = useRouter();
+  const inputRef = React.useRef<HTMLInputElement>(null);
+  const [pnr, setPnr] = React.useState("");
+  const [reading, setReading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
+  const [dragOver, setDragOver] = React.useState(false);
 
   async function runRead(file?: File | null) {
     setError(null);
@@ -254,7 +200,7 @@ export function UploadGoHome({ className, showIntro = true, introOnDark }: Uploa
       setError(
         err instanceof ApiError
           ? err.message
-          : "We couldn't read that ticket. Try again or book without a flight ticket.",
+          : "We couldn't read that ticket. Try again or book with the form above.",
       );
     } finally {
       setReading(false);
@@ -268,188 +214,111 @@ export function UploadGoHome({ className, showIntro = true, introOnDark }: Uploa
   }
 
   return (
-    <section className={cn("relative", className)}>
-      <div className="mx-auto w-full min-w-0 max-w-lg">
-        {showIntro ? (
-          <div className="mx-auto max-w-lg text-center sm:max-w-xl">
-            {introOnDark ? (
-              <h2
-                id="upload-go-heading"
-                className="text-balance text-display-sm font-extrabold tracking-tight text-white sm:text-display-md"
-              >
-                Upload &amp; Go
-              </h2>
-            ) : (
-              <h1 className="text-balance text-display-sm font-extrabold tracking-tight text-forest dark:text-cream-50 sm:text-display-md">
-                Upload &amp; Go
-              </h1>
-            )}
-            <p
-              className={cn(
-                "mx-auto mt-3 max-w-sm text-pretty text-base leading-snug sm:max-w-md sm:leading-snug",
-                introOnDark ? "text-white/90" : "text-ink-muted dark:text-cream-100/75",
-              )}
-            >
-              Upload a ticket or booking code for matched shuttle times.
-              <br />
-              No ticket? Use Plan a trip here to set city, date, and seats.
+    <div className="px-4 pb-5 pt-1 sm:px-5 sm:pb-6">
+      <div
+        className={cn(
+          "transition-colors",
+          dragOver && "rounded-2xl ring-2 ring-moss/25",
+          reading && "pointer-events-none opacity-90",
+        )}
+        onDragOver={(e) => {
+          e.preventDefault();
+          setDragOver(true);
+        }}
+        onDragLeave={() => setDragOver(false)}
+        onDrop={(e) => {
+          e.preventDefault();
+          setDragOver(false);
+          const file = e.dataTransfer.files?.[0];
+          if (file) void runRead(file);
+        }}
+      >
+        {reading ? (
+          <div className="flex flex-col items-center gap-3 py-8 text-center" role="status" aria-live="polite">
+            <Loader2 className="size-10 animate-spin text-moss" aria-hidden />
+            <p className="text-base font-bold text-forest dark:text-cream-50">Reading your ticket…</p>
+            <p className="text-sm text-ink-muted dark:text-cream-100/75">
+              Extracting flight details. This usually takes a few seconds.
             </p>
           </div>
         ) : (
-          <h2 id="upload-go-heading" className="sr-only">
-            Upload your flight ticket
-          </h2>
-        )}
-
-        <div
-          className={cn("relative w-full", showIntro ? "mt-6" : "mt-0")}
-          aria-live="polite"
-        >
-          {reduceMotion ? (
-            foamMode === "upload" ? (
-              <UploadFoamCard
-                inputRef={inputRef}
-                reading={reading}
-                dragOver={dragOver}
-                pnr={pnr}
-                setPnr={setPnr}
-                setDragOver={setDragOver}
-                runRead={runRead}
-                onFileChange={onFileChange}
-              />
-            ) : (
-              <PlanTripHomeFoam />
-            )
-          ) : (
-            <div
-              className="w-full overflow-hidden [perspective:1200px]"
-              style={{
-                height: foamShellHeight ?? undefined,
-                transition: "height 560ms cubic-bezier(0.16, 1, 0.3, 1)",
-              }}
-            >
-              <div
-                className={cn(
-                  "relative w-full transition-transform duration-[560ms] ease-[cubic-bezier(0.16,1,0.3,1)] [transform-style:preserve-3d]",
-                  foamMode === "plan" && "[transform:rotateY(180deg)]",
-                )}
-                style={{ height: foamShellHeight ?? undefined }}
-              >
-                <div
-                  ref={uploadFaceRef}
-                  aria-hidden={foamMode !== "upload"}
-                  className={cn(
-                    "absolute inset-x-0 top-0 [backface-visibility:hidden]",
-                    foamMode !== "upload" && "pointer-events-none",
-                  )}
-                >
-                  <UploadFoamCard
-                    inputRef={inputRef}
-                    reading={reading}
-                    dragOver={dragOver}
-                    pnr={pnr}
-                    setPnr={setPnr}
-                    setDragOver={setDragOver}
-                    runRead={runRead}
-                    onFileChange={onFileChange}
-                  />
-                </div>
-                <div
-                  ref={planFaceRef}
-                  aria-hidden={foamMode !== "plan"}
-                  className={cn(
-                    "absolute inset-x-0 top-0 [backface-visibility:hidden] [transform:rotateY(180deg)]",
-                    foamMode !== "plan" && "pointer-events-none",
-                  )}
-                >
-                  <PlanTripHomeFoam />
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {foamMode === "upload" ? (
-          <p
-            className={cn(
-              "mt-3 text-xs leading-relaxed",
-              introOnDark ? "text-white/75" : "text-ink-muted dark:text-cream-100/60",
-            )}
-          >
-            Your uploaded ticket is deleted after we read it. We only keep the passenger and flight
-            fields you confirm before paying.
-          </p>
-        ) : null}
-
-        {error ? (
-          <Alert variant="error" className="mt-4" title="Couldn't read that ticket">
-            {error}{" "}
+          <>
             <button
               type="button"
-              className="font-semibold underline underline-offset-2"
-              onClick={() => router.push("/search")}
+              onClick={() => inputRef.current?.click()}
+              className="tap-target flex w-full flex-col items-center gap-3 rounded-2xl border border-dashed border-cream-400 bg-cream-50 py-6 text-center dark:border-white/20 dark:bg-[var(--surface)]"
             >
-              Book without a flight ticket
+              <span className="grid size-14 place-items-center rounded-2xl bg-moss text-white">
+                <Upload className="size-7" aria-hidden />
+              </span>
+              <span className="text-base font-bold text-forest dark:text-cream-50">
+                Upload your flight ticket
+              </span>
+              <span className="flex items-center gap-3 text-xs font-medium text-ink-muted dark:text-cream-100/65">
+                <span className="inline-flex items-center gap-1">
+                  <ImageIcon className="size-3.5" aria-hidden /> Photo
+                </span>
+                <span className="inline-flex items-center gap-1">
+                  <FileText className="size-3.5" aria-hidden /> PDF
+                </span>
+                <span>· max 10 MB</span>
+              </span>
             </button>
-          </Alert>
-        ) : null}
 
-        <div className="mt-6 flex flex-col items-center gap-2 md:items-stretch">
-          <Button
-            asChild
-            size="lg"
-            block
-            className="w-full max-w-[17.5rem] bg-hero-tint text-white hover:bg-hero-tint/90 md:max-w-none"
-          >
-            <a href="/search">Book without a flight ticket</a>
-          </Button>
-          {foamMode === "upload" ? (
+            <div className="mt-4 flex items-center gap-3">
+              <div className="h-px flex-1 bg-cream-400 dark:bg-white/20" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-ink-muted dark:text-cream-100/70">
+                or
+              </span>
+              <div className="h-px flex-1 bg-cream-400 dark:bg-white/20" />
+            </div>
+
+            <label className="mt-3 block">
+              <span className="sr-only">Booking code (PNR)</span>
+              <Input
+                value={pnr}
+                onChange={(e) => setPnr(e.target.value.toUpperCase())}
+                placeholder="Paste booking code (PNR)"
+                autoComplete="off"
+                className="h-12"
+              />
+            </label>
             <Button
               type="button"
-              variant="ghost"
-              size="lg"
               block
-              className={cn(
-                introOnDark && "text-white/90 hover:bg-white/10 hover:text-white",
-              )}
-              onClick={() => switchFoam("plan")}
-            >
-              Plan a trip here
-            </Button>
-          ) : (
-            <Button
-              type="button"
-              variant="ghost"
               size="lg"
-              block
-              className={cn(
-                introOnDark && "text-white/90 hover:bg-white/10 hover:text-white",
-              )}
-              onClick={() => switchFoam("upload")}
+              className="mt-3"
+              onClick={() => void runRead(null)}
+              disabled={!pnr.trim()}
             >
-              Back to upload ticket
+              Read booking code
             </Button>
-          )}
-        </div>
+          </>
+        )}
 
-        <p
-          className={cn(
-            "mt-5 text-center text-sm",
-            introOnDark ? "text-white/80" : "text-ink-muted dark:text-cream-100/65",
-          )}
-        >
-          Fixed fare from{" "}
-          <span
-            className={cn(
-              "font-bold tabular",
-              introOnDark ? "text-white" : "text-forest dark:text-cream-50",
-            )}
-          >
-            ₦{(productConfig.singleFareKobo / 100).toLocaleString("en-NG")}
-          </span>{" "}
-          · 4 departures daily · 100% electric
-        </p>
+        <input
+          ref={inputRef}
+          type="file"
+          accept={ACCEPT}
+          capture="environment"
+          className="sr-only"
+          onChange={onFileChange}
+        />
       </div>
-    </section>
+
+      <p className="mt-3 text-xs leading-relaxed text-ink-muted dark:text-cream-100/65">
+        Your uploaded ticket is deleted after we read it. We only keep the passenger and flight
+        fields you confirm before paying.
+      </p>
+
+      {error ? (
+        <Alert variant="error" className="mt-4" title="Couldn't read that ticket">
+          {error}
+        </Alert>
+      ) : null}
+    </div>
   );
 }
+
+/** @deprecated Prefer BookHome — kept so older imports keep working. */
+export const UploadGoHome = BookHome;

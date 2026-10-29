@@ -1,7 +1,8 @@
 import Image from "next/image";
 
+import { HomePricingCard } from "@/components/home-pricing-card";
+
 const HERO_IMAGE = "/images/hero-airport-shuttle.png";
-const HERO_IMAGE_MOBILE = "/images/hero-airport-shuttle-mobile.png";
 const HERO_ALT =
   "Passenger aircraft and Ecojindu shuttle at Sam Mbakwe Airport — Umuahia and Aba airport transfers";
 
@@ -19,30 +20,22 @@ function HeroCopy({ centered }: { centered?: boolean }) {
   );
 }
 
-/** Phone + tablet (< xl): full first screen — 40% copy / 60% inset photo. */
-export function HomeHeroMobile() {
+/** Phone + tablet (< xl): copy on top, compact pricing card below. */
+export function HomeHeroMobile({ fareLabel }: { fareLabel: string }) {
   return (
     <section
-      className="flex h-[calc(100svh-60px)] min-h-0 snap-start flex-col overflow-hidden bg-[#009E61] sm:h-[calc(100svh-68px)] xl:hidden"
+      className="flex min-h-[calc(100svh-60px)] snap-start flex-col bg-hero-tint sm:min-h-[calc(100svh-68px)] xl:hidden"
       aria-label="Plan, book, and travel — Ecojindu airport shuttle"
     >
-      <div className="flex h-[40%] min-h-0 flex-col justify-center px-5">
+      <div className="flex flex-1 flex-col justify-center px-5 py-8">
         <HeroCopy centered />
       </div>
 
-      <div className="relative h-[60%] min-h-0 pb-5">
-        <div className="absolute inset-x-4 top-3 bottom-5 -translate-y-5">
-          <div className="relative h-full w-full overflow-hidden rounded-[1.75rem] shadow-soft ring-1 ring-white/10">
-            <Image
-              src={HERO_IMAGE_MOBILE}
-              alt={HERO_ALT}
-              fill
-              priority
-              className="object-cover object-center"
-              sizes="(max-width: 1279px) calc(100vw - 2rem)"
-            />
-          </div>
-        </div>
+      <div className="px-4 pb-5 pt-1">
+        <HomePricingCard
+          fareLabel={fareLabel}
+          className="rounded-[1.75rem] ring-1 ring-white/10"
+        />
       </div>
     </section>
   );
@@ -76,10 +69,10 @@ export function HomeHeroDesktop() {
   );
 }
 
-export function HomeHeroSection() {
+export function HomeHeroSection({ fareLabel }: { fareLabel: string }) {
   return (
     <>
-      <HomeHeroMobile />
+      <HomeHeroMobile fareLabel={fareLabel} />
       <HomeHeroDesktop />
     </>
   );
