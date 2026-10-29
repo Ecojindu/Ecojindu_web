@@ -23,6 +23,9 @@ const COLUMNS = [
       { href: "/#how-it-works", label: "How it works" },
       { href: "/#green", label: "Our EV fleet" },
       { href: "/help", label: "Help & FAQ" },
+      { href: "/refunds", label: "Refund & cancellation" },
+      { href: "/terms", label: "Terms of service" },
+      { href: "/privacy", label: "Privacy policy" },
     ],
   },
 ];
