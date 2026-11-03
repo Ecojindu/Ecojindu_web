@@ -1,6 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, Ticket } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
 import { HomePricingCard } from "@/components/home-pricing-card";
+import { cn } from "@/lib/utils";
 
 const HERO_IMAGE = "/images/hero-airport-shuttle.png";
 const HERO_ALT =
@@ -12,10 +16,38 @@ function HeroCopy({ centered }: { centered?: boolean }) {
       <h1 className="text-balance text-display-sm font-extrabold tracking-tight text-white sm:text-display-md">
         Plan.Book.Travel
       </h1>
-      <p className="mt-3 text-pretty text-base leading-snug text-white sm:leading-relaxed">
-        Plan or book your shuttle to airport by uploading your ticket or booking code for a
-        matched departure. Or plan city, date, and seats—one checkout, QR pass to board.
+      <p className="mt-3 text-pretty text-base leading-snug text-white/95 sm:leading-relaxed">
+        Zero-emission electric shuttles between Umuahia, Aba and Sam Mbakwe Airport.
+        Upload your flight ticket or select your run—instant QR boarding pass ready to board.
       </p>
+      <div
+        className={cn(
+          "mt-6 flex flex-wrap items-center gap-3",
+          centered ? "justify-center" : "justify-start",
+        )}
+      >
+        <Button
+          asChild
+          size="lg"
+          className="bg-white px-6 font-bold text-hero-tint shadow-soft hover:bg-white/90"
+        >
+          <Link href="/book">
+            <Ticket className="size-4" aria-hidden />
+            Book a Seat
+          </Link>
+        </Button>
+        <Button
+          asChild
+          size="lg"
+          variant="outline"
+          className="border-white/35 bg-white/10 px-5 font-semibold text-white backdrop-blur-sm hover:bg-white/20 hover:text-white"
+        >
+          <Link href="/subscriptions">
+            View Tiers
+            <ArrowRight className="size-4" aria-hidden />
+          </Link>
+        </Button>
+      </div>
     </div>
   );
 }

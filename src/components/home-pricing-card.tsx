@@ -45,7 +45,7 @@ export function HomePricingCard({
         ))}
       </ul>
       <Button asChild size="sm" className="mt-4 w-full bg-hero-tint text-white hover:bg-hero-tint/90">
-        <Link href="/#upload-go">Book now</Link>
+        <Link href="/book">Book now</Link>
       </Button>
     </article>
   );

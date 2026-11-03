@@ -26,10 +26,11 @@ function StaggeredMenuIcon({ className }: { className?: string }) {
 }
 
 const NAV = [
-  { href: "/", label: "Book" },
-  { href: "/trips", label: "My trips" },
+  { href: "/", label: "Home" },
+  { href: "/book", label: "Book a seat" },
   { href: "/subscriptions", label: "Subscriptions" },
   { href: "/charter", label: "Charter" },
+  { href: "/trips", label: "My trips" },
   { href: "/help", label: "Help" },
 ];
 
