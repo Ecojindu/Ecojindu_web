@@ -20,10 +20,10 @@ export const metadata: Metadata = {
 
 export default function BookPage() {
   return (
-    <div className="min-h-screen bg-cream-50 py-8 sm:py-12 dark:bg-[var(--page-bg)]">
+    <div className="min-h-screen bg-cream-50 pt-6 pb-16 sm:pt-10 sm:pb-20 dark:bg-[var(--page-bg)]">
       <div className="container max-w-4xl px-4 sm:px-6">
         {/* Back navigation */}
-        <div className="mb-6">
+        <div className="mb-6 pt-2">
           <Link
             href="/"
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-hero-tint/80 transition-colors hover:text-hero-tint dark:text-white/70 dark:hover:text-white sm:text-sm"

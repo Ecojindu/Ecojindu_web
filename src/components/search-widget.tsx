@@ -116,7 +116,7 @@ export function SearchWidget({
     >
       {/* ── Service type ── */}
       <div
-        className="mb-4 flex gap-1 rounded-2xl bg-cream-100 p-1.5 sm:gap-1.5 dark:bg-forest-dark/70"
+        className="mb-5 grid grid-cols-3 gap-1.5 rounded-2xl bg-cream-100 p-1.5 dark:bg-forest-dark/70"
         role="tablist"
         aria-label="Service type"
       >
@@ -132,16 +132,15 @@ export function SearchWidget({
               onClick={() => item.live && setService(item.id)}
               title={item.live ? undefined : "Coming soon"}
               className={cn(
-                "tap-target relative flex flex-1 items-center justify-center gap-1.5 rounded-xl px-2",
-                "text-[13px] font-bold transition-all sm:gap-2 sm:px-3 sm:text-sm",
+                "tap-target relative flex items-center justify-center gap-1.5 rounded-xl px-2 py-2.5",
+                "text-xs font-bold transition-all sm:gap-2 sm:text-sm",
                 active && "bg-white text-forest shadow-soft dark:bg-forest dark:text-cream-50",
                 !active && item.live && "text-ink-muted hover:text-forest dark:text-cream-100/70 dark:hover:text-cream-50",
                 !item.live && "cursor-not-allowed text-ink-soft/50 dark:text-white/30",
               )}
             >
               <item.icon className="size-4 shrink-0" aria-hidden />
-              <span className="whitespace-nowrap sm:hidden">{item.shortLabel}</span>
-              <span className="hidden whitespace-nowrap sm:inline">{item.label}</span>
+              <span className="truncate">{item.label}</span>
               {!item.live && (
                 <span className="ml-0.5 hidden rounded-full bg-cream-300 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-ink-soft md:inline dark:bg-white/10 dark:text-cream-100/60">
                   Soon
@@ -156,8 +155,8 @@ export function SearchWidget({
         <ComingSoon />
       ) : (
         <>
-          <div className={cn("grid gap-3", compact ? "sm:grid-cols-2" : "lg:grid-cols-[1.5fr_1fr_1fr]")}>
-            {/* Route */}
+          <div className="space-y-4">
+            {/* Route (Full width so no text is cut off) */}
             <div className="min-w-0">
               <label
                 htmlFor="route"
@@ -170,13 +169,13 @@ export function SearchWidget({
                 <Skeleton className="h-14 w-full rounded-xl" />
               ) : (
                 <Select value={routeId} onValueChange={setRouteId}>
-                  <SelectTrigger id="route" aria-label="Choose your route">
+                  <SelectTrigger id="route" aria-label="Choose your route" className="h-14 font-semibold">
                     <SelectValue placeholder="Choose your route" />
                   </SelectTrigger>
                   <SelectContent>
                     {bookable.map((route) => (
                       <SelectItem key={route.id} value={route.id}>
-                        {shortRouteLabel(route)}
+                        {route.origin_terminal} → {route.destination}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -184,47 +183,50 @@ export function SearchWidget({
               )}
             </div>
 
-            {/* Date */}
-            <div className="min-w-0">
-              <label
-                htmlFor="date"
-                className="mb-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink-soft dark:text-cream-100/70"
-              >
-                <CalendarDays className="size-3.5" aria-hidden />
-                Travel date
-              </label>
-              <input
-                id="date"
-                type="date"
-                value={date}
-                min={today}
-                max={addDaysISO(today, 60)}
-                onChange={(e) => setDate(e.target.value)}
-                className="h-14 w-full rounded-xl border-2 border-cream-300 bg-white px-4 text-base text-ink focus:border-moss focus:outline-none dark:border-white/15 dark:bg-forest/50 dark:text-cream-50 dark:focus:border-leaf"
-              />
-            </div>
+            {/* Date + Passengers side-by-side */}
+            <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+              {/* Date */}
+              <div className="min-w-0">
+                <label
+                  htmlFor="date"
+                  className="mb-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink-soft dark:text-cream-100/70"
+                >
+                  <CalendarDays className="size-3.5" aria-hidden />
+                  Travel date
+                </label>
+                <input
+                  id="date"
+                  type="date"
+                  value={date}
+                  min={today}
+                  max={addDaysISO(today, 60)}
+                  onChange={(e) => setDate(e.target.value)}
+                  className="h-14 w-full rounded-xl border-2 border-cream-300 bg-white px-4 text-base font-semibold text-ink focus:border-moss focus:outline-none dark:border-white/15 dark:bg-forest/50 dark:text-cream-50 dark:focus:border-leaf"
+                />
+              </div>
 
-            {/* Passengers */}
-            <div className="min-w-0">
-              <label
-                htmlFor="passengers"
-                className="mb-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink-soft dark:text-cream-100/70"
-              >
-                <Users className="size-3.5" aria-hidden />
-                Passengers
-              </label>
-              <Select value={String(seats)} onValueChange={(v) => setSeats(Number(v))}>
-                <SelectTrigger id="passengers" aria-label="Number of passengers">
-                  <SelectValue placeholder="1 Passenger" />
-                </SelectTrigger>
-                <SelectContent>
-                  {[1, 2, 3, 4, 5, 6].map((num) => (
-                    <SelectItem key={num} value={String(num)}>
-                      {num} {num === 1 ? "Passenger" : "Passengers"}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              {/* Passengers */}
+              <div className="min-w-0">
+                <label
+                  htmlFor="passengers"
+                  className="mb-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink-soft dark:text-cream-100/70"
+                >
+                  <Users className="size-3.5" aria-hidden />
+                  Passengers
+                </label>
+                <Select value={String(seats)} onValueChange={(v) => setSeats(Number(v))}>
+                  <SelectTrigger id="passengers" aria-label="Number of passengers" className="h-14 font-semibold">
+                    <SelectValue placeholder="1 Passenger" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {[1, 2, 3, 4, 5, 6].map((num) => (
+                      <SelectItem key={num} value={String(num)}>
+                        {num} {num === 1 ? "Passenger" : "Passengers"}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </div>
 
