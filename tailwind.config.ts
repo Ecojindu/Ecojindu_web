@@ -37,7 +37,7 @@ const config: Config = {
         moss: { DEFAULT: "#4C8C2B", light: "#5FA338", dark: "#3D7222" },
         forest: { DEFAULT: "#2F5233", light: "#3F6B44", dark: "#223D25" },
         /** Hero photo tint + frosted overlay */
-        "hero-tint": { DEFAULT: "#1E4927" },
+        "hero-tint": { DEFAULT: "#16281A" },
         /** How-it-works section wash */
         "mint-section": { DEFAULT: "#C5EDCB" },
         teal: { DEFAULT: "#2BAE8E", light: "#4FC7A9", dark: "#1F7A63" },

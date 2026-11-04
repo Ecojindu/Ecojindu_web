@@ -48,6 +48,7 @@ export const metadata: Metadata = {
     description: "Scheduled electric airport shuttles across Abia State.",
   },
   robots: { index: true, follow: true },
+  icons: { icon: "/images/logo.png", apple: "/images/logo.png" },
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,

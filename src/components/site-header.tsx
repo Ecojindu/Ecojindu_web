@@ -56,7 +56,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-white/15 bg-hero-tint">
       <div className="container flex h-[60px] items-center justify-between gap-4 sm:h-[68px]">
-        <Logo variant="light" className="[&>span:last-child>span:last-child]:!text-white" />
+        <Logo variant="light" />
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
           {NAV.map((item) => {
@@ -69,7 +69,7 @@ export function SiteHeader() {
                   "rounded-full px-4 py-2.5 text-sm font-semibold transition-colors",
                   active
                     ? "bg-white/20 text-white shadow-soft ring-1 ring-white/25"
-                    : "text-white/85 hover:bg-white/10 hover:text-white",
+                    : "text-white hover:bg-white/10 hover:text-white",
                 )}
                 aria-current={active ? "page" : undefined}
               >
