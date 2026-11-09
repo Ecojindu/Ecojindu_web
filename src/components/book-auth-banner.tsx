@@ -44,7 +44,7 @@ export function BookAuthBanner() {
       <div className="flex items-center gap-2">
         <Link
           href="/auth/login?next=/book"
-          className="rounded-full bg-hero-tint px-4 py-1.5 text-xs font-bold text-white transition-opacity hover:opacity-90 dark:bg-leaf dark:text-hero-tint"
+          className="rounded-full bg-hero-tint/90 px-4 py-1.5 text-xs font-bold text-white transition-opacity hover:opacity-90 dark:bg-leaf dark:text-hero-tint"
         >
           Sign in
         </Link>

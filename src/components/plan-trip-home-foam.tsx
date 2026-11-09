@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
@@ -291,7 +291,7 @@ export function PlanTripHomeFoam({ className }: PlanTripHomeFoamProps) {
         type="submit"
         block
         size="lg"
-        className="mt-3 w-full bg-hero-tint text-white hover:bg-hero-tint/90"
+        className="mt-3 w-full bg-hero-tint/90 text-white hover:bg-hero-tint/80"
         disabled={isLoading}
       >
         Find departures

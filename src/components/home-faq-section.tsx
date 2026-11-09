@@ -18,7 +18,7 @@ export function HomeFaqSection() {
               <Button
                 asChild
                 size="lg"
-                className="min-w-[min(100%,18rem)] bg-hero-tint text-white hover:bg-hero-tint/90"
+                className="min-w-[min(100%,18rem)] bg-hero-tint/90 text-white hover:bg-hero-tint/80"
               >
                 <Link href="/help">Full help &amp; FAQ</Link>
               </Button>

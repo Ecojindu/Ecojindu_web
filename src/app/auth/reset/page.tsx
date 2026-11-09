@@ -114,7 +114,7 @@ function ResetForm() {
               size="lg"
               loading={reset.isPending}
               loadingText="Saving…"
-              className="bg-hero-tint text-white hover:bg-hero-tint/90"
+              className="bg-hero-tint/90 text-white hover:bg-hero-tint/80"
             >
               Update password
             </Button>

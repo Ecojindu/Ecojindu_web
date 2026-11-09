@@ -38,7 +38,7 @@ const COLUMNS = [
 export function SiteFooter() {
   return (
     <div className="bg-white pt-16 sm:pt-20 lg:pt-24">
-      <footer className="overflow-hidden rounded-t-[1.75rem] bg-[#16281A] pb-[calc(3.5rem+env(safe-area-inset-bottom))] text-white sm:rounded-t-[2rem] lg:pb-0">
+      <footer className="overflow-hidden rounded-t-[1.75rem] bg-hero-tint/90 pb-[calc(3.5rem+env(safe-area-inset-bottom))] text-white sm:rounded-t-[2rem] lg:pb-0">
         <div className="container">
           <section
             className="px-5 pb-8 pt-9 text-center sm:px-8 sm:pb-10 sm:pt-11"

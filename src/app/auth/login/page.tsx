@@ -121,7 +121,7 @@ function LoginForm() {
               size="lg"
               loading={submitting}
               loadingText="Signing in…"
-              className="bg-hero-tint text-white hover:bg-hero-tint/90"
+              className="bg-hero-tint/90 text-white hover:bg-hero-tint/80"
             >
               <LogIn aria-hidden />
               Sign in

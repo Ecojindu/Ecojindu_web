@@ -325,7 +325,7 @@ function Charter() {
                 block
                 loading={submit.isPending}
                 loadingText="Sending…"
-                className="bg-hero-tint text-white hover:bg-hero-tint/90"
+                className="bg-hero-tint/90 text-white hover:bg-hero-tint/80"
               >
                 <Send aria-hidden />
                 Request a quote
@@ -339,7 +339,7 @@ function Charter() {
           </Card>
 
           <aside className="space-y-4">
-            <Card className="border-0 bg-hero-tint p-6 text-white shadow-soft">
+            <Card className="border-0 bg-hero-tint/90 p-6 text-white shadow-soft">
               <Bus className="size-7 text-white" aria-hidden />
               <h2 className="mt-3 text-lg font-extrabold text-white">Whole vehicle, your schedule</h2>
               <p className="mt-2 text-sm leading-relaxed text-white/85">

@@ -26,12 +26,12 @@ function StaggeredMenuIcon({ className }: { className?: string }) {
 }
 
 const NAV = [
-  { href: "/", label: "Home" },
+
   { href: "/book", label: "Book a seat" },
   { href: "/subscriptions", label: "Subscriptions" },
-  { href: "/charter", label: "Charter" },
   { href: "/trips", label: "My trips" },
-  { href: "/help", label: "Help" },
+  { href: "/charter", label: "Charter" },
+
 ];
 
 export function SiteHeader() {
@@ -54,7 +54,7 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/15 bg-hero-tint">
+    <header className="sticky top-0 z-40 border-b border-white/15 bg-hero-tint/90 backdrop-blur-md">
       <div className="container flex h-[60px] items-center justify-between gap-4 sm:h-[68px]">
         <Logo variant="light" />
 
@@ -153,7 +153,7 @@ export function SiteHeader() {
         <div className="min-h-0 overflow-hidden">
           <div
             className={cn(
-              "border-t border-white/15 bg-hero-tint transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none",
+              "border-t border-white/15 bg-transparent transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none",
               open ? "translate-y-0 opacity-100" : "-translate-y-1 opacity-0",
               !open && "pointer-events-none",
             )}

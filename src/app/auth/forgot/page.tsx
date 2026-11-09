@@ -91,7 +91,7 @@ export default function ForgotPasswordPage() {
               size="lg"
               loading={request.isPending}
               loadingText="Sending…"
-              className="bg-hero-tint text-white hover:bg-hero-tint/90"
+              className="bg-hero-tint/90 text-white hover:bg-hero-tint/80"
             >
               <Send aria-hidden />
               Send reset link

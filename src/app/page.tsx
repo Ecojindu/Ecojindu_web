@@ -76,7 +76,7 @@ export default async function HomePage() {
             {/* Service 1: Scheduled Shuttle */}
             <article className="flex flex-col justify-between rounded-2xl border border-cream-300/80 bg-white p-6 shadow-soft transition-all hover:shadow-md sm:p-7 dark:border-white/10 dark:bg-[var(--card-bg)]">
               <div>
-                <span className="grid size-12 place-items-center rounded-xl bg-hero-tint text-white dark:bg-leaf dark:text-hero-tint">
+                <span className="grid size-12 place-items-center rounded-xl bg-hero-tint/90 text-white dark:bg-leaf dark:text-hero-tint">
                   <Ticket className="size-6" aria-hidden />
                 </span>
                 <h3 className="mt-5 text-lg font-bold text-hero-tint sm:text-xl dark:text-white">
@@ -101,7 +101,7 @@ export default async function HomePage() {
                   </li>
                 </ul>
               </div>
-              <Button asChild size="sm" className="mt-6 w-full bg-hero-tint font-bold text-white hover:bg-hero-tint/90 dark:bg-leaf dark:text-hero-tint">
+              <Button asChild size="sm" className="mt-6 w-full bg-hero-tint/90 font-bold text-white hover:bg-hero-tint/80 dark:bg-leaf dark:text-hero-tint">
                 <Link href="/book">
                   Book a Shuttle
                   <ArrowRight className="size-4 ml-1.5" aria-hidden />
@@ -217,7 +217,7 @@ export default async function HomePage() {
 
           <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-3">
             <div className="rounded-2xl border border-cream-300/80 bg-cream-50 p-6 dark:border-white/10 dark:bg-[var(--card-bg)]">
-              <span className="flex size-10 items-center justify-center rounded-xl bg-hero-tint text-white">
+              <span className="flex size-10 items-center justify-center rounded-xl bg-hero-tint/90 text-white">
                 <MapPin className="size-5" />
               </span>
               <h3 className="mt-4 font-bold text-hero-tint dark:text-white">Nnenna Otti Bus Terminal</h3>
@@ -232,7 +232,7 @@ export default async function HomePage() {
             </div>
 
             <div className="rounded-2xl border border-cream-300/80 bg-cream-50 p-6 dark:border-white/10 dark:bg-[var(--card-bg)]">
-              <span className="flex size-10 items-center justify-center rounded-xl bg-hero-tint text-white">
+              <span className="flex size-10 items-center justify-center rounded-xl bg-hero-tint/90 text-white">
                 <MapPin className="size-5" />
               </span>
               <h3 className="mt-4 font-bold text-hero-tint dark:text-white">Aba Central Terminal</h3>
@@ -247,7 +247,7 @@ export default async function HomePage() {
             </div>
 
             <div className="rounded-2xl border border-cream-300/80 bg-cream-50 p-6 dark:border-white/10 dark:bg-[var(--card-bg)]">
-              <span className="flex size-10 items-center justify-center rounded-xl bg-hero-tint text-white">
+              <span className="flex size-10 items-center justify-center rounded-xl bg-hero-tint/90 text-white">
                 <MapPin className="size-5" />
               </span>
               <h3 className="mt-4 font-bold text-hero-tint dark:text-white">Sam Mbakwe Airport Terminal</h3>
@@ -268,7 +268,7 @@ export default async function HomePage() {
       <HomeSubscriptionsSection />
 
       {/* 6. Green Fleet Banner */}
-      <section className="bg-hero-tint py-12 sm:py-16" id="green">
+      <section className="bg-hero-tint/90 py-12 sm:py-16" id="green">
         <div className="container">
           <div className="mx-auto flex max-w-3xl flex-col items-start gap-5 sm:flex-row sm:items-center">
             <span className="grid size-16 shrink-0 place-items-center rounded-full bg-white/15 text-white">
@@ -305,7 +305,7 @@ export default async function HomePage() {
             and subscription passes.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <Button asChild size="lg" className="bg-hero-tint px-8 font-bold text-white shadow-soft hover:bg-hero-tint/90 dark:bg-leaf dark:text-hero-tint">
+            <Button asChild size="lg" className="bg-hero-tint/90 px-8 font-bold text-white shadow-soft hover:bg-hero-tint/80 dark:bg-leaf dark:text-hero-tint">
               <Link href="/book">
                 Book a Shuttle
                 <ArrowRight className="size-4 ml-2" aria-hidden />

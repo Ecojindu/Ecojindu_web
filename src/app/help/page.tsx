@@ -48,7 +48,7 @@ export default function HelpPage() {
                 <Button
                   asChild
                   size="lg"
-                  className="bg-hero-tint text-white hover:bg-hero-tint/90 sm:min-w-[14rem]"
+                  className="bg-hero-tint/90 text-white hover:bg-hero-tint/80 sm:min-w-[14rem]"
                 >
                   <a href={`mailto:${config.contactEmail}`}>Email {config.contactEmail}</a>
                 </Button>

@@ -80,7 +80,7 @@ export function HomeSubscriptionsSection() {
               <Button
                 asChild
                 size="lg"
-                className="min-w-[min(100%,18rem)] bg-hero-tint text-white hover:bg-hero-tint/90"
+                className="min-w-[min(100%,18rem)] bg-hero-tint/90 text-white hover:bg-hero-tint/80"
               >
                 <Link href="/subscriptions">View plans &amp; subscribe</Link>
               </Button>

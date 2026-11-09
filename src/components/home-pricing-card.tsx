@@ -44,7 +44,7 @@ export function HomePricingCard({
           </li>
         ))}
       </ul>
-      <Button asChild size="sm" className="mt-4 w-full bg-hero-tint text-white hover:bg-hero-tint/90">
+      <Button asChild size="sm" className="mt-4 w-full bg-hero-tint/90 text-white hover:bg-hero-tint/80">
         <Link href="/book">Book now</Link>
       </Button>
     </article>
