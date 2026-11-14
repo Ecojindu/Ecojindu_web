@@ -18,7 +18,7 @@ const SelectTrigger = React.forwardRef<
     ref={ref}
     className={cn(
       "flex h-14 w-full items-center justify-between rounded-xl border-2 bg-white px-4 text-base",
-      "text-ink transition-colors data-[placeholder]:text-ink-soft/70",
+      "text-ink transition-colors data-[placeholder]:text-ink-soft/70 min-w-0 overflow-hidden",
       "focus:outline-none focus:border-moss",
       "dark:bg-forest/50 dark:border-white/15 dark:text-cream-50 dark:data-[placeholder]:text-cream-100/50 dark:focus:border-leaf",
       "disabled:cursor-not-allowed disabled:opacity-50",
@@ -27,7 +27,7 @@ const SelectTrigger = React.forwardRef<
     )}
     {...props}
   >
-    <span className="truncate text-left">{children}</span>
+    <span className="truncate text-left min-w-0 flex-1">{children}</span>
     <SelectPrimitive.Icon asChild>
       <ChevronDown className="size-4 shrink-0 text-ink-soft dark:text-cream-100/60" />
     </SelectPrimitive.Icon>

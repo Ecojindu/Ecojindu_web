@@ -132,7 +132,7 @@ export function SearchWidget({
               onClick={() => item.live && setService(item.id)}
               title={item.live ? undefined : "Coming soon"}
               className={cn(
-                "tap-target relative flex items-center justify-center gap-1.5 rounded-xl px-2 py-2.5",
+                "tap-target relative flex min-w-0 flex-1 items-center justify-center gap-1 overflow-hidden rounded-xl px-1.5 py-2.5 sm:gap-2 sm:px-2.5",
                 "text-xs font-bold transition-all sm:gap-2 sm:text-sm",
                 active && "bg-white text-forest shadow-soft dark:bg-forest dark:text-cream-50",
                 !active && item.live && "text-ink-muted hover:text-forest dark:text-cream-100/70 dark:hover:text-cream-50",
@@ -140,7 +140,8 @@ export function SearchWidget({
               )}
             >
               <item.icon className="size-4 shrink-0" aria-hidden />
-              <span className="truncate">{item.label}</span>
+              <span className="truncate sm:hidden">{item.shortLabel}</span>
+              <span className="hidden truncate sm:inline">{item.label}</span>
               {!item.live && (
                 <span className="ml-0.5 hidden rounded-full bg-cream-300 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-ink-soft md:inline dark:bg-white/10 dark:text-cream-100/60">
                   Soon
@@ -290,10 +291,20 @@ export function SearchWidget({
             <button
               type="button"
               onClick={() => setRouteId(reverse.id)}
-              className="mt-3 inline-flex items-center gap-1.5 rounded-full px-2 py-1.5 text-xs font-semibold text-moss transition-colors hover:text-moss-dark dark:text-leaf-light dark:hover:text-leaf"
+              className="mt-3 flex w-full max-w-full items-center gap-2 overflow-hidden rounded-full border border-moss/20 bg-moss/5 px-3 py-1.5 text-xs font-semibold text-moss transition-colors hover:bg-moss/10 dark:border-leaf/20 dark:bg-leaf/5 dark:text-leaf-light"
             >
-              <ArrowRightLeft className="size-3.5" aria-hidden />
-              Swap direction — {shortRouteLabel(reverse)}
+              <span className="flex shrink-0 items-center gap-1.5 font-bold text-moss dark:text-leaf-light">
+                <ArrowRightLeft className="size-3.5 shrink-0" aria-hidden />
+                <span>Swap direction:</span>
+              </span>
+              <div className="relative flex-1 min-w-0 overflow-hidden [mask-image:linear-gradient(to_right,black_80%,transparent)]">
+                <div className="inline-flex whitespace-nowrap animate-marquee-inline gap-6">
+                  <span>{shortRouteLabel(reverse)}</span>
+                  <span aria-hidden="true" className="opacity-40">•</span>
+                  <span>{shortRouteLabel(reverse)}</span>
+                  <span aria-hidden="true" className="opacity-40">•</span>
+                </div>
+              </div>
             </button>
           )}
         </>
@@ -322,11 +333,11 @@ function ComingSoon() {
 function shortRouteLabel(route: Route) {
   const origin = route.origin_terminal
     .split(",")[0]
-    .replace(/Bus Terminal|Central Terminal/i, "")
+    .replace(/Bus Terminal|Central Terminal|International Cargo Airport/i, "")
     .trim();
   const dest = /airport/i.test(route.destination)
     ? "Sam Mbakwe Airport"
-    : route.destination.split(",").slice(-1)[0].trim();
+    : route.destination.split(",")[0].replace(/Bus Terminal|Central Terminal|International Cargo Airport/i, "").trim();
   return `${origin || route.origin_terminal} → ${dest}`;
 }
 

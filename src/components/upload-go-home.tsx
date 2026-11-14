@@ -62,7 +62,7 @@ export function BookHome({ className }: { className?: string }) {
   return (
     <section className={cn("relative", className)}>
       <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
-        <div className="lg:pt-4">
+        <div className="hidden lg:block lg:pt-4">
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-forest dark:text-cream-100/75">
             Book a seat
           </p>

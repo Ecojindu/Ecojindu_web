@@ -29,11 +29,13 @@
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
+    overflow-x: clip;
   }
 
   body {
-    @apply bg-white text-ink antialiased;
+    @apply bg-cream-50 text-ink antialiased;
     text-rendering: optimizeLegibility;
+    overflow-x: clip;
   }
 
   .dark body {
@@ -125,6 +127,25 @@
     @apply absolute left-0 right-0 top-1/2 border-t-2 border-dashed border-cream-400 dark:border-white/20;
     content: "";
   }
+}
+
+@keyframes marquee-inline {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-inline {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: marquee-inline 14s linear infinite;
+}
+
+.animate-marquee-inline:hover {
+  animation-play-state: paused;
 }
 
 @layer utilities {

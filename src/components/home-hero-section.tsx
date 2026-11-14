@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Clock, Plane, QrCode } from "lucide-react";
+import { ArrowRight, Clock, QrCode } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -12,13 +12,7 @@ export function HomeHeroSection({ fareLabel }: { fareLabel: string }) {
       <div className="container px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
           {/* Left on Desktop / Top on Mobile: Headings, description, CTAs, and trust bar */}
-          <div className="w-full max-w-xl text-left">
-            {/* Eyebrow Badge */}
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-1 text-xs font-semibold text-white backdrop-blur-sm sm:mb-6">
-              <Plane className="size-3.5 text-[#8FE029]" aria-hidden />
-              <span>Airport Shuttle</span>
-            </div>
-
+          <div className="mx-auto max-w-xl text-center lg:mx-0 lg:text-left">
             {/* Headline */}
             <h1 className="text-balance text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
               Ride Smart. <br className="hidden sm:inline" />
@@ -32,11 +26,11 @@ export function HomeHeroSection({ fareLabel }: { fareLabel: string }) {
             </p>
 
             {/* CTAs */}
-            <div className="mt-6 flex flex-wrap items-center justify-start gap-3 sm:mt-8">
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:mt-8 lg:justify-start">
               <Button
                 asChild
                 size="lg"
-                className="rounded-xl bg-white px-7 font-bold text-hero-tint shadow-soft hover:bg-white/90"
+                className="rounded-full bg-white px-7 font-bold text-hero-tint shadow-soft hover:bg-white/90"
               >
                 <Link href="/book">
                   Book a Seat
@@ -46,7 +40,7 @@ export function HomeHeroSection({ fareLabel }: { fareLabel: string }) {
                 asChild
                 size="lg"
                 variant="outline"
-                className="rounded-xl border-white/35 bg-white/10 px-6 font-semibold text-white backdrop-blur-sm hover:bg-white/20 hover:text-white"
+                className="rounded-full border-white/35 bg-white/10 px-6 font-semibold text-white backdrop-blur-sm hover:bg-white/20 hover:text-white"
               >
                 <Link href="/subscriptions">
                   View Tiers
@@ -56,7 +50,7 @@ export function HomeHeroSection({ fareLabel }: { fareLabel: string }) {
             </div>
 
             {/* Social Proof / Trust Bar */}
-            <div className="mt-8 flex flex-wrap items-center justify-start gap-x-3 gap-y-2 text-xs font-medium text-white/90 sm:gap-x-4 sm:text-sm">
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs font-medium text-white/90 sm:gap-x-4 sm:text-sm lg:justify-start">
               <span className="inline-flex items-center gap-1.5">
                 <Clock className="size-4 text-[#8FE029]" aria-hidden />
                 <span>4 departures daily</span>

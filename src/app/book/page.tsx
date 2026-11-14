@@ -40,7 +40,7 @@ export default function BookPage() {
         <BookAuthBanner />
 
         {/* The core booking engine */}
-        <div className="rounded-2xl border border-cream-300/80 bg-white p-5 shadow-soft sm:p-7 lg:p-8 dark:border-white/10 dark:bg-[var(--card-bg)]">
+        <div className="rounded-2xl border border-cream-300/80 bg-white p-3 shadow-soft sm:p-6 lg:p-8 dark:border-white/10 dark:bg-[var(--card-bg)]">
           <BookHome />
         </div>
 
