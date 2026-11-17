@@ -60,8 +60,8 @@ export function BookHome({ className }: { className?: string }) {
   }, []);
 
   return (
-    <section className={cn("relative", className)}>
-      <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+    <section className={cn("relative w-full max-w-full min-w-0 overflow-hidden", className)}>
+      <div className="grid w-full max-w-full min-w-0 items-start gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
         <div className="hidden lg:block lg:pt-4">
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-forest dark:text-cream-100/75">
             Book a seat
@@ -78,8 +78,8 @@ export function BookHome({ className }: { className?: string }) {
           </p>
         </div>
 
-        <div>
-          <div>
+        <div className="w-full max-w-full min-w-0 overflow-hidden">
+          <div className="w-full max-w-full min-w-0 overflow-hidden">
             <SearchWidget />
           </div>
 

@@ -1,5 +1,5 @@
 /* Ecojindu PWA — cache issued QR tickets for offline boarding. */
-const CACHE = "ecojindu-v1";
+const CACHE = "ecojindu-v3";
 const PRECACHE = ["/", "/help", "/manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {

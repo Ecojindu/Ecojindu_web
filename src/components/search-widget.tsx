@@ -111,7 +111,7 @@ export function SearchWidget({
   return (
     <form
       onSubmit={submit}
-      className={cn("rounded-3xl border border-cream-300 bg-white p-3 shadow-lift sm:p-5 dark:border-white/10 dark:bg-forest-light/40 dark:shadow-none", className)}
+      className={cn("w-full max-w-full min-w-0 overflow-hidden rounded-3xl border border-cream-300 bg-white p-3 shadow-lift sm:p-5 dark:border-white/10 dark:bg-forest-light/40 dark:shadow-none", className)}
       aria-label="Find a departure"
     >
       {/* ── Service type ── */}
@@ -158,7 +158,7 @@ export function SearchWidget({
         <>
           <div className="space-y-4">
             {/* Route (Full width so no text is cut off) */}
-            <div className="min-w-0">
+            <div className="w-full max-w-full min-w-0 overflow-hidden">
               <label
                 htmlFor="route"
                 className="mb-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink-soft dark:text-cream-100/70"
@@ -170,7 +170,7 @@ export function SearchWidget({
                 <Skeleton className="h-14 w-full rounded-xl" />
               ) : (
                 <Select value={routeId} onValueChange={setRouteId}>
-                  <SelectTrigger id="route" aria-label="Choose your route" className="h-14 font-semibold">
+                  <SelectTrigger id="route" aria-label="Choose your route" className="h-14 w-full max-w-full min-w-0 overflow-hidden font-semibold">
                     <SelectValue placeholder="Choose your route" />
                   </SelectTrigger>
                   <SelectContent>
@@ -187,7 +187,7 @@ export function SearchWidget({
             {/* Date + Passengers side-by-side */}
             <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
               {/* Date */}
-              <div className="min-w-0">
+              <div className="w-full max-w-full min-w-0 overflow-hidden">
                 <label
                   htmlFor="date"
                   className="mb-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink-soft dark:text-cream-100/70"
@@ -207,7 +207,7 @@ export function SearchWidget({
               </div>
 
               {/* Passengers */}
-              <div className="min-w-0">
+              <div className="w-full max-w-full min-w-0 overflow-hidden">
                 <label
                   htmlFor="passengers"
                   className="mb-1.5 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink-soft dark:text-cream-100/70"
