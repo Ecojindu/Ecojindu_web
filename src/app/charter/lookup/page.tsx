@@ -129,7 +129,7 @@ function CharterLookup() {
                 type="tel"
                 inputMode="tel"
                 autoComplete="tel"
-                placeholder="0815 447 1570"
+                placeholder="0812 800 0082"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 invalid={Boolean(errors.phone)}
@@ -220,8 +220,8 @@ function CharterLookup() {
 
         <p className="mt-8 text-center text-xs leading-relaxed text-ink-soft dark:text-cream-100/70">
           Need to change something?{" "}
-          <a href="tel:+2348154471570" className="font-semibold text-moss hover:underline dark:text-leaf-light">
-            Call +234 815 447 1570
+          <a href="tel:+2348128000082" className="font-semibold text-moss hover:underline dark:text-leaf-light">
+            Call +234 812 800 0082
           </a>{" "}
           quoting your reference.
         </p>

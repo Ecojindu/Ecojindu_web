@@ -117,7 +117,7 @@ function ManageBooking() {
                 type="tel"
                 inputMode="tel"
                 autoComplete="tel"
-                placeholder="0815 447 1570"
+                placeholder="0812 800 0082"
                 invalid={Boolean(form.formState.errors.phone)}
                 {...form.register("phone")}
               />
@@ -210,8 +210,8 @@ function ManageBooking() {
 
         <p className="mt-10 text-center text-xs leading-relaxed text-ink-soft">
           Lost your reference? Call us on{" "}
-          <a href="tel:+2348154471570" className="font-semibold text-moss hover:underline">
-            +234 815 447 1570
+          <a href="tel:+2348128000082" className="font-semibold text-moss hover:underline">
+            +234 812 800 0082
           </a>{" "}
           with the phone number you booked with.
         </p>

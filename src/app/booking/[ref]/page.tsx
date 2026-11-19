@@ -96,7 +96,7 @@ function BookingConfirmation() {
                 type="tel"
                 inputMode="tel"
                 autoComplete="tel"
-                placeholder="0815 447 1570"
+                placeholder="0812 800 0082"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 invalid={Boolean(phoneError)}

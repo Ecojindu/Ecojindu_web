@@ -184,7 +184,7 @@ export default function SubscriptionsPage() {
                   type="tel"
                   inputMode="tel"
                   autoComplete="tel"
-                  placeholder="0815 447 1570"
+                  placeholder="0812 800 0082"
                   invalid={Boolean(form.formState.errors.phone)}
                   {...form.register("phone")}
                 />
