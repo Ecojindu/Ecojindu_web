@@ -26,12 +26,10 @@ function StaggeredMenuIcon({ className }: { className?: string }) {
 }
 
 const NAV = [
-
   { href: "/book", label: "Book a seat" },
   { href: "/subscriptions", label: "Subscriptions" },
   { href: "/trips", label: "My trips" },
   { href: "/charter", label: "Charter" },
-
 ];
 
 export function SiteHeader() {
@@ -47,124 +45,150 @@ export function SiteHeader() {
   React.useEffect(() => setOpen(false), [pathname]);
 
   React.useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => {
+    if (open) {
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
+    } else {
+      document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
+      document.body.style.touchAction = "";
+    }
+    return () => {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "";
     };
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/15 bg-hero-tint/90 backdrop-blur-md">
-      <div className="container flex h-[60px] items-center justify-between gap-4 sm:h-[68px]">
-        <Logo variant="light" />
+    <>
+      <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/15 bg-hero-tint/95 backdrop-blur-md">
+        <div className="container flex h-[60px] items-center justify-between gap-4 sm:h-[68px]">
+          <Logo variant="light" />
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
-          {NAV.map((item) => {
-            const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "rounded-full px-4 py-2.5 text-sm font-semibold transition-colors",
-                  active
-                    ? "bg-white/20 text-white shadow-soft ring-1 ring-white/25"
-                    : "text-white hover:bg-white/10 hover:text-white",
-                )}
-                aria-current={active ? "page" : undefined}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
-
-        <div className="hidden items-center gap-2 lg:flex">
-          {user ? (
-            <>
-              <Button asChild variant="secondary" size="sm">
-                <Link href="/trips">
-                  <UserIcon aria-hidden />
-                  {user.full_name.split(" ")[0]}
+          <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
+            {NAV.map((item) => {
+              const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "rounded-full px-4 py-2.5 text-sm font-semibold transition-colors",
+                    active
+                      ? "bg-white/20 text-white shadow-soft ring-1 ring-white/25"
+                      : "text-white hover:bg-white/10 hover:text-white",
+                  )}
+                  aria-current={active ? "page" : undefined}
+                >
+                  {item.label}
                 </Link>
-              </Button>
+              );
+            })}
+          </nav>
+
+          <div className="hidden items-center gap-2 lg:flex">
+            {user ? (
+              <>
+                <Button asChild variant="secondary" size="sm">
+                  <Link href="/trips">
+                    <UserIcon aria-hidden />
+                    {user.full_name.split(" ")[0]}
+                  </Link>
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-white hover:bg-white/10 hover:text-white"
+                  onClick={signOut}
+                  aria-label="Sign out"
+                >
+                  <LogOut aria-hidden />
+                </Button>
+              </>
+            ) : (
               <Button
+                asChild
                 variant="ghost"
-                size="icon"
-                className="text-white hover:bg-white/10 hover:text-white"
-                onClick={signOut}
-                aria-label="Sign out"
+                size="sm"
+                className="font-semibold text-white hover:bg-white/10 hover:text-white"
               >
-                <LogOut aria-hidden />
+                <Link href="/auth/login">Sign in</Link>
               </Button>
-            </>
-          ) : (
+            )}
             <Button
               asChild
-              variant="ghost"
               size="sm"
-              className="font-semibold text-white hover:bg-white/10 hover:text-white"
+              className="bg-leaf px-5 font-bold text-hero-tint shadow-soft hover:bg-white/90"
             >
-              <Link href="/auth/login">Sign in</Link>
+              <a
+                href={whatsappLink("Hi Ecojindu, I'd like to book a seat.")}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MessageCircle aria-hidden />
+                Book on WhatsApp
+              </a>
             </Button>
-          )}
-          <Button
-            asChild
-            size="sm"
-            className="bg-white px-5 font-bold text-hero-tint shadow-soft hover:bg-white/90"
-          >
-            <a
-              href={whatsappLink("Hi Ecojindu, I'd like to book a seat.")}
-              target="_blank"
-              rel="noopener noreferrer"
+          </div>
+
+          <div className="flex items-center gap-1 lg:hidden">
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              className="tap-target -mr-2 relative grid size-10 place-items-center rounded-xl text-white focus:outline-none"
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              aria-label={open ? "Close menu" : "Open menu"}
             >
-              <MessageCircle aria-hidden />
-              Book on WhatsApp
-            </a>
-          </Button>
+              <span className="relative size-6">
+                <X
+                  className={cn(
+                    "absolute inset-0 size-6 transition-all duration-300 ease-in-out",
+                    open ? "rotate-0 opacity-100 scale-100" : "-rotate-90 opacity-0 scale-75",
+                  )}
+                  aria-hidden
+                />
+                <span
+                  className={cn(
+                    "absolute inset-0 flex items-center justify-center transition-all duration-300 ease-in-out",
+                    open ? "rotate-90 opacity-0 scale-75" : "rotate-0 opacity-100 scale-100",
+                  )}
+                >
+                  <StaggeredMenuIcon />
+                </span>
+              </span>
+            </button>
+          </div>
         </div>
 
-        <div className="flex items-center gap-1 lg:hidden">
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            className="tap-target -mr-2 grid place-items-center rounded-xl text-white"
-            aria-expanded={open}
-            aria-controls="mobile-menu"
-            aria-label={open ? "Close menu" : "Open menu"}
-          >
-            {open ? (
-              <X className="size-6 transition-transform duration-200" aria-hidden />
-            ) : (
-              <StaggeredMenuIcon />
-            )}
-          </button>
-        </div>
-      </div>
-
-      <div
-        id="mobile-menu"
-        className={cn(
-          "grid overflow-hidden transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none lg:hidden",
-          open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
-        )}
-        aria-hidden={!open}
-      >
-        <div className="min-h-0 overflow-hidden">
+        {/* Mobile menu overlay — displays ON TOP of the page with smooth slide & fade */}
+        <div
+          id="mobile-menu"
+          className={cn(
+            "absolute left-0 right-0 top-full z-50 border-b border-white/15 bg-hero-tint/95 shadow-2xl backdrop-blur-xl lg:hidden",
+            "max-h-[calc(100dvh-60px)] sm:max-h-[calc(100dvh-68px)] overflow-y-auto",
+            "transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] origin-top",
+            open
+              ? "translate-y-0 opacity-100 visible pointer-events-auto"
+              : "-translate-y-5 opacity-0 invisible pointer-events-none",
+          )}
+          aria-hidden={!open}
+        >
           <div
             className={cn(
-              "border-t border-white/15 bg-transparent transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none",
-              open ? "translate-y-0 opacity-100" : "-translate-y-1 opacity-0",
-              !open && "pointer-events-none",
+              "border-t border-white/10 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+              open ? "translate-y-0" : "-translate-y-2",
             )}
           >
-            <nav className="container flex flex-col py-3" aria-label="Mobile">
+            <nav className="container flex flex-col py-2" aria-label="Mobile">
               {NAV.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   tabIndex={open ? undefined : -1}
-                  className="tap-target flex items-center border-b border-white/15 py-4 text-base font-semibold text-white last:border-0"
+                  className="tap-target flex items-center border-b border-white/15 py-3.5 text-base font-semibold text-white transition-colors hover:text-leaf active:text-leaf last:border-0"
                 >
                   {item.label}
                 </Link>
@@ -172,23 +196,23 @@ export function SiteHeader() {
               <Link
                 href="/manage"
                 tabIndex={open ? undefined : -1}
-                className="tap-target flex items-center border-b border-white/15 py-4 text-base font-semibold text-white"
+                className="tap-target flex items-center border-b border-white/15 py-3.5 text-base font-semibold text-white transition-colors hover:text-leaf active:text-leaf"
               >
                 Manage booking
               </Link>
               <Link
                 href="/search"
                 tabIndex={open ? undefined : -1}
-                className="tap-target flex items-center py-4 text-base font-semibold text-white"
+                className="tap-target flex items-center py-3.5 text-base font-semibold text-white transition-colors hover:text-leaf active:text-leaf"
               >
                 Timetable (no flight ticket)
               </Link>
             </nav>
-            <div className="container flex flex-col gap-2 pb-5">
+            <div className="container flex flex-col gap-2.5 pb-6 pt-2">
               <Button
                 asChild
                 block
-                className="bg-white font-bold text-hero-tint shadow-soft hover:bg-white/90"
+                className="bg-leaf font-bold text-hero-tint shadow-soft transition-transform active:scale-[0.98] hover:bg-white/90"
               >
                 <a href={whatsappLink()} target="_blank" rel="noopener noreferrer">
                   <MessageCircle aria-hidden />
@@ -218,7 +242,21 @@ export function SiteHeader() {
             </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Spacer to preserve document flow under fixed header */}
+      <div className="h-[60px] sm:h-[68px]" aria-hidden="true" />
+
+      {/* Backdrop overlay: smoothly fades in and out; tapping closes the menu */}
+      <div
+        className={cn(
+          "fixed inset-0 top-[60px] z-40 bg-black/50 backdrop-blur-sm sm:top-[68px] lg:hidden",
+          "transition-opacity duration-300 ease-in-out",
+          open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
+        )}
+        onClick={() => setOpen(false)}
+        aria-hidden="true"
+      />
+    </>
   );
 }

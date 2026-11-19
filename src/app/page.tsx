@@ -17,7 +17,7 @@ import {
 
 import { HomeFaqSection } from "@/components/home-faq-section";
 import { HomeHeroSection } from "@/components/home-hero-section";
-import { HomeSubscriptionsSection } from "@/components/home-subscriptions-section";
+
 import { HowItWorksSection } from "@/components/how-it-works-section";
 import { Button } from "@/components/ui/button";
 import { config } from "@/lib/config";
@@ -218,7 +218,7 @@ export default async function HomePage() {
           <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-3">
             <div className="rounded-2xl border border-cream-300/80 bg-cream-50 p-6 dark:border-white/10 dark:bg-[var(--card-bg)]">
               <span className="flex size-10 items-center justify-center rounded-xl bg-hero-tint/90 text-white">
-                <MapPin className="size-5" />
+                <MapPin className="size-6" />
               </span>
               <h3 className="mt-4 font-bold text-hero-tint dark:text-white">Nnenna Otti Bus Terminal</h3>
               <p className="text-xs text-hero-tint/70 dark:text-white/60">Umuahia City Central</p>
@@ -233,7 +233,7 @@ export default async function HomePage() {
 
             <div className="rounded-2xl border border-cream-300/80 bg-cream-50 p-6 dark:border-white/10 dark:bg-[var(--card-bg)]">
               <span className="flex size-10 items-center justify-center rounded-xl bg-hero-tint/90 text-white">
-                <MapPin className="size-5" />
+                <MapPin className="size-6" />
               </span>
               <h3 className="mt-4 font-bold text-hero-tint dark:text-white">Aba Central Terminal</h3>
               <p className="text-xs text-hero-tint/70 dark:text-white/60">Aba Commercial Hub</p>
@@ -248,7 +248,7 @@ export default async function HomePage() {
 
             <div className="rounded-2xl border border-cream-300/80 bg-cream-50 p-6 dark:border-white/10 dark:bg-[var(--card-bg)]">
               <span className="flex size-10 items-center justify-center rounded-xl bg-hero-tint/90 text-white">
-                <MapPin className="size-5" />
+                <MapPin className="size-6" />
               </span>
               <h3 className="mt-4 font-bold text-hero-tint dark:text-white">Sam Mbakwe Airport Terminal</h3>
               <p className="text-xs text-hero-tint/70 dark:text-white/60">Arrivals Hall, Owerri (QOW)</p>
@@ -264,28 +264,58 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 5. Subscriptions Section (Tiers) */}
-      <HomeSubscriptionsSection />
 
-      {/* 6. Green Fleet Banner */}
-      <section className="bg-hero-tint/90 py-12 sm:py-16" id="green">
-        <div className="container">
-          <div className="mx-auto flex max-w-3xl flex-col items-start gap-5 sm:flex-row sm:items-center">
-            <span className="grid size-16 shrink-0 place-items-center rounded-full bg-white/15 text-white">
-              <BatteryCharging className="size-8" aria-hidden />
+
+
+      {/* 5. Green Fleet Banner with Car Background & Subtle Green Glow */}
+      <section className="relative overflow-hidden py-8 sm:py-10 lg:py-12" id="green">
+        {/* Main Car Background Image - Sharp and clearly visible */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/images/green-fleet-bg.jpg"
+            alt="100% Electric EV Shuttle Fleet"
+            className="h-full w-full object-cover object-[center_55%]"
+          />
+          {/* Subtle directional gradient: dark on left for text legibility, transparent on right so the car shines */}
+          <div className="absolute inset-0 bg-gradient-to-r from-hero-tint/90 via-hero-tint/65 to-black/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-hero-tint/60 via-transparent to-hero-tint/40" />
+        </div>
+
+        {/* Subtle Green Glow Accent in corner */}
+        <div
+          className="pointer-events-none absolute -left-16 -top-16 size-64 rounded-full bg-leaf/25 blur-3xl filter"
+          aria-hidden="true"
+        />
+
+        {/* Content Container - Compact height */}
+        <div className="container relative z-10">
+          <div className="mx-auto flex max-w-4xl flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
+            <span className="grid size-14 shrink-0 place-items-center rounded-2xl border border-white/20 bg-hero-tint/40 text-white shadow-soft backdrop-blur-sm sm:size-16">
+              <BatteryCharging className="size-7 text-leaf sm:size-8" aria-hidden />
             </span>
             <div className="flex-1">
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-leaf px-3 py-0.5 text-xs font-bold text-hero-tint">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-leaf px-3 py-0.5 text-xs font-bold text-hero-tint shadow-soft">
                 <Zap className="size-3.5 fill-current" aria-hidden />
                 Zero Tailpipe Emissions
               </div>
-              <h2 className="mt-2 text-xl font-extrabold text-white sm:text-2xl">
+              <h2 className="mt-2 text-xl font-extrabold text-white drop-shadow-sm sm:text-2xl lg:text-3xl">
                 100% Electric · 14-Seat Wuling EV Shuttles
               </h2>
-              <p className="mt-1.5 text-sm text-white/85 leading-relaxed sm:text-base">
+              <p className="mt-1.5 max-w-2xl text-xs text-white/95 leading-relaxed drop-shadow-sm sm:text-sm">
                 Quiet, air-conditioned, zero-tailpipe travel between Abia state hubs and Sam Mbakwe
                 Airport, Owerri. Certified drivers, onboard safety, and dependable scheduling.
               </p>
+
+              <div className="mt-3.5 flex flex-wrap items-center gap-2.5 text-xs font-semibold text-white sm:text-sm">
+                <div className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-black/25 px-3 py-1.5 backdrop-blur-sm">
+                  <BatteryCharging className="size-3.5 text-leaf" aria-hidden />
+                  <span>100% Electric</span>
+                </div>
+                <div className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-black/25 px-3 py-1.5 backdrop-blur-sm">
+                  <ShieldCheck className="size-3.5 text-leaf" aria-hidden />
+                  <span>Certified Drivers</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

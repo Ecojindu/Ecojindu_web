@@ -1,7 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, Clock, QrCode } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { TypewriterText } from "@/components/typewriter-text";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function HomeHeroSection({ fareLabel }: { fareLabel: string }) {
   return (
@@ -16,7 +20,7 @@ export function HomeHeroSection({ fareLabel }: { fareLabel: string }) {
             {/* Headline */}
             <h1 className="text-balance text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
               Ride Smart. <br className="hidden sm:inline" />
-              <span className="text-[#8FE029]">Arrive On Time.</span>
+              <TypewriterText text="Arrive On Time." />
             </h1>
 
             {/* Descriptive Text */}
@@ -27,26 +31,25 @@ export function HomeHeroSection({ fareLabel }: { fareLabel: string }) {
 
             {/* CTAs */}
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:mt-8 lg:justify-start">
-              <Button
-                asChild
-                size="lg"
-                className="rounded-full bg-white px-7 font-bold text-hero-tint shadow-soft hover:bg-white/90"
+              <Link
+                href="/book"
+                className={cn(
+                  buttonVariants({ size: "lg" }),
+                  "rounded-full bg-white px-7 font-bold text-hero-tint shadow-soft hover:bg-white/90",
+                )}
               >
-                <Link href="/book">
-                  Book a Seat
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="rounded-full border-white/35 bg-white/10 px-6 font-semibold text-white backdrop-blur-sm hover:bg-white/20 hover:text-white"
+                Book a Seat
+              </Link>
+              <Link
+                href="/subscriptions"
+                className={cn(
+                  buttonVariants({ size: "lg", variant: "outline" }),
+                  "rounded-full border-white/35 bg-white/10 px-6 font-semibold text-white backdrop-blur-sm hover:bg-white/20 hover:text-white",
+                )}
               >
-                <Link href="/subscriptions">
-                  View Tiers
-                  <ArrowRight className="size-4 ml-1.5" aria-hidden />
-                </Link>
-              </Button>
+                View Tiers
+                <ArrowRight className="size-4 ml-1.5" aria-hidden />
+              </Link>
             </div>
 
             {/* Social Proof / Trust Bar */}
@@ -69,23 +72,20 @@ export function HomeHeroSection({ fareLabel }: { fareLabel: string }) {
               {/* Airport Tarmac & Shuttle Image */}
               <img
                 src="/images/hero-shuttle-card.png"
-                alt="eShuttle airport transfer at tarmac with aircraft"
-                className="h-auto w-full object-cover transition-transform duration-500 hover:scale-[1.02]"
+                alt="Ecojindu electric shuttle on airport runway"
+                className="h-auto w-full object-cover transition-transform duration-500 hover:scale-105"
+                loading="eager"
               />
 
-              {/* Floating Pricing Badge on Top-Right */}
-              <div className="absolute right-4 top-4 rounded-2xl bg-white px-4 py-2.5 shadow-xl sm:right-6 sm:top-6 sm:px-5 sm:py-3">
-                <span className="block text-[0.6875rem] font-bold uppercase tracking-wider text-hero-tint/60">
-                  From
-                </span>
-                <div className="mt-0.5 flex items-baseline gap-1">
-                  <span className="text-xl font-extrabold tracking-tight text-hero-tint sm:text-2xl">
-                    {fareLabel}
-                  </span>
-                  <span className="text-xs font-semibold text-hero-tint/60">
-                    /seat
-                  </span>
-                </div>
+              {/* Floating Price Pill (Pinned to top-right) */}
+              <div className="absolute right-4 top-4 rounded-2xl border border-white/40 bg-white/95 px-4 py-2.5 shadow-xl backdrop-blur-md sm:right-6 sm:top-6 sm:px-5 sm:py-3">
+                <p className="text-[10px] font-extrabold uppercase tracking-wider text-hero-tint/70 sm:text-xs">
+                  FROM
+                </p>
+                <p className="text-lg font-black tracking-tight text-hero-tint sm:text-2xl">
+                  {fareLabel}
+                  <span className="text-xs font-semibold text-hero-tint/60 sm:text-sm">/seat</span>
+                </p>
               </div>
             </div>
           </div>
@@ -94,7 +94,3 @@ export function HomeHeroSection({ fareLabel }: { fareLabel: string }) {
     </section>
   );
 }
-
-// Keep aliases for backwards compatibility
-export const HomeHeroMobile = HomeHeroSection;
-export const HomeHeroDesktop = HomeHeroSection;

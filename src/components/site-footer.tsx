@@ -54,7 +54,7 @@ export function SiteFooter() {
               href={whatsappLink(FOOTER_WHATSAPP_MESSAGE)}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-5 inline-flex h-14 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-white px-8 text-base font-semibold text-hero-tint shadow-soft transition-all duration-200 hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-moss focus-visible:ring-offset-2 focus-visible:ring-offset-cream active:scale-[0.98] [&_svg]:size-[1.15em] [&_svg]:shrink-0"
+              className="mt-5 inline-flex h-14 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-leaf px-8 text-base font-semibold text-hero-tint shadow-soft transition-all duration-200 hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-moss focus-visible:ring-offset-2 focus-visible:ring-offset-cream active:scale-[0.98] [&_svg]:size-[1.15em] [&_svg]:shrink-0"
             >
               <MessageCircle aria-hidden />
               Book on WhatsApp
